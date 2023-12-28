@@ -1,0 +1,119 @@
+// layout
+@mixin pos_x($left: 50%, $trans-x: -50%) {
+  position: absolute;
+  left: $left;
+  transform: translateX($trans-x);
+}
+
+@mixin pos_y($right: 50%) {
+  position: absolute;
+  top: $right;
+  transform: translateY(-50%);
+}
+
+@mixin pos_center($type: absolute) {
+  @if ($type == fixed or $type == absolute) {
+    position: $type;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@mixin pos_fixed($right, $bt) {
+  position: fixed;
+  right: $right;
+  bottom: $bt;
+  width: 100%;
+}
+
+@mixin flexbox($fd: row, $jc: center, $ai: center) {
+  display: flex;
+  flex-direction: $fd;
+  justify-content: $jc;
+  align-items: $ai;
+}
+
+// button hover
+@mixin btn_hover($bd_color: #a28f72, $color:#a28f72, $bg_color:white){
+  border: 1px solid $bd_color;
+  background-color: $bg_color;
+  color: $color;
+}
+
+// text, text hover
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text_hover($color:#a28f72, $bd_color:#a28f72) {
+  color: $color;
+  border-color: $bd_color;
+}
+
+// common pageTile 
+@mixin pageTitle($dp : block, $ft_size : 1rem, $mb : 3rem) {
+  div.page_title_container {
+    display: $dp;
+    margin-top: 3rem;
+    margin-bottom: $mb;
+    text-align: center;
+    p.title {
+      font-size: $ft_size;
+      margin-bottom: 12px;
+      font-weight: bold;
+      letter-spacing: 0.8rem;
+      margin-left: 0.8rem;
+    }
+    p.sub_title {
+      font-size: $ft_size*0.85;
+      padding-right: 0.2rem;
+      letter-spacing: 0.1rem;
+      margin-left: 0.1rem;
+    }
+  }
+}
+
+/* hidden */
+.hidden_label {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+}
+
+/* responsive */
+@mixin responsive($screen) {
+  @if ($screen == 'pc') {
+    @media screen and (min-width: $xlg-breakpoint) {
+      @content;
+    }
+  }
+
+  @if ($screen == 'lg-pad') {
+    @media screen and (min-width: $lg-breakpoint) and (max-width: $xlg-breakpoint){
+      @content;
+    }
+  }
+
+  @if ($screen == 'md-pad') {
+    @media screen and (min-width: $md-breakpoint) and (max-width: $lg-breakpoint) {
+      @content;
+    }
+  }
+
+  @if ($screen == 'sm-pad') {
+    @media screen and (min-width: $sm-breakpoint) and (max-width: $md-breakpoint) {
+      @content;
+    }
+  }
+
+  @if ($screen == 'mobile') {
+    @media screen and (max-width: $sm-breakpoint) {
+      @content;
+    }
+  }
+}

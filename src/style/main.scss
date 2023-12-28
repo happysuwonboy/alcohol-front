@@ -1,0 +1,24 @@
+/* abstracts */ 
+@import './abstracts/variables';
+@import './abstracts/mixin';
+
+/* base */
+@import './base/normallize';
+@import './base/reset';
+
+/* components */
+@import './components/common/header';
+@import './components/common/footer';
+
+/* pages */
+@import './pages/home';
+@import './pages/adminpage';
+@import './pages/alcoholdetail';
+@import './pages/cart';
+@import './pages/findalcohol';
+@import './pages/findid';
+@import './pages/findpw';
+@import './pages/join';
+@import './pages/login';
+@import './pages/mypage';
+@import './pages/payment';

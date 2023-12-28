@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;	
+  word-break: break-all;
+	vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+ul, li, ol {
+  padding-left: 0;
+  list-style: none;
+}
+
+h1, h2, h3, h4, h5, p {
+	margin: 0;
+  font-size: 1rem;
+	font-weight: normal;
+}
+
+table {
+  border-collapse: collapse;
+	border-spacing: 0;
+}
+
+i, em, address {
+	font-style: normal;
+	font-weight: normal;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a, button {
+  cursor: pointer;
+}
+
+button, input, select, textarea {
+  border : none;
+  background-color: transparent;
+}
+
+input, select {
+	vertical-align: middle;
+}
+
+button:focus, 
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+img,
+iframe,
+video,
+svg,
+canvas {
+  display: block;
+}
