@@ -1,0 +1,67 @@
+div.pc_header_wrapper {
+    background-color: #FFF;
+    box-shadow: 0 0 1px #000;
+    position: sticky;
+    top: 0;
+    div.header_top {
+        padding: 10px 2rem;
+        display: flex;
+        justify-content: flex-start;
+        max-width: 1150px;
+        margin: 0 auto;
+        align-items: center;
+        box-sizing: border-box;
+        div.main_logo {
+            width: 60px;
+            margin-right: 40px;
+            img {
+                width: 100%;
+            }
+        }
+        form.header_search {
+            background-color: #eeeeee;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 12px 30px 12px 20px;
+            width: 20%;
+            min-width: 200px;
+            max-width: 300px;
+            border-radius: 8px;
+            box-sizing: border-box;
+            svg {
+                font-size: .95em;
+                margin-right: 12px;
+                opacity: 0.3;
+            }
+            input {
+                width: 100%;
+                font-size: .9em;
+                &::placeholder {
+                    color: #AAA;
+                }
+            }
+        }
+        div.header_user_menu {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            .mypage_link {
+                font-size: .95em;
+                font-weight: 600;
+                color: rgb(0, 150, 243);
+            }
+            .header_log {
+                font-size: .9em;
+                color: #555;
+                margin-left: 20px;
+            }
+            button.cart_btn {
+                font-size: 1.5em;
+                font-weight: 600;
+                margin-left: 25px;
+            }
+        }
+    }
+}
