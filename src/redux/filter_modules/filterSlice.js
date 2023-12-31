@@ -2,15 +2,17 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 // 선택한 필터 체크박스 axios 요청 
-// export const filterData = createAsyncThunk('data/filterData', async(filterList) => {
-  // const result = await axios.post('http://localhost:8000/findalcohol', filterList)
-  // return result.data
-// })
+export const filterData = createAsyncThunk('data/filterData', async(filterList) => {
+  console.log(filterList);
+  const result = await axios.post('http://localhost:8000/findalcohol', filterList);
+  return result.data
+})
 
 const filtersSlice = createSlice({
   name: 'filters',
   initialState: {
     checkedOption: [],
+    sort: 'register_date',
     filterInfo : [
       { categoryId: 1,
         category: '주종',
@@ -78,17 +80,33 @@ const filtersSlice = createSlice({
 
       // 해당하는 카테고리 찾아서 반환
       const filterCategory = state.filterInfo.find(filter => filter.categoryId === categoryId);
+      
       if(filterCategory) {
+        // 가격의 경우 중복체크가 될 수 없어 id 6번(가격) 조건문 진행
+        if(filterCategory.categoryId === 6) {
+          // 가격일 경우 1) 해당 선택한 옵션이 아니면서 체크가 된 옵션 찾아 checked 반전 ( true -> false )
+          const otherCheckedOption = filterCategory.option.filter(option => option.id !== optionId && option.checked);
+          if(otherCheckedOption.length > 0) {
+            otherCheckedOption[0].checked = !otherCheckedOption[0].checked ;
+          } 
+          // 가격일 경우 2) 해당 선택한 체크박스 옵션 checked 반전 ( false -> true )
+          const option = filterCategory.option.find(option => option.id === optionId);
+          option.checked = !option.checked;
 
-        // 현재 클릭한 체크박스를 찾아서 checked 값 반전
-        const option = filterCategory.option.find(option => option.id === optionId);
-        option.checked = !option.checked;
-
-        if(!state.checkedOption.find(option => option.id === optionId)) {
-          // 클릭한 체크박스 목록 보여줄 것을 담는 목록 변수에 해당 optionId가 없으면 추가
+          // checkedOption 리스트 목록에 가격 카데고리 체크박스 모두 삭제 후 해당 체크박스만 추가
+          state.checkedOption = state.checkedOption.filter(option => option.categoryId !== 6);
           state.checkedOption.push({ categoryId : categoryId, category: category, id: optionId, name: optionName });
         } else {
-          state.checkedOption = state.checkedOption.filter(option => option.id !== optionId);
+          // 가격 아닐 경우 : 현재 클릭한 체크박스를 옵션 찾아 checked 반전
+          const option = filterCategory.option.find(option => option.id === optionId);
+          option.checked = !option.checked;
+
+          // checkedOption 리스트 목록에 선택한 체크박스 옵션 optionId가 없으면 추가 / 있으면 삭제
+          if(!state.checkedOption.find(option => option.id === optionId)) {
+            state.checkedOption.push({ categoryId : categoryId, category: category, id: optionId, name: optionName });
+          } else {
+            state.checkedOption = state.checkedOption.filter(option => option.id !== optionId);
+          }
         }
       }
       // filterData({데이터 넣어줄 것}) 
@@ -109,7 +127,7 @@ const filtersSlice = createSlice({
 
     /* 초기화 리셋 누를 시 filterData 요청 */
     optionReset: (state, action) => {
-      const optionResetId = state.checkedOption.map(list => list.id)
+      const optionResetId = state.checkedOption.map(list => list.id);
 
       state.filterInfo.map(filter => {
         filter.option.map(option => {
@@ -119,9 +137,14 @@ const filtersSlice = createSlice({
         })
       });
       state.checkedOption = [];
+    },
+
+    /* sort change */
+    changeSort: (state, action) => {
+      state.sort = action.payload;
     }
   }
 })
 
-export const { checkboxSeleted, optionRemove, optionReset } = filtersSlice.actions;
+export const { checkboxSeleted, optionRemove, optionReset, changeSort } = filtersSlice.actions;
 export default filtersSlice.reducer;

@@ -28,21 +28,75 @@ main.findalcohol_section {
     }
   }
   /* filter section */
-  div.findwrap_container {
+  // common으로 사용하는 필터 + sort
+  div.filter_sort_wrap {
+    @include flexbox($jc: space-between);
+    margin-top: 1rem;
+    padding: 20px 10px;
+    p {
+      font-size: 0.85rem;
+      span {
+        font-weight: 600;
+      }
+    }
+    div.filter_select_wrap {
+      @include flexbox;
+      div.select_box {
+        display: flex;
+        position: relative;
+        select {
+          width: 100px;
+          margin-right: 10px;
+          padding: 5px 10px;
+          border: 1px solid #eee;
+          border-radius: 5px;
+          font-size: 0.7rem;
+          color: rgb(62, 62, 62);
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          &::-ms-expand {
+            display: none; /* IE에서 기본 화살표 숨김 */
+          }
+        }
+        svg {
+          @include pos-y;
+          right: 15px;
+        }
+      }
+      div.filter_box {
+        display: flex;
+        color: #327dce;
+        font-size: 0.8rem;
+        cursor: pointer;
+        svg {
+          margin-right: 5px;
+        }
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  // filter 
+  div.filter_container {
     // @include flexbox;
-    div.filter_wrap{
+    div.filter_wrap {
       display: flex;
       flex-wrap: wrap;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid #eee;
+      justify-content: space-between;
+      padding-bottom: 1rem;
+      &.pad {
+        display: none;
+      }
       div.type_wrap {
         position: relative;
         width: 15%;
-        margin-right: 1.5%;
+        // margin-right: 1.5%;
         margin-bottom: 10px;
         &:nth-of-type(5),
         &:nth-of-type(6) {
-          div.detail_type_box {
+          div.option_box {
             right: 5px;
             left: auto;
           }
@@ -56,20 +110,25 @@ main.findalcohol_section {
           color: #7a7878;
           span {
             font-size: 0.85rem;
-            font-weight: bold;
           }
           img {
             width: 18%;
           }
-          &.click {
+          &.showModal {
             border-color: #327dce;
-            color: #5197f2;
             img {
               rotate: 180deg;
             }
           }
+          &.click {
+            border-color: #327dce;
+            color: #5197f2;
+            span {
+              font-weight: bold;
+            }
+          }
         }
-        div.detail_type_box{
+        div.option_box{
           position: absolute;
           z-index: 1;
           top: 50px;
@@ -113,14 +172,16 @@ main.findalcohol_section {
             }
           }
         }
-        div.detail_type_box.hidden {
+        div.option_box.hidden {
           display: none;
         }
       }
     }
-    div.checked_label_wrap{
+    div.checked_label_wrap {
       @include flexbox($jc: space-between);
-      padding-top: 2rem;
+      padding: 1.2rem 0 1rem 0;
+      border-top: 1px solid #eee;
+      border-bottom: 10px solid #eee;
       div.label_box {
         // @include flexbox($jc: flex-start);
         display: flex;
@@ -144,23 +205,178 @@ main.findalcohol_section {
           }
         }
       }
-      div.reset_box {
-        display: flex;
+      div.reset_wrap {
         width: 10%;
-        margin-bottom: 10px;
-        text-align: right;
-        cursor: pointer;
-        color: #327dce;
-        svg {
-          width: 15px;
-          margin-right: 3px;
+        div.pad_title {
         }
-        span {
-          font-size: 0.8rem;
-          font-weight: 600;
-          line-height: 17px;
+        div.reset_box {
+          display: flex;
+          justify-content: flex-end;
+          margin-bottom: 10px;
+          color: #327dce;
+          text-align: right;
+          cursor: pointer;
+          svg {
+            width: 15px;
+            margin-right: 3px;
+          }
+          span {
+            font-size: 0.8rem;
+            font-weight: 600;
+            line-height: 17px;
+          }
         }
       }
+    }
+
+    // common filter 버튼 클릭시 ( 880이하 )
+    &.toggle {
+      position: fixed;
+      top: 0;
+      // right: 0;
+      left: 0; // 테스트로 잠시 왼쪽 
+      display: flex;
+      flex-direction: column;
+      width: 280px;
+      height: 100vh;
+      border-left: 1px solid #eee;
+      background: white;
+      overflow-y: auto;
+      div.filter_wrap {
+        display: block;
+        div.type_wrap {
+          position: static;
+          padding: 5px 0;
+          width: 100%;
+          margin-bottom: 0;
+          div.type_box {
+            height: 100%;
+            border-radius: 0;
+            border: none;
+            font-weight: 500;
+            color: #7a7878;
+            img {
+              width: 5%;
+            }
+            span {
+              font-weight: 600;
+            }
+            &.showModal {
+              border-color: #eee;
+            }
+            &.click {
+              border-color: #eee;
+              color: #16385c;
+              span {
+                font-weight: bold;
+              }
+            }
+            &:not(:nth-of-type(6)) {
+              border-bottom: 1px solid #eee;
+            }
+          }
+          div.option_box {
+            position: static;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+            background: #f8f8f8;
+            background: rgba(242, 242, 242, 0.4);
+            border: none;
+            border-bottom: 1px solid #eee;
+            div {
+              width: 100%;
+            }
+          }
+        }
+      }
+      div.checked_label_wrap {
+        flex-direction: column;
+        order: -1;
+        padding-bottom: 0;
+        
+        div.label_box {
+          align-items: flex-start;
+          align-content: flex-start;
+          width: 100%;
+          padding: 10px 10px 0 10px;
+          height: 100px;
+          margin: 0;
+          background-color: #f3f2f2;
+          overflow-y: auto;
+          div.checked_label {
+          }
+        }
+        div.reset_wrap {
+          @include flexbox($jc: space-between);
+          order: -2;
+          width: 100%;
+          margin-bottom: 1rem;
+          padding: 0 10px;
+          div.pad_title {
+            @include flexbox;
+            order: -2;
+            svg {
+              margin-right: 5px;
+            }
+            span {
+              font-size: 0.9rem;
+              font-weight: 600;
+            }
+          }
+          div.reset_box {
+            order: -1;
+            margin-bottom: 0;
+            svg {
+              width: 10px;
+            }
+            span {
+              font-size: 0.7rem;
+            }
+            span.nav_close {
+              margin-left: 5px;
+              font-size: 1.2rem;
+            }
+          }
+        }
+      }
+      // &::before {
+      //   content: '';
+      //   z-index: -2;
+      //   position: fixed;
+      //   // top: 0;
+      //   left: 0;
+      //   width: 100vw;
+      //   height: 100vh;
+      //   background-color: rgba(0,0,0, 0.2);
+      // }
+    }
+  }
+
+  @media screen and (max-width: $lg-breakpoint) {
+    & {
+      div.avata_container{
+        margin-bottom: 2rem;
+      }
+      
+      /* filter section */
+      div.filter_sort_wrap{
+        p {
+          span {}
+        }
+        div.filter_select_wrap {
+          div.select_box {
+            select {}
+            svg {}
+          }
+          div.filter_box {
+            svg {
+              span {}
+            }
+          }
+        }
+      }
+      div.filter_container {}
     }
   }
 }
