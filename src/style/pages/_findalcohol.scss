@@ -1,0 +1,166 @@
+main.findalcohol_section {
+  max-width: 1300px;
+  // margin: 0 auto;
+  padding: 1rem 5rem;
+  div.avata_container {
+    @include flexbox($jc:space-between);
+    // width: 90%;
+    margin: 10px 0 3rem 0;
+    padding: 20px 50px;
+    background: #eee;
+    border-radius: 1rem;
+    div.avata_info {
+      p:first-child {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+    }
+    div.avata_img {
+      width: 10%;
+      height: 10%;
+      background: white;
+      border-radius: 50%;
+      img {
+        width: 100%;
+        padding: 5px;
+      }
+    }
+  }
+  /* filter section */
+  div.findwrap_container {
+    // @include flexbox;
+    div.filter_wrap{
+      display: flex;
+      flex-wrap: wrap;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #eee;
+      div.type_wrap {
+        position: relative;
+        width: 15%;
+        margin-right: 1.5%;
+        margin-bottom: 10px;
+        &:nth-of-type(5),
+        &:nth-of-type(6) {
+          div.detail_type_box {
+            right: 5px;
+            left: auto;
+          }
+        }
+        div.type_box{
+          @include flexbox($jc: space-between); /* 데스크탑에서 위치 확인 필요 */
+          padding: 10px 1rem;
+          border: 1px solid #eee;
+          border-radius: 5px;
+          background: white;
+          color: #7a7878;
+          span {
+            font-size: 0.85rem;
+            font-weight: bold;
+          }
+          img {
+            width: 18%;
+          }
+          &.click {
+            border-color: #327dce;
+            color: #5197f2;
+            img {
+              rotate: 180deg;
+            }
+          }
+        }
+        div.detail_type_box{
+          position: absolute;
+          z-index: 1;
+          top: 50px;
+          left: 5px;
+          @include flexbox($jc:space-between);
+          flex-wrap: wrap;
+          width: 330px;
+          padding: 20px 20px 0 20px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          background: white;
+          div {
+            position: relative;
+            width: 45%;
+            margin-bottom: 20px;
+            input {
+              display: none;
+            }
+            label {
+              margin-left: 35px;
+              font-size: 0.85rem;
+              &::before {
+                content: '';
+                position: absolute;
+                top: -2px;
+                left: 0;
+                width: 20px;
+                height: 20px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                cursor: pointer;
+              }
+            }
+            input:checked + label::before {
+              content: '\2713';
+              border: none;
+              background-color: #5197f2;
+              font-size: 1.3rem;
+              color: white;
+              text-align: center;
+            }
+          }
+        }
+        div.detail_type_box.hidden {
+          display: none;
+        }
+      }
+    }
+    div.checked_label_wrap{
+      @include flexbox($jc: space-between);
+      padding-top: 2rem;
+      div.label_box {
+        // @include flexbox($jc: flex-start);
+        display: flex;
+        flex-wrap: wrap;
+        width: 85%;
+        margin-right: 5%;
+        div.checked_label {
+          margin-right: 5px;
+          margin-bottom: 10px;
+          padding: 7px 10px;
+          border-radius: 5px;
+          background: #5b94c8;
+          font-size: 0.8rem;
+          color: white;
+          span:first-child {
+            margin-right: 10px;
+          }
+          span:last-child {
+            font-size: 1rem;
+            cursor: pointer;
+          }
+        }
+      }
+      div.reset_box {
+        display: flex;
+        width: 10%;
+        margin-bottom: 10px;
+        text-align: right;
+        cursor: pointer;
+        color: #327dce;
+        svg {
+          width: 15px;
+          margin-right: 3px;
+        }
+        span {
+          font-size: 0.8rem;
+          font-weight: 600;
+          line-height: 17px;
+        }
+      }
+    }
+  }
+}
