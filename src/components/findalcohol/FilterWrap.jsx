@@ -2,15 +2,15 @@ import { React, useState } from 'react';
 import { GrPowerReset } from 'react-icons/gr';
 import { GoMultiSelect } from 'react-icons/go';
 import FilterSortCommon from './FilterSortCommon';
-import store from '../../redux/store/store';
 
 export default function FilterWrap(props) {
-  const { filterData, filterInfo, checkedOption, sort,
-    dispatch, checkboxSeleted, optionRemove, optionReset, changeSort,
-    pad, isFilterClick, setIsFilterClick } = props;
+  const { filterInfo, checkedOption, sort,
+          dispatch, checkboxSeleted, optionRemove, optionReset, changeSort,
+          pad, isFilterClick, setIsFilterClick } = props;
 
   const clickCategoryIdList = checkedOption.map(list => list.categoryId); // 체크된 카테고리 색상 css
   const [ optionModal, setOptionModal ] = useState('');  // 카테고리 클릭 시 다른 체크박스 모달 닫기
+  const [ beforeClass, setBeforeClass ] = useState(false); // navbar 스르르 위치 효과
 
   // 큰 카테고리 클릭 시 하위 카테고리 토글을 위한 핸들러
   const handleClickTypeBox = (categoryId) => {
@@ -20,46 +20,49 @@ export default function FilterWrap(props) {
   // 하위 카테고리 체크박스 클릭 시 리덕스 액션 진행 
     const handleCheckboxChange = async (categoryId, category, optionId, optionName) => {
       dispatch(checkboxSeleted({categoryId, category, optionId, optionName}));
-
-      const currentState = store.getState();
-      const { filterInfo, checkedOption, sort } = currentState.filtersSlice;
-      const filterList = { filterInfo, checkedOption, sort };
-
-      // axios 진행
-      await dispatch(filterData(filterList));
     }
 
   // 리스트 삭제 버튼 클릭 시 리덕스 액션 진행
-  const handleClickRemove = (categoryId, optionId ) => {
+  const handleClickRemove = async (categoryId, optionId ) => {
     dispatch(optionRemove({categoryId, optionId}));
-    // axios 진행 예정 
   }
 
   // 초기화 클릭 시 리덕스 액션 진행
   const handleClickReset = () => {
     dispatch(optionReset());
     setOptionModal('');
-    // axios 진행 예정 ( 전체리스트로 가져와야함 )
   }
 
   // ( 880px이하 ) filter navbar 닫기
   const handleClickCloseNav = () => {
-    // setIsFilterClick(false);
-    setIsFilterClick(!isFilterClick);
+    setBeforeClass(!beforeClass);
+    setTimeout(() => {
+        setIsFilterClick(!isFilterClick);
+      }, 300); // 300ms는 트랜지션 시간과 동일하게 설정
   }
+  
+  // ( 880px 이하 ) filter navbar 하위 컴포넌트 이벤트 핸들러
+  const handleClickFilter = () => {
+    setIsFilterClick(!isFilterClick);
+    setTimeout(() => {
+      setBeforeClass(!beforeClass);
+    }, 0)
+    };
 
   return(
-    <>
+    <div className={`filter_section_container ${isFilterClick ? 'toggle' : ''}`}>
     { pad && 
       <FilterSortCommon 
           sort={sort}
           pad ={pad} 
-          changeSort={changeSort} 
+          changeSort={changeSort}
           dispatch={dispatch}
           isFilterClick={isFilterClick}
-          setIsFilterClick={setIsFilterClick} /> 
+          setIsFilterClick={setIsFilterClick}
+          handleClickFilter={handleClickFilter} />
     }
-      <div className={`filter_container ${isFilterClick ? 'toggle' : ''}`} >
+      {/* <div className={`filter_container`}> */}
+      <div className={`filter_container ${isFilterClick ? 'toggle' : ''} ${beforeClass? 'before' : ''}`}>
         <div className={`filter_wrap ${pad ? 'pad' : ''}`}>
         { filterInfo.map(filter => (
           <div className='type_wrap' key={filter.categoryId} onClick={() => handleClickTypeBox(filter.categoryId)}>
@@ -70,8 +73,8 @@ export default function FilterWrap(props) {
             <div className={`option_box ${optionModal === filter.categoryId ? '' : 'hidden'}`}>
             {filter.option.map(type => ( 
               <div key={type.id}>
-                <input 
-                  type='checkbox' 
+                <input
+                  type='checkbox'
                   id={type.id} 
                   onChange={() => handleCheckboxChange(filter.categoryId, filter.category, type.id, type.name)}
                   checked={type.checked}  />
@@ -116,6 +119,6 @@ export default function FilterWrap(props) {
         </div>
       }
       </div>
-    </>
+    </div>
   );
 }

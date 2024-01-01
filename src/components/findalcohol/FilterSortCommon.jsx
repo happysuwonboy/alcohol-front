@@ -5,11 +5,6 @@ export default function FilterSortCommon(props) {
 
   const handleSortChange = (e) => {
     props.dispatch(props.changeSort(e.target.value));
-    // axios 요청 추가 예정
-  }
-  
-  const handleClickFilter = () => {
-    props.setIsFilterClick(!props.isFilterClick);
   }
   
   return(
@@ -25,7 +20,7 @@ export default function FilterSortCommon(props) {
           <IoMdArrowDropdown /> 
         </div>
       { props.pad &&
-        <div className='filter_box' onClick={handleClickFilter}>
+        <div className='filter_box' onClick={() => props.handleClickFilter()}>
           <GoMultiSelect />
           <span>필터</span>
         </div>

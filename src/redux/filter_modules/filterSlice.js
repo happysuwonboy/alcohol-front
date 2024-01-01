@@ -3,12 +3,11 @@ import axios from 'axios';
 
 // 선택한 필터 체크박스 axios 요청 
 export const filterData = createAsyncThunk('data/filterData', async(filterList) => {
-  console.log(filterList);
   const result = await axios.post('http://localhost:8000/findalcohol', filterList);
-  return result.data
+  return result.data;
 })
 
-const filtersSlice = createSlice({
+const filterSlice = createSlice({
   name: 'filters',
   initialState: {
     checkedOption: [],
@@ -19,10 +18,10 @@ const filtersSlice = createSlice({
         isSelected: false,
         option: [
           { id: 'takju', name: '탁주', checked: false }, 
-          { id: 'yakcheongju', name: '약﹒청주',  checked: false }, 
+          { id: 'yakcheongju', name: '약·청주',  checked: false }, 
           { id: 'gwasilju', name: '과실주',  checked: false }, 
           { id: 'jeunglyuju', name: '증류주',  checked: false }, 
-          { id:'gitajulyu', name: '기타주류',  checked: false }] 
+          { id: 'gitajulyu', name: '기타주류',  checked: false }] 
       },
       { categoryId: 2,
         category: '도수',
@@ -73,7 +72,7 @@ const filtersSlice = createSlice({
     error: null,
   },
   reducers: {
-    /* 체크박스 변동시 filterData 요청 */
+    /* 체크박스 변동 */
     checkboxSeleted: (state, action) => {
       // 선택한 디스패치의 액션 데이터 받아오기
       const { categoryId, category, optionId, optionName } = action.payload;
@@ -87,15 +86,24 @@ const filtersSlice = createSlice({
           // 가격일 경우 1) 해당 선택한 옵션이 아니면서 체크가 된 옵션 찾아 checked 반전 ( true -> false )
           const otherCheckedOption = filterCategory.option.filter(option => option.id !== optionId && option.checked);
           if(otherCheckedOption.length > 0) {
-            otherCheckedOption[0].checked = !otherCheckedOption[0].checked ;
+            otherCheckedOption[0].checked = !otherCheckedOption[0].checked;
           } 
+
           // 가격일 경우 2) 해당 선택한 체크박스 옵션 checked 반전 ( false -> true )
           const option = filterCategory.option.find(option => option.id === optionId);
           option.checked = !option.checked;
 
           // checkedOption 리스트 목록에 가격 카데고리 체크박스 모두 삭제 후 해당 체크박스만 추가
-          state.checkedOption = state.checkedOption.filter(option => option.categoryId !== 6);
-          state.checkedOption.push({ categoryId : categoryId, category: category, id: optionId, name: optionName });
+          const findSeletedIndex = state.checkedOption.findIndex(option => option.id === optionId && option.categoryId === categoryId);
+          // 해당 인덱스 자리 찾기
+
+          if(findSeletedIndex === -1) {
+            state.checkedOption = state.checkedOption.filter(option => option.categoryId !== 6);
+            state.checkedOption.push({ categoryId : categoryId, category: category, id: optionId, name: optionName });
+          } else {
+            state.checkedOption.splice(findSeletedIndex, 1); // 리스트에 존재한다면 삭제!
+          }
+        
         } else {
           // 가격 아닐 경우 : 현재 클릭한 체크박스를 옵션 찾아 checked 반전
           const option = filterCategory.option.find(option => option.id === optionId);
@@ -108,12 +116,18 @@ const filtersSlice = createSlice({
             state.checkedOption = state.checkedOption.filter(option => option.id !== optionId);
           }
         }
+
+        // 선택한 체크박스 목록에 해당하는 카테고리 id가 있으면 해당하는 카테고리 담아 있는 객체 isSelected 값을 true
+        const categorySeleted = state.checkedOption.find(seleted => seleted.categoryId === categoryId);
+        if(categorySeleted) {
+          filterCategory.isSelected = true;
+        } else {
+          filterCategory.isSelected = false;
+        }
       }
-      // filterData({데이터 넣어줄 것}) 
-      // dispatch(filterData({ 데이터 다 보내야함 }))
     },
 
-    /* remove x 버튼 누를 시 리스트에서 삭제 및 filterData 요청 */
+    /* remove x 버튼 누를 시 리스트에서 삭제 */
     optionRemove: (state, action) => {
       const { categoryId, optionId } = action.payload;
 
@@ -121,15 +135,17 @@ const filtersSlice = createSlice({
       if(filterCategory) {
         const option = filterCategory.option.find(option => option.id === optionId);
         option.checked = !option.checked;
+        filterCategory.isSelected = filterCategory.option.some(option => option.checked);
         state.checkedOption = state.checkedOption.filter(option => option.id !== optionId);
       }
     },
 
-    /* 초기화 리셋 누를 시 filterData 요청 */
+    /* 초기화 리셋 누를 시 */
     optionReset: (state, action) => {
       const optionResetId = state.checkedOption.map(list => list.id);
 
       state.filterInfo.map(filter => {
+        filter.isSelected = false;
         filter.option.map(option => {
           if (optionResetId.includes(option.id)) {
             option.checked = !option.checked;
@@ -143,8 +159,22 @@ const filtersSlice = createSlice({
     changeSort: (state, action) => {
       state.sort = action.payload;
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(filterData.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.products = action.payload; // result.data : products로 넣기 ( axios 결과 )
+      })
+      .addCase(filterData.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(filterData.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
   }
 })
 
-export const { checkboxSeleted, optionRemove, optionReset, changeSort } = filtersSlice.actions;
-export default filtersSlice.reducer;
+export const { checkboxSeleted, optionRemove, optionReset, changeSort } = filterSlice.actions;
+export default filterSlice.reducer;
