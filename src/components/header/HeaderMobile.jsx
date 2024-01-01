@@ -4,13 +4,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { useNavigate } from 'react-router-dom';
 import HeaderNavbar from './HeaderNavbar';
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import HamburgerMenu from './HamburgerMenu';
-
-
-
-
-
 
 export default function HeaderMobile({ user, curPage }) {
   const navigate = useNavigate();
@@ -49,7 +43,7 @@ export default function HeaderMobile({ user, curPage }) {
       <div className='header_sticky_wrapper mobile_header'>
         <div className='header_top'>
           <div className='main_logo' onClick={() => navigate('/')}>
-            <img src="assets/images/main-logo.png" alt="" />
+            <img src="/assets/images/main-logo.png" alt="" />
           </div>
           <div className='header_user_menu'>
             <button className='user_menu_btn search_btn'>

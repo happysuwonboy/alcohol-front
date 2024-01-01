@@ -54,7 +54,7 @@ const HamburgerMenu = forwardRef(({user, show, hideHamburgerMenu, curPage}, ref)
           </div>
         </div> : null}
         <div className='mini_banner'>
-          <img src="assets/images/etc/hamburger_banner.jpg" alt="" />
+          <img src="/assets/images/etc/hamburger_banner.jpg" alt="" />
         </div>
         <div className='page_links'>
           <h2>메뉴</h2>

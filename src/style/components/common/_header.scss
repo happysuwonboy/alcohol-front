@@ -9,9 +9,16 @@ div.header_sticky_wrapper {
     background-color: #fff;
     position: sticky;
     top: 0;
+    padding: 0 3rem;
     box-shadow: 0 0 1px #777;
+    box-sizing: border-box;
+    @media screen and (max-width : $lg-breakpoint) {
+        padding: 0 1rem;
+    }
 }
+
 div.header_static_wrapper {
+    padding: 0 3rem;
     background-color: #FFF;
 }
 
@@ -21,7 +28,7 @@ div.pc_header {
         position: relative;
         display: flex;
         justify-content: flex-start;
-        padding: 10px 3rem;
+        padding: 10px 0;
         align-items: center;
         box-sizing: border-box;
         div.main_logo {
@@ -81,8 +88,8 @@ div.pc_header {
     ul.header_navbar {
         display: flex;
         justify-content: flex-start;
-        padding: 0 3rem;
-        box-sizing: border-box;
+        padding: 0;
+        box-sizing: border-box; 
         li {
             padding: 10px 0;
             a {
@@ -110,10 +117,9 @@ div.mobile_header {
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        padding: 12px 1rem;
+        padding: 12px 0;
         align-items: center;
         box-sizing: border-box;
-        box-shadow: 0 0 1px #000;
         div.main_logo {
             width: 55px;
             margin-right: 40px;
@@ -176,7 +182,7 @@ div.mobile_header {
     ul.header_navbar {
         display: flex;
         justify-content: space-between;
-        padding: 0 1rem;
+        padding: 0;
         li {
             padding: 10px 0;
             a {
