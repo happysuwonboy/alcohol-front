@@ -11,7 +11,6 @@ main.alcohol_detail {
       display: flex;
       margin-bottom: 5rem;
       div.alcohol_img {
-        // padding-right: 30px;
         img {
           width: 100%;
         }
@@ -40,6 +39,7 @@ main.alcohol_detail {
             margin-right: 10px;
           }
           div.review_stars {
+            z-index: -1;
             position: relative;
             > div {
               display: flex;
@@ -57,7 +57,7 @@ main.alcohol_detail {
               }
               &.background_stars {
                 svg {
-                  fill: #CCC;
+                  fill: #ccc;
                 }
               }
             }
@@ -102,6 +102,94 @@ main.alcohol_detail {
         }
       }
     }
+    div.alcohol_foods_container {
+      margin-bottom: 3rem;
+      h4 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+      }
+      div.alcohol_food_imgs {
+        display: flex;
+        figure {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          &:not(:last-child) {
+            margin-right: 1.5rem;
+          }
+          div.food_img {
+            margin-bottom: 1rem;
+            img {
+              width: 100%;
+            }
+          }
+          figcaption {
+            color: #666;
+            font-size: 1rem;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+    div.alcohol_flavor_container {
+      margin-bottom: 3rem;
+      h4 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+      }
+      > div {
+        div.flavor_level {
+          width: 100%;
+          background-color: #f6f6f6;
+          border-radius: 5px;
+          height: 50px;
+          padding: 0 1rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          &:first-child {
+            border-bottom: 1px solid #ddd;
+          }
+          span {
+            font-size: 0.95rem;
+            color: rgba(61, 61, 61, 0.6);
+          }
+          div.graph {
+            display: flex;
+            align-items: center;
+            span {
+              border-top: 1px solid transparent;
+              border-bottom: 1px solid transparent;
+              border-right: 35px solid #ddd;
+              display: inline-block;
+              &:not(:first-child) {
+                margin-left: 3px;
+              }
+              &.lv1 {
+                height: 5px;
+              }
+              &.lv2 {
+                height: 7px;
+              }
+              &.lv3 {
+                height: 9px;
+              }
+              &.lv4 {
+                height: 11px;
+              }
+              &.lv5 {
+                height: 13px;
+              }
+              &.fill {
+                border-right: 35px solid #0096f3;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   div.sticky_container {
@@ -119,6 +207,9 @@ main.alcohol_detail {
   }
 }
 
+/* 반응형 미디어 쿼리 */
+
+// xlg
 @media screen and (max-width: $xlg-breakpoint) {
   main.alcohol_detail {
     padding: 1rem 1rem;
@@ -128,8 +219,93 @@ main.alcohol_detail {
   }
 }
 
-// alcohol info 카드
+// lg
 @media screen and (min-width: $lg-breakpoint) {
+  main.alcohol_detail {
+    div.alcohol_detail_container {
+      div.alcohol_foods_container {
+        h4 {
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-bottom: 1.5rem;
+        }
+        div.alcohol_food_imgs {
+          justify-content: flex-start;
+          figure {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            div.food_img {
+              width: 150px;
+              height: 150px;
+              img {
+                width: 100%;
+              }
+            }
+            figcaption {
+              font-size: 1rem;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+      div.alcohol_flavor_container {
+        > div {
+          width: 48%;
+          display: inline-block;
+          &:first-of-type {
+            margin-right: 2%;
+          }
+
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: $lg-breakpoint) {
+  main.alcohol_detail {
+    div.alcohol_detail_container {
+      div.alcohol_foods_container {
+        h4 {
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-bottom: 1.5rem;
+        }
+        div.alcohol_food_imgs {
+          justify-content: center;
+          figure {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            div.food_img {
+              width: 95px;
+              height: 95px;
+              img {
+                width: 100%;
+              }
+            }
+            figcaption {
+              font-size: 0.9rem;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+      div.alcohol_flavor_container {
+        > div {
+          width: 100%;
+          display: block;
+          &:first-of-type div.flavor_level {
+            border-bottom: 1px solid #ddd;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 765px
+@media screen and (min-width: 765px) {
   main.alcohol_detail {
     div.alcohol_detail_container {
       div.alcohol_card_container {
@@ -145,15 +321,13 @@ main.alcohol_detail {
     }
   }
 }
-@media screen and (max-width: $lg-breakpoint) {
+@media screen and (max-width: 765px) {
   main.alcohol_detail {
     div.alcohol_detail_container {
       div.alcohol_card_container {
         flex-direction: column;
         div.alcohol_img {
           padding-bottom: 20px;
-        }
-        div.alcohol_info {
         }
       }
     }
