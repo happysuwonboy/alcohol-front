@@ -1,0 +1,161 @@
+main.alcohol_detail {
+  display: flex;
+  max-width: 1200px;
+  padding: 1rem 0rem;
+  margin: 0 auto;
+  div.alcohol_detail_container {
+    flex: 1;
+    max-width: 750px;
+    margin: 0 auto;
+    div.alcohol_card_container {
+      display: flex;
+      margin-bottom: 5rem;
+      div.alcohol_img {
+        // padding-right: 30px;
+        img {
+          width: 100%;
+        }
+      }
+      div.alcohol_info {
+        h3.alcohol_name {
+          color: #555;
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin-bottom: 0.8rem;
+        }
+        > span {
+          display: block;
+        }
+        span.hashtag {
+          font-size: 1.1rem;
+          color: rgb(253, 157, 3);
+          font-weight: 600;
+          margin-bottom: 0.8rem;
+        }
+        div.review_info {
+          display: flex;
+          align-items: center;
+          margin-bottom: 2rem;
+          > *:not(:last-child) {
+            margin-right: 10px;
+          }
+          div.review_stars {
+            position: relative;
+            > div {
+              display: flex;
+              svg {
+                font-size: 1.5em;
+              }
+              &.fill_stars {
+                position: absolute;
+                top: 0;
+                overflow: hidden;
+                svg {
+                  flex-shrink: 0;
+                  fill: orange;
+                }
+              }
+              &.background_stars {
+                svg {
+                  fill: #CCC;
+                }
+              }
+            }
+          }
+          small.review_avg_rate {
+            font-size: 0.95rem;
+            font-weight: 600;
+          }
+          span.review_count {
+            font-size: 0.95rem;
+            color: rgb(66, 66, 232);
+            font-weight: 600;
+          }
+        }
+        div.alcohol_price {
+          margin-bottom: 2rem;
+          > * {
+            display: block;
+            font-weight: 600;
+          }
+          small {
+            margin-bottom: 0.5rem;
+          }
+          span {
+            font-size: 1.8rem;
+          }
+        }
+        div.alcohol_detail_info {
+          margin-top: auto;
+          > small {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #444;
+            &.blue {
+              color: rgb(0, 150, 243);
+            }
+            &:not(:last-child) {
+              margin-bottom: 0.6rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  div.sticky_container {
+    width: 25%;
+    height: inherit;
+    z-index: -1;
+    max-width: 300px;
+    margin: 0 auto;
+    div.order_menu_container {
+      position: sticky;
+      top: 100px;
+      height: 500px;
+      background-color: skyblue;
+    }
+  }
+}
+
+@media screen and (max-width: $xlg-breakpoint) {
+  main.alcohol_detail {
+    padding: 1rem 1rem;
+    div.sticky_container {
+      display: none;
+    }
+  }
+}
+
+// alcohol info 카드
+@media screen and (min-width: $lg-breakpoint) {
+  main.alcohol_detail {
+    div.alcohol_detail_container {
+      div.alcohol_card_container {
+        flex-direction: row;
+        div.alcohol_img {
+          width: 50%;
+          padding-right: 30px;
+        }
+        div.alcohol_info {
+          width: 50%;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: $lg-breakpoint) {
+  main.alcohol_detail {
+    div.alcohol_detail_container {
+      div.alcohol_card_container {
+        flex-direction: column;
+        div.alcohol_img {
+          padding-bottom: 20px;
+        }
+        div.alcohol_info {
+        }
+      }
+    }
+  }
+}

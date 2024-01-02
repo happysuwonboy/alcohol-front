@@ -57,7 +57,7 @@ export default function HeaderMobile({ user, curPage }) {
             </button>
           </div>
         </div>
-        <HeaderNavbar curPage={curPage}/>
+        {(curPage==='/' || curPage==='/findalcohol') ? <HeaderNavbar curPage={curPage}/> : null}
       </div>
       {/* 햄버거 메뉴 */}
       <HamburgerMenu user={user} show={showHamb} ref={ref} 

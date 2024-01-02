@@ -36,9 +36,9 @@ export default function HeaderPC ({user, curPage}) {
                     </div>
                 </div>
             </div>
-            <div className='header_static_wrapper pc_header'>
+            {(curPage==='/' || curPage==='/findalcohol') ? <div className='header_static_wrapper pc_header'>
                 <HeaderNavbar curPage={curPage}/>
-            </div>
+            </div> : null}
         </>
   );
 }
