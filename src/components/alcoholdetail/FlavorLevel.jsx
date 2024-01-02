@@ -1,7 +1,6 @@
 
 
-export default function FlavorLevel({flovorType}) {
-const level = 4;
+export default function FlavorLevel({flovorType, level}) {
 
   return (
     <div className="flavor_level">
