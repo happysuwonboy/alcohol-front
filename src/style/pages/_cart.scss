@@ -1,0 +1,274 @@
+main.main_cart{
+    background-color: #F7F7F7;
+    div.cart_container{
+        display: flex;
+        max-width: 1023px;
+        min-height: 90vh;
+        margin: 0 auto;
+        padding: 0 70px;
+        div.cart_list_wrapper{
+            width: 520px;
+            div.cart_list_select{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 30px;
+                margin: 40px 20px 10px;
+                div.all_select{
+                    display: flex;
+                    align-items: center;
+                    font-size: 13px;
+                    button.checkbox{
+                        width: 20px;
+                        margin-right: 8px;
+                        img{
+                            width: 100%;
+                        }
+                    }
+                    span{
+                        margin-right: 4px;
+                    }
+                }
+                div.delete_selected{
+                    button{
+                        color: rgb(0, 150, 243);
+                        font-size: 12px;
+                    }
+                }
+            }
+            div.cart_list{
+                padding: 20px;
+                border: 1px solid #DDD;
+                border-radius: 10px;
+                background-color: #FFF;
+                p.empty_cart{
+                    margin: 60px 0;
+                    color: #707070;
+                    font-size: 16px;
+                    font-weight: bold;
+                    text-align: center;
+                }
+                div.cart_list_title{
+                    display: flex;
+                    justify-content: space-between;
+                    padding-bottom: 15px;
+                    font-size: 14px;
+                    font-weight: 700;
+                    border-bottom: 1px solid #DDD;
+                    div.title_left{
+                        display: flex;
+                        color: #00DC92;
+                        span:first-child{
+                            margin-right: 4px;
+                        }
+                    }
+                    div.title_right{
+                        color: #FFBB00;
+                    }
+                }
+                div.carted{
+                    display: flex;
+                    margin-top: 30px;
+                    button.checkbox{
+                        width: 20px;
+                        min-width: 20px;
+                        height: 20px;
+                        margin-right: 12px;
+                        img{
+                            width: 100%;
+                        }
+                    }
+                    div.carted_content{
+                        width: 100%;
+                        border-bottom: 1px solid #DDD;
+                        div.carted_alcohol{
+                            display: flex;
+                            a.carted_alcohol_img{
+                                width: 55px;
+                                min-width: 55px;
+                                margin-right: 16px;
+                                img{
+                                    width: 100%;
+                                    height: 70px;
+                                    border-radius: 10px;
+                                    object-fit: cover;
+                                }
+                            }
+                            div.carted_alcohol_info{
+                                width: 100%;
+                                padding-bottom: 20px;
+                                div.info_1{
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    margin-bottom: 12px;
+                                    a.title{
+                                        font-size: 15px;
+                                        font-weight: bold;
+                                    }
+                                    button{
+                                        svg{
+                                            width: 30px;
+                                            height: 30px;
+                                            fill: #B2B2B2;
+                                        }
+                                    }
+                                }
+                                div.info_2{
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    div.qty_control{
+                                        display: grid;
+                                        grid-template-rows: 25px;
+                                        grid-template-columns: 25px 30px 25px;
+                                        margin-right: 14px;
+                                        text-align: center;
+                                        border: 1px solid #DDD;
+                                        border-radius: 4px;
+                                        span{
+                                            line-height: 27px;
+                                            user-select: none;
+                                            &.minus,
+                                            &.plus{
+                                                font-size: 20px;
+                                                cursor: pointer;
+                                            }
+                                            &.qty{
+                                                font-size: 13px;
+                                                border-left: 1px solid #DDD;
+                                                border-right: 1px solid #DDD;
+                                            }
+                                        }
+                                    }
+                                    div.over_warning{
+                                        font-size: 12px;
+                                    }
+                                    div.price{
+                                        font-size: 16px;
+                                        font-weight: 700;
+                                        margin-right: 6px;
+                                        text-align: right;
+                                        span{
+                                            &.origin_price{
+                                                color: #CCC;
+                                                font-size: 14px;
+                                                font-weight: 400;
+                                                text-decoration: line-through;
+                                            }
+                                        }
+                                        div.dc{
+                                            span.dc_percent{
+                                                margin-right: 4px;
+                                                color: #EF844B;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        div.soldout_soon{
+                            display: flex;
+                            margin-bottom: 15px;
+                            color: red;
+                            font-size: 12px;
+                            font-weight: bold;
+                            svg{
+                                margin-right: 2px;
+                                path{
+                                    stroke-width: 50;
+                                }
+                            }
+                        }
+                        div.stock{
+                            font-size: 12px;
+                            margin-bottom: 15px;
+                        }
+                    }
+                }
+            }
+        }
+        div.cart_bill_wrapper{
+            margin-left: 45px;
+            width: 320px;
+            div.cart_bill{
+                padding: 20px;
+                margin-top: 80px;
+                background-color: #FFF;
+                border: 1px solid #DDD;
+                border-radius: 10px;
+                margin-bottom: 20px;
+                div.bill_title{
+                    p{
+                        padding-bottom: 15px;
+                        margin-bottom: 20px;
+                        font-size: 13px;
+                        font-weight: 700;
+                        border-bottom: 1px solid #DDD;
+                    }
+                }
+                div.bill_content{
+                    p{
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 10px;
+                        span{
+                            color: rgba(61, 61, 61, 0.6);
+                            font-size: 12px;
+                            font-weight: 700;
+                            &.price{
+                                color: #000;
+                            }
+                        }
+                    }
+                }
+                div.bill_price{
+                    border-top: 1px solid #DDD;
+                    margin-top: 20px;
+                    padding-top: 15px;
+                    p{
+                        display: flex;
+                        justify-content: space-between;
+                        span{
+                            font-size: 13px;
+                            font-weight: 700;
+                            &.total_price{
+                                color: rgb(0, 150, 243);
+                                font-size: 16px;
+                            }
+                        }
+                    }
+                }
+            }
+            div.cart_pay{
+                text-align: center;
+                line-height: 48px;
+                button{
+                    display: block;
+                    width: 100%;
+                    height: 48px;
+                    font-size: 18px;
+                    font-weight: bold;
+                    border-radius: 5px;
+                    &.buy{
+                        background-color: rgb(0, 150, 243);
+                        color: #FFF;
+                        border: 1px solid rgb(0, 150, 243);
+                        transition: all 0.3s ease 0s;
+                        &:hover{
+                            background-color: #4379BD;
+                            border: 1px solid #4379BD;
+                        }
+                    }
+                    &.impossible{
+                        background-color: #B2B2B2;
+                        color: #8E8E8E;
+                        border: 1px solid #B2B2B2;
+                        cursor: default;
+                        pointer-events: none;
+                    }
+                }
+            }
+        }
+    }
+}
