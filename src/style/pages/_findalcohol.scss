@@ -1,7 +1,7 @@
 main.findalcohol_section {
   max-width: 1300px;
   margin: 0 auto;
-  padding: 1rem 5rem;
+  padding: 1rem 4rem;
   div.avata_container {
     @include flexbox($jc:space-between);
     margin: 10px 0 3rem 0;
@@ -30,10 +30,10 @@ main.findalcohol_section {
     }
   }
   /* filter section */
-  // common으로 사용하는 필터 + sort ( 공통이 많아서 depth 구조에서 쨈 )
+  // common으로 사용하는 필터 + sort ( 공통이 많아서 depth 구조에서 뺌 )
   div.filter_sort_wrap {
     @include flexbox($jc: space-between);
-    margin-top: 1rem;
+    // margin-top: 1rem;
     padding: 20px 10px;
     border-bottom: 1px solid #eee;
     p {
@@ -83,6 +83,9 @@ main.findalcohol_section {
   }
 
   div.filter_section_container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
     &.toggle::before {
       content: '';
       position: fixed;
@@ -93,10 +96,43 @@ main.findalcohol_section {
       background-color: rgba(0,0,0, 0.5);
       z-index: 1;
     }
+    // search
+    div.search_wrap {
+      position: relative;
+      margin-bottom: 1rem;
+      input {
+        width: 180px;
+        height: 30px;
+        margin-right: 5px;
+        padding: 2px 8px;
+        border: 1px solid #d9d8d8;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        color: #393939;
+        &::placeholder {
+          font-size: 0.8rem;
+          color: #327dce;
+        }
+        &:focus {
+          border-color: #327dce;
+        }
+      }
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 165px;
+        transform: translate(-50%, -50%);
+      }
+    }
+    // common
+    div.filter_sort_wrap {
+      width: 100%;
+    }
     // filter 
     div.filter_container {
       // @include flexbox;
       z-index: 2;
+      width: 100%;
       div.filter_wrap {
         display: flex;
         flex-wrap: wrap;
@@ -156,6 +192,41 @@ main.findalcohol_section {
             border: 1px solid #ddd;
             border-radius: 5px;
             background: white;
+            // 가격 input 범위 
+            div.price_wrap {
+              @include flexbox($jc: space-between);
+              width: 100%;
+              div.input_wrap {
+                @include flexbox($jc: space-between);
+                width: 85%;
+                margin-bottom: 0;
+                input.price {
+                  display: block;
+                  width: 45%;
+                  height: 25px;
+                  padding: 3px 8px;
+                  font-size: 0.7rem;
+                  border: 1px solid #ddd;
+                  border-radius: 5px;
+                  text-align: right;
+                  &::placeholder {
+                    text-align: right;
+                  }
+                  &:focus {
+                    border-color: #327dce;
+                  }
+                }
+              }
+              button {
+                padding: 8px;
+                height: 25px;
+                border-radius: 5px;
+                background: #555555;
+                font-size: 0.7rem;
+                font-weight: 500;
+                color: white;
+              }
+            }
             div {
               position: relative;
               width: 45%;
@@ -402,41 +473,95 @@ main.findalcohol_section {
           }
         }
         div.info_box {
-          p.price, 
-          div.review_box {
-            margin-bottom: 5px;
-          }
           p.name {
             font-size: 1rem;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
           }
-          p.price {
-            display: flex;
-            font-weight: bold;
-            span {
-              font-size: 0.9rem;
-              font-weight: normal;
+          div.price_box {
+            p {
+              font-weight: bold;
+              span {
+                font-size: 0.9rem;
+                font-weight: normal;
+              }
+              &.dc {
+                margin-bottom: 3px;
+                font-size: 0.9rem;
+                font-weight: normal;
+                color: #ccc;
+                text-decoration: line-through;
+                span {
+                  font-size: 0.9rem;
+                }
+              }
+            }
+            div.dc_info {
+              display: flex;
+              margin-bottom: 3px;
+              span.percent {
+                margin-right: 5px;
+                font-weight: 600;
+                color: #FF7D3A;
+              }
+              p.dc_price {}
+              p.price {}
             }
           }
           div.review_box {
             display: flex;
-            align-items: center;
+            align-items: flex-end;
+            margin-bottom: 4px;
             svg {
               color: #FFBE00;
               margin-right: 1px;
             }
             p.review_star {
-              font-size: 0.7rem;
+              font-size: 0.75rem;
+              font-weight: 600;
               color: #747474;
+              span {
+                margin-left: 3px;
+              }
             }
             p.text {
-              color: #747474;
               font-size: 0.7rem;
+              color: #747474;
             }
           }
           p.tag{
-            color: #747474;
             font-size: 0.9rem;
+            color: #747474;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 886px) {
+    & {
+      div.filter_section_container {
+        div.search_wrap {
+          width: 30%;
+          input {
+            width: 100%;
+          }
+          svg {
+            left: 95%;
+          }
+        }
+        div.filter_container {
+          div.filter_wrap {
+            div.type_wrap {
+              div.type_box {
+                padding: 10px;
+                span {
+                  font-size: 0.8rem;
+                }
+                img {
+                  width: 8%;
+                }
+              }
+            }
           }
         }
       }
@@ -477,68 +602,87 @@ main.findalcohol_section {
           }
         }
       }
-      div.filter_container {
-        div.filter_wrap {
-          &.pad {
-          }
-          div.type_wrap {
-            &:nth-of-type(5),
-            &:nth-of-type(6) {
-              div.option_box {
-              }
+
+      div.filter_section_container {
+        div.search_wrap {
+          margin-bottom: 0;
+        }
+        div.filter_container {
+          div.filter_wrap {
+            &.pad {
             }
-            div.type_box{
-              span {
-              }
-              img {
-              }
-              &.showModal {
-                img {
+            div.type_wrap {
+              &:nth-of-type(5),
+              &:nth-of-type(6) {
+                div.option_box {
                 }
               }
-              &.click {
+              div.type_box{
                 span {
                 }
-              }
-            }
-            div.option_box{
-              div {
-                input {
+                img {
                 }
-                label {
-                  &::before {
+                &.showModal {
+                  img {
                   }
                 }
-                input:checked + label::before {
+                &.click {
+                  span {
+                  }
+                }
+              }
+              div.option_box{
+                div.price_wrap {
+                  flex-direction: column;
+                  div.input_wrap {
+                    width: 100%;
+                    margin-bottom: 0.5rem;
+                    input.price {
+                      width: 45%;
+                    }
+                  }
+                  button {
+                    width: 100%;
+                  }
+                }
+                div {
+                  input {
+                  }
+                  label {
+                    &::before {
+                    }
+                  }
+                  input:checked + label::before {
+                  }
+                }
+              }
+              div.option_box.hidden {
+              }
+            }
+          }
+          div.checked_label_wrap {
+            div.label_box {
+              div.checked_label {
+                span:first-child {
+                }
+                span:last-child {
                 }
               }
             }
-            div.option_box.hidden {
-            }
-          }
-        }
-        div.checked_label_wrap {
-          div.label_box {
-            div.checked_label {
-              span:first-child {
+            div.reset_wrap {
+              div.pad_title {
               }
-              span:last-child {
-              }
-            }
-          }
-          div.reset_wrap {
-            div.pad_title {
-            }
-            div.reset_box {
-              svg {
-              }
-              span {
+              div.reset_box {
+                svg {
+                }
+                span {
+                }
               }
             }
           }
         }
       }
-
+        
       /* show list section */
       div.product_container {
         div.filter_sort_wrap {}
@@ -556,9 +700,6 @@ main.findalcohol_section {
               }
             }
             div.info_box {
-              p.price, 
-              div.review_box {}
-              
               p.name {}
               p.price {}
               div.review_box {
@@ -585,6 +726,9 @@ main.findalcohol_section {
           p:last-child {
           }
         }
+        div.avata_img {
+          width: 17%;
+        }
       }
       
       /* filter section */
@@ -604,25 +748,37 @@ main.findalcohol_section {
           }
         }
       }
-      div.filter_container {
-        div.filter_wrap {
-          &.pad {
+
+      div.filter_section_container{
+        div.search_wrap {
+          width: 100%;
+          input {
+            width: 100%;
+            padding: 2px 10px;
           }
-          div.type_wrap {
-            &:nth-of-type(5),
-            &:nth-of-type(6) {
-              div.option_box {
-              }
+          svg {
+            left: 95%;
+          }
+        }
+        div.filter_container {
+          div.filter_wrap {
+            &.pad {
             }
-            div.type_box{
-              span {
-              }
-              img {
-              }
-              &.showModal {
-                img {
+            div.type_wrap {
+              &:nth-of-type(5),
+              &:nth-of-type(6) {
+                div.option_box {
                 }
               }
+              div.type_box{
+                span {
+                }
+                img {
+                }
+                &.showModal {
+                  img {
+                  }
+                }
               &.click {
                 span {
                 }
@@ -665,6 +821,7 @@ main.findalcohol_section {
           }
         }
       }
+    }
 
       /* show list section */
       div.product_container {
@@ -683,15 +840,30 @@ main.findalcohol_section {
               }
             }
             div.info_box {
-              p.price, 
-              div.review_box {}
-              
               p.name {
                 font-size: 0.9rem;
               }
-              p.price {}
+              div.price_box {
+                p {
+                  span {
+                  }
+                  &.dc {
+                    font-size: 0.7rem;
+                    span {
+                      font-size: 0.7rem;
+                    }
+                  }
+                }
+                div.dc_info {
+                  span.percent {}
+                  p.dc_price {}
+                  p.price {}
+                }
+              }
               div.review_box {
-                p.review_star {}
+                p.review_star {
+                  font-weight: normal;
+                }
                 p.text {}
               }
               p.tag{
