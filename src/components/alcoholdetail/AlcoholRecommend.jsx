@@ -5,25 +5,37 @@ import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
 import { Navigation, Pagination } from 'swiper/modules'
 import BASE_URL from './../../constants/baseurl';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 export default function AlcoholRecommend({ alcohol_id, alcohol_type }) {
   const [list, setList] = useState([]);
+  const navigate = useNavigate();
 
-  axios({
-    url : `${BASE_URL}/alcoholdetail/recommend/${alcohol_id}`,
-    method : 'get'
-  })
-  .then(res => setList(res.data))
-  .catch(err => console.log(err))
-  
+  useEffect(()=>{
+    axios({
+      url : `${BASE_URL}/alcoholdetail/recommend/${alcohol_id}`,
+      method : 'get'
+    })
+    .then(res => setList(res.data))
+    .catch(err => console.log(err))
+  },[alcohol_id])
+
+  const getHandleClick = alcohol_id => () => {
+    navigate(`/findalcohol/${alcohol_id}`)
+    setTimeout(()=>{
+      window.scrollTo({top : 0, behavior : 'smooth'})
+    },100)
+  } 
+
   return (
     <div className='alcohol_recommend_container subsection_container'>
       <h4>연관 상품</h4>
-      <small className='sub_desc'>
-        또 다른 <b style={{ color: 'orange' }}>{alcohol_type}</b> 상품들을 추천해드릴게요!
-      </small>
+      {list.length ? <small className='sub_desc'>
+        또 다른 <b style={{ color: '#0096f3' }}>{alcohol_type}</b> 상품들을 추천해드릴게요!
+      </small> : null}
 
+        {list.length ? 
         <Swiper
           modules={[Navigation, Pagination]}
           spaceBetween={15}
@@ -38,95 +50,29 @@ export default function AlcoholRecommend({ alcohol_id, alcohol_type }) {
           }}
           navigation
         >
-            <SwiperSlide>
+          {list.map(alcohol => 
+            <SwiperSlide key={alcohol.alcohol_id} onClick={getHandleClick(alcohol.alcohol_id)}>
                 <div className='alcohol_img'>
-                  <img src="/assets/images/alcohol_img/AC0002_1.jpg" alt="" />
+                  <img src={`/assets/images/alcohol_img/${alcohol.alcohol_img}`} alt="" />
                 </div>
                 <h6 className="alcohol_name">
-                  술이름입니다
+                  {alcohol.alcohol_name}
                 </h6>
-                <span className="alcohol_price">
-                  15,000원
-                </span>
-            </SwiperSlide>
-            <SwiperSlide>
-                <div className='alcohol_img'>
-                  <img src="/assets/images/alcohol_img/AC0002_1.jpg" alt="" />
+                <div className={`alcohol_price ${alcohol.dc_percent ? 'discount' : 'no_discount'}`}>
+                  <span className="org_price">
+                    {alcohol.alcohol_price?.toLocaleString()}원
+                  </span>
+                  <p> 
+                    <span className='dc_percent'>{alcohol.dc_percent}%</span>
+                    <span className='dc_price'>{((alcohol.alcohol_price*(100-alcohol.dc_percent))/100)?.toLocaleString()}원</span>
+                  </p>
                 </div>
-                <h6 className="alcohol_name">
-                  술이름입니다
-                </h6>
-                <span className="alcohol_price">
-                  15,000원
-                </span>
             </SwiperSlide>
-            <SwiperSlide>
-                <div className='alcohol_img'>
-                  <img src="/assets/images/alcohol_img/AC0002_1.jpg" alt="" />
-                </div>
-                <h6 className="alcohol_name">
-                  술이름입니다
-                </h6>
-                <span className="alcohol_price">
-                  15,000원
-                </span>
-            </SwiperSlide>
-            <SwiperSlide>
-                <div className='alcohol_img'>
-                  <img src="/assets/images/alcohol_img/AC0002_1.jpg" alt="" />
-                </div>
-                <h6 className="alcohol_name">
-                  술이름입니다
-                </h6>
-                <span className="alcohol_price">
-                  15,000원
-                </span>
-            </SwiperSlide>
-            <SwiperSlide>
-                <div className='alcohol_img'>
-                  <img src="/assets/images/alcohol_img/AC0002_1.jpg" alt="" />
-                </div>
-                <h6 className="alcohol_name">
-                  술이름입니다
-                </h6>
-                <span className="alcohol_price">
-                  15,000원
-                </span>
-            </SwiperSlide>
-            <SwiperSlide>
-                <div className='alcohol_img'>
-                  <img src="/assets/images/alcohol_img/AC0002_1.jpg" alt="" />
-                </div>
-                <h6 className="alcohol_name">
-                  술이름입니다
-                </h6>
-                <span className="alcohol_price">
-                  15,000원
-                </span>
-            </SwiperSlide>
-            <SwiperSlide>
-                <div className='alcohol_img'>
-                  <img src="/assets/images/alcohol_img/AC0002_1.jpg" alt="" />
-                </div>
-                <h6 className="alcohol_name">
-                  술이름입니다
-                </h6>
-                <span className="alcohol_price">
-                  15,000원
-                </span>
-            </SwiperSlide>
-            <SwiperSlide>
-                <div className='alcohol_img'>
-                  <img src="/assets/images/alcohol_img/AC0002_1.jpg" alt="" />
-                </div>
-                <h6 className="alcohol_name">
-                  술이름입니다
-                </h6>
-                <span className="alcohol_price">
-                  15,000원
-                </span>
-            </SwiperSlide>
+          )}
         </Swiper>
+        : <div className='no_list' style={{fontSize:'.9rem', color:'#555', textAlign:'center', padding:'5rem 0'}}>
+          연관 상품 목록이 없습니다.
+          </div>}
     </div>
   );
 }

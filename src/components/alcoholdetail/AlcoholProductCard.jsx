@@ -1,9 +1,9 @@
 import ReviewInfo from './ReviewInfo';
 
-export default function AlcoholProductCard({alcohol}) {
+export default function AlcoholProductCard({ alcohol }) {
 
-  const {alcohol_id, alcohol_name, alcohol_price, alcohol_img1, hashtag, avg_rate,
-        alcohol_type,alcohol_volume, ABV, review_cnt} = alcohol
+  const { alcohol_id, alcohol_name, alcohol_price, alcohol_img1, hashtag, avg_rate,
+    alcohol_type, alcohol_volume, ABV, review_cnt, dc_percent } = alcohol
 
   return (
     <div className="alcohol_card_container">
@@ -12,11 +12,19 @@ export default function AlcoholProductCard({alcohol}) {
       </div>
       <div className="alcohol_info">
         <h3 className="alcohol_name">{alcohol_name}</h3>
-        <span className="hashtag"><span style={{marginRight : '3px'}}>#</span>{hashtag}</span>
-        <ReviewInfo rate={avg_rate} reviewCnt={review_cnt}/>
-        <div className="alcohol_price">
+        <span className="hashtag"><span style={{ marginRight: '3px' }}>#</span>{hashtag}</span>
+        <ReviewInfo rate={avg_rate} reviewCnt={review_cnt} />
+        <div className={`alcohol_price ${dc_percent ? 'discount' : 'no_discount'}`}>
           <small>판매 가격:</small>
-          <span>{alcohol_price?.toLocaleString()}원</span>
+          <span className='org_price'>{alcohol_price?.toLocaleString()}원</span>
+          {dc_percent
+            ?
+            <p>
+              <span className='dc_percent'>{dc_percent}%</span>
+              <span className='dc_price'>{((alcohol_price*(100-dc_percent))/100)?.toLocaleString()}원</span>
+            </p>
+            : null
+          }
         </div>
         <div className="alcohol_detail_info">
           <small className="alcohol_type">주종: {alcohol_type}</small>
