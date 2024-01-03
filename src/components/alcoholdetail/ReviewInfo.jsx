@@ -1,7 +1,7 @@
 import { FaStar } from "react-icons/fa";
 import { CiStar } from "react-icons/ci";
 
-export default function ReviewInfo({rate}) {
+export default function ReviewInfo({rate, reviewCnt}) {
 
   return (
     <div className='review_info'>
@@ -22,7 +22,7 @@ export default function ReviewInfo({rate}) {
         </div>
       </div>
       <small className='review_avg_rate'>{rate?.toFixed(1)}</small>
-      <span className='review_count'>[598 리뷰]</span>
+      <span className='review_count'>[리뷰 {reviewCnt || 0}건]</span>
     </div>
   );
 }

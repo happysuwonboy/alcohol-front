@@ -1,9 +1,9 @@
 import ReviewInfo from './ReviewInfo';
 
-export default function AlcoholCard({alcohol}) {
+export default function AlcoholProductCard({alcohol}) {
 
   const {alcohol_id, alcohol_name, alcohol_price, alcohol_img1, hashtag, avg_rate,
-        alcohol_type,alcohol_volume, ABV} = alcohol
+        alcohol_type,alcohol_volume, ABV, review_cnt} = alcohol
 
   return (
     <div className="alcohol_card_container">
@@ -12,8 +12,8 @@ export default function AlcoholCard({alcohol}) {
       </div>
       <div className="alcohol_info">
         <h3 className="alcohol_name">{alcohol_name}</h3>
-        <span className="hashtag"># {hashtag}</span>
-        <ReviewInfo rate={avg_rate}/>
+        <span className="hashtag"><span style={{marginRight : '3px'}}>#</span>{hashtag}</span>
+        <ReviewInfo rate={avg_rate} reviewCnt={review_cnt}/>
         <div className="alcohol_price">
           <small>판매 가격:</small>
           <span>{alcohol_price?.toLocaleString()}원</span>

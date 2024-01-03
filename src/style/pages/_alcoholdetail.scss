@@ -102,13 +102,16 @@ main.alcohol_detail {
         }
       }
     }
-    div.alcohol_foods_container {
+    div.subsection_container {
       margin-bottom: 3rem;
       h4 {
         font-size: 1.2rem;
         font-weight: 600;
         margin-bottom: 1.5rem;
       }
+    }
+    div.alcohol_foods_container {
+      margin-bottom: 3rem;
       div.alcohol_food_imgs {
         display: flex;
         figure {
@@ -128,17 +131,13 @@ main.alcohol_detail {
             color: #666;
             font-size: 1rem;
             font-weight: 600;
+            text-align: center;
           }
         }
       }
     }
     div.alcohol_flavor_container {
       margin-bottom: 3rem;
-      h4 {
-        font-size: 1.2rem;
-        font-weight: 600;
-        margin-bottom: 1.5rem;
-      }
       > div {
         div.flavor_level {
           width: 100%;
@@ -190,6 +189,75 @@ main.alcohol_detail {
         }
       }
     }
+    div.alcohol_desc_container {
+      h4 {
+        padding-bottom: 1.5rem;
+        border-bottom: 1px dotted #AAA;
+      }
+      figure.alcohol_comment_wrapper {
+        div.alcohol_comment_img {
+          margin: 0 auto;
+          img {
+            width: 100%;
+          }
+        }
+        figcaption.alcohol_comment_text {
+          padding: 1rem 0;
+          text-align: center;
+          h5 {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 1.8rem;
+          }
+          p {
+            font-size: .95rem;
+            line-height: 150%;
+            &:not(:last-of-type) {
+              margin-bottom: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+    div.alcohol_recommend_container {
+      width: 100%;
+      h4 {
+        margin-bottom: .5rem;
+      }
+      small.sub_desc {
+        display: block;
+        font-size: .9rem;
+        margin-bottom: 1.2rem;
+      }
+      .swiper {
+        z-index: 1;
+        .swiper-wrapper {
+          .swiper-slide {
+            div.alcohol_img {
+              border-radius: 10px;
+              overflow: hidden;
+              margin-bottom: 1rem;
+              img {
+                width: 100%;
+              }
+            }
+            h6.alcohol_name {
+              font-size: .95em;
+              margin-bottom: 1rem;
+            }
+            span.alcohol_price {
+              font-size: 1em;
+              font-weight: 600;
+            }
+          }
+        }
+        *[class*=swiper-button] {
+          @media screen and (max-width:798px) {
+            display: none;
+          }
+        }
+      }
+    }
   }
 
   div.sticky_container {
@@ -212,6 +280,7 @@ main.alcohol_detail {
 // xlg
 @media screen and (max-width: $xlg-breakpoint) {
   main.alcohol_detail {
+    display: block;
     padding: 1rem 1rem;
     div.sticky_container {
       display: none;
@@ -224,11 +293,6 @@ main.alcohol_detail {
   main.alcohol_detail {
     div.alcohol_detail_container {
       div.alcohol_foods_container {
-        h4 {
-          font-size: 1.2rem;
-          font-weight: 600;
-          margin-bottom: 1.5rem;
-        }
         div.alcohol_food_imgs {
           justify-content: flex-start;
           figure {
@@ -256,7 +320,6 @@ main.alcohol_detail {
           &:first-of-type {
             margin-right: 2%;
           }
-
         }
       }
     }
@@ -285,7 +348,7 @@ main.alcohol_detail {
               }
             }
             figcaption {
-              font-size: 0.9rem;
+              font-size: 0.8rem;
               font-weight: 600;
             }
           }
@@ -297,6 +360,13 @@ main.alcohol_detail {
           display: block;
           &:first-of-type div.flavor_level {
             border-bottom: 1px solid #ddd;
+          }
+        }
+      }
+      div.alcohol_desc_container {
+        figure.alcohol_comment_wrapper {
+          div.alcohol_comment_img {
+            // max-width: 375px;
           }
         }
       }
@@ -332,4 +402,27 @@ main.alcohol_detail {
       }
     }
   }
+}
+
+
+// 모바일
+@media screen and (max-width: $sm-breakpoint) {
+main.alcohol_detail {
+  div.alcohol_detail_container {
+    div.alcohol_desc_container {
+      figure.alcohol_comment_wrapper {
+        figcaption.alcohol_comment_text {
+          h5 {
+            font-size: 1.2em;
+          }
+          p {
+            font-size: .8rem;
+          }
+        }
+      }
+    }
+
+  }
+}
+
 }

@@ -8,6 +8,7 @@ ul.layout_center {
 div.header_sticky_wrapper {
     background-color: #fff;
     position: sticky;
+    z-index: 10;
     top: 0;
     padding: 0 3rem;
     box-shadow: 0 0 1px #777;
