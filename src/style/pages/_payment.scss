@@ -1,0 +1,273 @@
+main.main_payment{
+    div.pay_container{
+        max-width: 1150px;
+        margin: 30px auto;
+        padding: 60px 50px;
+        border: 1px solid #DDD;
+        border-radius: 10px;
+        p.pay_title{
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #666666;
+            border-bottom: 1px solid #F9DEAE;
+        }
+        div.pay_content{
+            width: 375px;
+            margin: 0 auto;
+            div.address{
+                padding: 40px 20px;
+                margin-bottom: 15px;
+                border: 1px solid #CCC;
+                div.address_title{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding-bottom: 15px;
+                    margin-bottom: 20px;
+                    border-bottom: 1px solid #CCC;
+                    span{
+                        font-size: 16px;
+                        font-weight: 700;
+                    }
+                    button{
+                        color: rgb(0, 150, 243);
+                        font-size: 13px;
+                        font-weight: 700;
+                        text-decoration: underline;
+                    }
+                }
+                div.address_content{
+                    p.rec_name{
+                        margin-bottom: 8px;
+                        font-weight: bold;
+                    }
+                    p.rec_phone{
+                        margin-bottom: 15px;
+                        font-size: 14px;
+                    }
+                    p.rec_address{
+                        margin-bottom: 20px;
+                        font-size: 14px;
+                    }
+                    
+                }
+            }
+            div.order_alcohol{
+                padding: 40px 20px;
+                margin-bottom: 15px;
+                border: 1px solid #CCC;
+                div.order_alcohol_title{
+                    padding-bottom: 15px;
+                    margin-bottom: 20px;
+                    border-bottom: 1px solid #CCC;
+                    span{
+                        font-size: 16px;
+                        font-weight: 700;
+                    }
+                }
+                div.order_alcohol_content{
+                    div.alcohol{
+                        display: flex;
+                        align-items: flex-end;
+                        margin-bottom: 15px;
+                        div.alcohol_img{
+                            width: 60px;
+                            margin-right: 10px;
+                            img{
+                                width: 100%;
+                                height: 75px;
+                                object-fit: cover;
+                            }
+                        }
+                        div.alcohol_info{
+                            p.alcohol_title{
+                                display: flex;
+                                align-items: flex-start;
+                                margin-bottom: 4px;
+                                font-size: 14px;
+                                font-weight: bold;
+                                span.icon{
+                                    margin-left: 4px;
+                                    svg{
+                                        width: 14px;
+                                        height: 14px;
+                                    }
+                                }
+                            }
+                            p.alcohol_volume{
+                                font-size: 14px;
+                                margin-bottom: 10px;
+                            }
+                            p.price_qty{
+                                span{
+                                    font-size: 12px;
+                                    color: gray;
+                                }
+                                span.alcohol_price{}
+                                span.alcohol_qty{}
+                            }
+                        }
+                    }
+                }
+                div.order_alcohol_price{
+                    p.delivery_price{
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-end;
+                        margin-bottom: 15px;
+                        padding: 10px 0;
+                        color: #707070;
+                        border-bottom: 1px solid #000;
+                        span{
+                            margin-left: 4px;
+                            font-size: 12px;
+                        }
+                    }
+                    p.total_price{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                }
+            }
+            div.bill{
+                padding: 40px 20px;
+                margin-bottom: 15px;
+                border: 1px solid #CCC;
+                div.bill_title{
+                    padding-bottom: 15px;
+                    margin-bottom: 20px;
+                    border-bottom: 1px solid #CCC;
+                    span{
+                        font-size: 16px;
+                        font-weight: 700;
+                    }
+                }
+                div.bill_content{
+                    p{
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        font-size: 14px;
+                        margin-bottom: 10px;
+                        span{
+                            letter-spacing: 0.5px;
+                        }
+                        &.total_price{
+                            font-weight: bold;
+                        }
+                        &.alcohol_price{
+                            span{
+                                margin-left: 16px;
+                            }
+                        }
+                        &.delivery_price{
+                            span{
+                                margin-left: 16px;
+                            }
+                        }
+                        &.dc_price{
+                            font-weight: bold;
+                            border-bottom: 1px solid #CCC;
+                            padding: 10px 0 20px 0;
+                        }
+                        &.total_order_price{
+                            margin-top: 20px;
+                            font-size: 16px;
+                            font-weight: bold;
+                            span.pay_price{
+                                color: rgb(0, 150, 243);
+                            }
+                        }
+                    }
+                }
+            }
+            div.agree{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 24px 20px;
+                margin-bottom: 15px;
+                border: 1px solid #CCC;
+                button.agree_check{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    div.agree_check_img{
+                        width: 20px;
+                        margin-right: 10px;
+                        cursor: pointer;
+                        img{
+                            width: 100%;
+                        }
+                    }
+                    p.agree_message{
+                        font-size: 14px;
+                        font-weight: bold;
+                        cursor: pointer;
+                        span{
+                            color: #707070;
+                        }
+                    }
+                }
+                button.more_btn{
+                    svg{
+                        width: 28px;
+                        height: 28px;
+                        color: #BBB;
+                    }
+                }
+            }
+            div.agree_content{
+                padding: 10px 30px;
+                margin-bottom: 15px;
+                p{
+                    margin-bottom: 10px;
+                    font-size: 11px;
+                    line-height: 17px;
+                    &.bold{
+                        font-weight: bold;
+                    }
+                    &.gray{
+                        color: #555555;
+                    }
+                    &.lightgray{
+                        color: #888888;
+                    }
+                    &.red{
+                        color: red;
+                    }
+                }
+            }
+            div.pay{
+                text-align: center;
+                button{
+                    width: 90%;
+                    padding: 12px 0;
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: #FFF;
+                    background-color: rgb(0, 150, 243);
+                    border-radius: 4px;
+                    transition: all 0.3s ease 0s;
+                    &.impossible{
+                        background-color: #B2B2B2;
+                        color: #8E8E8E;
+                        cursor: default;
+                        pointer-events: none;
+                    }
+                    &:hover{
+                        background-color: #4379BD;
+                    }
+                    span{
+                        font-size: 19px;
+                    }
+                }
+            }
+        }
+    }
+}
