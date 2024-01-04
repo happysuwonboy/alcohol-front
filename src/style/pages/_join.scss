@@ -1,0 +1,70 @@
+main.join_frame{
+  width: 330px;
+  min-width: 315px;
+  margin: 0 auto;
+  .join_title{
+    font-size: 26px;
+    color: rgb(62,62,62);
+    font-weight: 700;
+    line-height: 100%;
+    margin: 60px 0px;
+  }
+  .join_form{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    p.error_message{
+      font-size: 0.7rem;
+      color: red;
+    }
+    .label_name, .label_phone,
+    .label_userid,.label_password,
+    .label_confirmpassword,.label_birthdate,
+    .label_email,.label_selectedaddress,
+    .label_detailaddress{
+      margin-bottom: 5px;
+      background-color: none;
+    }
+    .input_name,.input_userid,
+    .input_phone,.input_password,
+    .input_confirmpassword,.input_birthdate,
+    .input_email,.input_selectedaddress,
+    .input_detailaddress{
+      height: 50px;
+      margin-bottom: 15px;
+      font-size: 15px;
+      border: 1px solid rgb(224,224,224);
+      border-radius: 5px;
+      padding: 14px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease; // 테두리 색 변화를 부드럽게 만듦
+      &:hover {
+        border-color: orange; // 마우스가 올라갈 때의 테두리 색
+      }
+    }
+    .address_button,.join_button,.idcheck_button{
+      height: 50px;
+      font-size: 18px;
+      font-weight: 600;
+      color: rgb(255, 255, 255);
+      border-radius: 5px;
+      margin-bottom:15px;
+    }
+    .address_button,.idcheck_button{
+      background-color: rgb(0, 150, 243); // 원하는 색상으로 변경하세요
+      border: 1px solid rgb(0, 150, 243);
+    }
+    .join_button {
+      background: #B2B2B2; // 초기 배경색
+      border: 1px solid #B2B2B2;
+      transition: background 0.3s ease; // 트랜지션 효과 추가
+      &.enabled {
+        // 두 입력 필드에 값이 있는 경우에 적용할 스타일
+        background-color: rgb(0, 150, 243); // 원하는 색상으로 변경하세요
+        border: 1px solid rgb(0, 150, 243);
+      }
+    }
+    
+  }
+
+}
