@@ -10,7 +10,9 @@ export const filterData = createAsyncThunk('data/filterData', async(filterList) 
 const filterSlice = createSlice({
   name: 'filters',
   initialState: {
-    searchInput: [],
+    currentPage : 1,
+    searchInput: '',
+    // searchInput: [],
     searchInputPrice: [
       { isPrice : false },
       { inputPrice : 1, value : '1'},
@@ -80,6 +82,7 @@ const filterSlice = createSlice({
   reducers: {
     /* 체크박스 변동 */
     checkboxSeleted: (state, action) => {
+      state.currentPage = 1;
       const { categoryId, category, optionId, optionName } = action.payload; // 선택한 디스패치의 액션 데이터 받아오기
       const filterCategory = state.filterInfo.find(filter => filter.categoryId === categoryId); // 해당하는 카테고리 찾아서 반환
       
@@ -132,6 +135,7 @@ const filterSlice = createSlice({
 
     /* remove x 버튼 클릭 : 리스트에서 삭제 */
     optionRemove: (state, action) => {
+      state.currentPage = 1;
       const { categoryId, optionId } = action.payload;
 
       // 가격 검색어와 가격 체크박스의 categoryId가 동일하기 때문에 
@@ -151,12 +155,13 @@ const filterSlice = createSlice({
 
     /* 초기화 리셋 클릭 */
     optionReset: (state, action) => {
-      const optionResetId = state.checkedOption.map(seleted => seleted.id);
+      state.currentPage = 1;
+      const optionResultId = state.checkedOption.map(seleted => seleted.id);
 
       state.filterInfo.forEach(filter => {
         filter.isSelected = false;
         filter.option.forEach(option => {
-          if (optionResetId.includes(option.id)) {
+          if (optionResultId.includes(option.id)) {
             option.checked = !option.checked;
           }
         })
@@ -171,11 +176,13 @@ const filterSlice = createSlice({
 
     /* 검색 input search change */
     changeInput: (state, action) => {
+      state.currentPage = 1;
       state.searchInput = action.payload;
     },
 
     /* 가격 input search change */
     changeInputPrice: (state, action) => {
+      state.currentPage = 1;
       const searchInputPriceInfo  = action.payload;
       const { categoryId, category, id } = searchInputPriceInfo[2];
       const inputValue1 = Number(searchInputPriceInfo[0].value);
@@ -200,6 +207,11 @@ const filterSlice = createSlice({
       state.searchInputPrice[1].value = searchInputPriceInfo[0].value;
       state.searchInputPrice[2].value = searchInputPriceInfo[1].value;
     },
+
+    /* 페이지네이션 버튼 클릭 */
+    clickPageNation: (state, action) => {
+      state.currentPage = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -217,5 +229,5 @@ const filterSlice = createSlice({
   }
 })
 
-export const { checkboxSeleted, optionRemove, optionReset, changeSort, changeInput, changeInputPrice } = filterSlice.actions;
+export const { checkboxSeleted, optionRemove, optionReset, changeSort, changeInput, changeInputPrice, clickPageNation } = filterSlice.actions;
 export default filterSlice.reducer;

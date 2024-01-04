@@ -5,7 +5,8 @@ import { changeSort } from '../../redux/modules/filterSlice';
 
 export default function FilterSortCommon(props) {
   const dispatch = useDispatch();
-  const { sort } = useSelector(state => state.filterSlice);
+  const { sort, products } = useSelector(state => state.filterSlice);
+  console.log(products);
 
   const handleSortChange = (e) => {
     dispatch(changeSort(e.target.value));
@@ -13,7 +14,7 @@ export default function FilterSortCommon(props) {
   
   return(
     <div className='filter_sort_wrap'>
-      <p><span>10</span>건의 결과가 있어요</p>
+      <p><span>{products.length > 0 ? products[0].total_cnt : 0 }</span>건의 결과가 있어요</p>
       <div className='filter_select_wrap'>
         <div className='select_box'>
           <select value={sort} onChange={handleSortChange}>
