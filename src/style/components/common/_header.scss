@@ -209,7 +209,8 @@ div.hamburger_menu_wrapper {
     width: 100%;
     height: 100%;
     top: 0; left: 0;
-    display: none;
+    pointer-events: none;
+    transition: all .8s;
     div.hamburger_menu {
         position: absolute;
         top: 0; right: 0;
@@ -335,6 +336,7 @@ div.hamburger_menu_wrapper {
         transition: all .5s;
     }
     &.show {
+        pointer-events: all;
         div.hamburger_menu {
             transform: translateX(0);
         }
@@ -348,12 +350,12 @@ div.hamburger_menu_wrapper {
 
 
 
-
-
 // 반응형
 
 @media screen and (min-width : $lg-breakpoint) {
     div.mobile_header {
+        opacity: 0;
+        pointer-events: none;
         display: none;
     }
 }

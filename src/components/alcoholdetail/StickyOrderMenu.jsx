@@ -1,10 +1,10 @@
 import OrderContent from './OrderContent';
 
-export default function StickyOrderMenu({alcohol}) {
+export default function StickyOrderMenu({alcohol, qty, setQty}) {
 
   return (
     <div className='sticky_container'>
-      <OrderContent alcohol={alcohol}></OrderContent>
+      <OrderContent alcohol={alcohol} qty={qty} setQty={setQty} />
     </div>
   );
 }

@@ -9,9 +9,7 @@ import { FaDollarSign } from "react-icons/fa";
 
 
 
-export default function OrderContent({alcohol}) {
-
-  let [qty, setQty] = useState(1);
+export default function OrderContent({alcohol, qty, setQty}) {
   
   const {alcohol_id ,alcohol_name, alcohol_price, dc_percent} = alcohol
   

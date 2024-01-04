@@ -16,6 +16,7 @@ export default function AlcoholDetail() {
     const navigate = useNavigate();
     const params = useParams();
     const [alcohol, setAlcohol] = useState({})
+    let [qty, setQty] = useState(1);
 
     useEffect(()=>{
         window.scrollTo({top : 0})
@@ -51,9 +52,9 @@ export default function AlcoholDetail() {
                     <AlcoholDesc alcohol={alcohol} />
                     <AlcoholRecommend alcohol_id={alcohol.alcohol_id} alcohol_type={alcohol.alcohol_type} />
                 </div>
-                <StickyOrderMenu alcohol={alcohol}/> 
+                <StickyOrderMenu alcohol={alcohol} qty={qty} setQty={setQty}/> 
             </main>
-                <FixedOrderMenu alcohol={alcohol}/> 
+                <FixedOrderMenu alcohol={alcohol} qty={qty} setQty={setQty}/> 
         </>
     );
 }

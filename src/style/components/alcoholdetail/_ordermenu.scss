@@ -1,4 +1,4 @@
-// sticky/fixed 공통 
+// sticky/fixed 공통
 div.order_content_container {
   div.wrapper_common_layout {
     margin-bottom: 1.2rem;
@@ -85,14 +85,14 @@ div.order_content_container {
         margin-right: 3px;
       }
     }
-    span[class*='delivery_fee'] {
+    span[class*="delivery_fee"] {
       display: block;
       font-size: 0.8rem;
-      &[class*='basic'] {
+      &[class*="basic"] {
         font-weight: 600;
         margin-bottom: 0.2rem;
       }
-      &[class*='benefit'] {
+      &[class*="benefit"] {
         font-size: 0.75rem;
         font-weight: 600;
         color: rgb(0, 150, 243);
@@ -139,10 +139,7 @@ button.order_btn {
       }
     }
   }
-} // sticky/position 공통 
-
-
-
+} // sticky/position 공통
 
 // sticky 전용 (xlg이상 사이즈)
 main.alcohol_detail {
@@ -164,15 +161,16 @@ main.alcohol_detail {
 } // sticky 전용
 
 
+
 // fixed 전용 (xlg이상 사이즈)
 div.fixed_container {
   position: fixed;
 }
 
 div.bottom_btns_container {
-  padding: .5rem;
+  padding: 0.5rem;
   padding-bottom: 0;
-  border-bottom: .5rem solid #fffffff6;
+  border-bottom: 0.5rem solid #fffffff6;
   width: 100%;
   z-index: 4;
   background-color: #ffffffe9;
@@ -180,19 +178,106 @@ div.bottom_btns_container {
   button {
     width: 100%;
   }
-} 
+}
+
+div.order_modal {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  width: 100%; height: 100%;
+  z-index: 15;
+  transition: all .8s;
+  div.modal_content_container {
+    padding: 1rem;
+    position: absolute;
+    z-index: 12;
+    background-color: #FFF;
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+    left: 0; bottom: 0; 
+    transform: translateY(100%);
+    transition: all .8s;
+    div.modal_header {
+      text-align: center;
+      padding-bottom: .8rem;
+      button.hide_btn {
+        font-size: 2rem;
+        color: #cbcbcb;
+        transition: all .2s;
+        &:hover {
+          @media (hover:hover) {
+          color: #8a8a8a;
+        }}
+      }
+    }
+    div.order_content_container {
+      margin: 0 auto;
+      max-width: 700px;
+      div.wrapper_common_layout {
+        margin-bottom: 1.2rem;
+        h3.title {
+          font-size: 0.85rem;
+          margin-bottom: 0.8rem;
+        }
+        div.content_box {
+          border: 1px solid rgb(224, 224, 224);
+          height: 45px;
+          box-sizing: border-box;
+          border-radius: 5px;
+        }
+      }
+      div.order_prodname_wrapper {
+        div.content_box {
+          span.prod_name {
+            font-size: 0.85rem;
+            line-height: 45px;
+          }
+        }
+      }
+
+      div.delivery_info_wrapper {
+        margin-bottom: 1.2rem;
+      }
+
+      div.btns_container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        button {
+          width: 48%;
+          font-size: .9rem;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+  div.black_bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: #000;
+    opacity: 0;
+    z-index: 11;
+    transition: all .5s;
+  }
+  &.show {
+    pointer-events: all;
+    div.modal_content_container {
+        transform: translateX(0);
+    }
+    div.black_bg {
+        opacity: .5;
+    }
+}
+}
+
 // fixed 전용
-
-
-
-
 
 /* 반응형 미디어 쿼리 */
 
 // xlg
 @media screen and (min-width: $xlg-breakpoint) {
   main.alcohol_detail {
-
   }
   div.fixed_container {
     display: none;
@@ -205,4 +290,3 @@ div.bottom_btns_container {
     }
   }
 }
-

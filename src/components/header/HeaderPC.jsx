@@ -24,8 +24,8 @@ export default function HeaderPC ({user, curPage}) {
                             : null}
                         {user.user_id ?
                             <>
-                                <Link to='/mypage' className='mypage_link'>
-                                    {user.user_id} 님 &gt;
+                                <Link to={!user.isAdmin ? '/mypage' : '/adminpage'} className='mypage_link'>
+                                    {!user.isAdmin ? `${user.user_id} 님` : '관리자 페이지'} &gt;
                                 </Link>
                                 <button className='header_log logout_btn' to='/login'> 로그아웃 </button>
                             </>
