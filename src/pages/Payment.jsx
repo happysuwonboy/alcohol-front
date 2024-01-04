@@ -6,23 +6,25 @@ import { IoIosArrowDown } from "react-icons/io";
 import Agree from "../components/payment/Agree";
 
 export default function Payment() {
+    const navigate = useNavigate();
     const location = useLocation();
     const { state } = location;
-    const checked = state.checked;
+    //cart 페이지에서 payment 페이지로 넘어오는 값 (회원id, 체크한 상품 id, 총상품금액, 총할인금액, 최종결제금액)
+    //만약 배송지를 변경한다면 receipt 페이지로 전달하고 다시 payment 페이지로 가져옴
     const userId = state.userId;
+    const checked = state.checked;  
     const totalPrice = state.totalPrice;
     const totalDcPrice = state.totalDcPrice;
     const deliveryPrice = state.deliveryPrice;
-    
-    const name = state.name;
-    const phone = state.phone;
-    const address = state.address;
-    const navigate = useNavigate();
-
+    //배송지를 선택하면 receipt 페이지에서 payment 페이지로 넘어오는 값 (수령인 이름, 전화번호, 주소)
+    const recName = state.name; 
+    const recPhone = state.phone;
+    const recAddress = state.address;
+    //결제 페이지에서 출력되는 상품정보, 배송지정보
     const [orderAlcohol, setOrderAlcohol] = useState([]);
-    const [Name, setName] = useState('');
-    const [Phone, setPhone] = useState('');
-    const [Address, setAddress] = useState('');
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [address, setAddress] = useState('');
 
     const [isAgreeModal, setIsAgreeModal] = useState(false);
     const [isAgreeCheck, setIsAgreeCheck] = useState(false);
@@ -59,14 +61,30 @@ export default function Payment() {
             url : `http://127.0.0.1:8000/receipt/default/${userId}`
         })
         .then((result) => {
-            if(name===undefined){
-                setName(result.data[0].rec_name);
-                setPhone(result.data[0].rec_phone);
-                setAddress(result.data[0].rec_address);
-            } else{
-                setName(name);
-                setPhone(phone);
-                setAddress(address);
+            if(result.data === 'none'){
+                document.querySelector('.address_title button').style.display = 'none';
+                document.querySelector('.default_none').style.display = 'block';
+                if(recName===undefined){
+                    setName(result.data[0].rec_name);
+                    setPhone(result.data[0].rec_phone);
+                    setAddress(result.data[0].rec_address);
+                }else{
+                    document.querySelector('.address_title button').style.display = 'block';
+                    document.querySelector('.default_none').style.display = 'none';
+                    setName(recName);
+                    setPhone(recPhone);
+                    setAddress(recAddress);
+                }
+            }else{
+                if(recName===undefined){
+                    setName(result.data[0].rec_name);
+                    setPhone(result.data[0].rec_phone);
+                    setAddress(result.data[0].rec_address);
+                }else{
+                    setName(recName);
+                    setPhone(recPhone);
+                    setAddress(recAddress);
+                }
             }
         })
         .catch((err) => {
@@ -109,15 +127,6 @@ export default function Payment() {
         navigate(`receipt`, { state: { userId : userId, cartData : state }});
     }
 
-    useEffect(() => {
-        if (location.state) {
-            const { Name, Phone, Address } = location.state;
-            setName(Name);
-            setPhone(Phone);
-            setAddress(Address);
-        }
-    }, [location.state]);
-
     return(
         <main className='main_payment'>
             <div className='pay_container'>    
@@ -130,9 +139,13 @@ export default function Payment() {
                             <button type='button' onClick={handleRecList}>변경</button>
                         </div>
                         <div className='address_content'>
-                            <p className='rec_name'>{Name}</p>
-                            <p className='rec_phone'>{Phone}</p>
-                            <p className='rec_address'>{Address}</p>
+                            <p className='rec_name'>{name}</p>
+                            <p className='rec_phone'>{phone}</p>
+                            <p className='rec_address'>{address}</p>
+                        </div>
+                        <div className='default_none'>
+                            <p>기본 배송지가 없습니다.</p>
+                            <button type='button' onClick={handleRecList}>배송지 추가</button>
                         </div>
                     </div>
                     {/* 주문예정상품 */}
@@ -223,7 +236,7 @@ export default function Payment() {
                     {isAgreeModal===true?<Agree />:''}
                     {/* 결제 버튼 */}
                     <div className='pay'>
-                        <button type='button' className={isAgreeCheck===false?'impossible':''}>
+                        <button type='button' className={isAgreeCheck===false || name===undefined?'impossible':''}>
                             <span>{(totalPrice+totalDcPrice+deliveryPrice).toLocaleString()}</span>
                             원 결제하기
                         </button>
