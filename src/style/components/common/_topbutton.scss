@@ -1,0 +1,33 @@
+.top_btn {
+  z-index: 1000;
+  position: fixed;
+  right: 45px;
+  bottom: 15px;
+  opacity: 0;
+  transition: opacity .5s ease-in-out;
+  pointer-events: none ;
+  @media screen and (max-width:$lg-breakpoint) {
+    bottom: 75px;
+    button {
+      background-color: #F5F5F5;
+      border-radius: 50%;
+      border: .5px solid rgb(213, 213, 213);
+      padding: 90%;
+      color: black;
+    }
+  }
+  @include responsive(pc) {
+    button {
+      // background-color: black;
+      border-radius: 50%;
+      padding: 90%;
+      box-shadow: 0px 2px 15px -2px rgba(0,0,0,0.46);
+    -webkit-box-shadow: 0px 2px 15px -2px rgba(0,0,0,0.46);
+    -moz-box-shadow: 0px 2px 15px -2px rgba(0,0,0,0.46);
+    }
+  }
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
