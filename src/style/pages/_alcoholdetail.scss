@@ -1,0 +1,16 @@
+@import '../components/alcoholdetail/alcoholInfo';
+@import '../components/alcoholdetail/ordermenu';
+
+
+main.alcohol_detail {
+  display: flex;
+  max-width: 1200px;
+  padding: 1rem 0rem;
+  margin: 0 auto;
+  // xlg
+  @media screen and (max-width: $xlg-breakpoint) {
+      display: block;
+      padding: 1rem 1rem;
+  }
+}
+
