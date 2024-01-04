@@ -5,6 +5,7 @@ import './style/main.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import Home from './pages/Home';
 import FindAlcohol from './pages/FindAlcohol';
 import AlcoholDetail from './pages/AlcoholDetail';
@@ -17,6 +18,7 @@ import MyPage from './pages/MyPage';
 import AdminPage from './pages/AdminPage';
 import FindId from './pages/FindId';
 import FindPw from './pages/FindPw';
+import store from './redux/store/store';
 
 const router = createBrowserRouter([{
   path : '/',
@@ -40,7 +42,9 @@ const router = createBrowserRouter([{
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <Provider store={store}>
+      <RouterProvider router={router}/>
+    </Provider>
   </React.StrictMode>
 );
 
