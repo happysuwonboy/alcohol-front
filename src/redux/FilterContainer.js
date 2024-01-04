@@ -45,6 +45,10 @@ export default function FilterContainer() {
     }
   }, []);
 
+  const handlePageChange = () =>{
+    
+  }
+
   return (
     <>
       <FilterWrap 
@@ -58,11 +62,12 @@ export default function FilterContainer() {
         setIsFilterClick={setIsFilterClick}
         />
       <PagiNation
-        // activePage={currentPage}
+        activePage={4}
         itemsCountPerPage={4}
+        totalItemsCount={10}
         // totalItemsCount={reviewData.length > 0 ? reviewData[0].total_cnt : 0}
         pageRangeDisplayed={5}
-        // onChange={handlePageChange}
+        onChange={handlePageChange}
         prevPageText='<'
         nextPageText='>'
       />

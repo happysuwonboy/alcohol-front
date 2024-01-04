@@ -537,6 +537,29 @@ main.findalcohol_section {
     }
   }
 
+  ul.pagination {
+    @include flexbox($ai: flex-end);
+    width: 100%;
+    margin-top: 3rem;
+
+    li {
+      margin: 0 0.5rem;
+      &.active a {
+        display: block;
+        width: 20px;
+        height: 20px;
+        padding-top: 1px;
+        border-radius: 7px;
+        background: #FFBE00;
+        font-weight: bold;
+        font-size: 0.9rem;
+        color: white;
+        line-height: 20px;
+        text-align: center;
+      }
+    }
+  }
+
   @media screen and (min-width: 886px) {
     & {
       div.filter_section_container {
