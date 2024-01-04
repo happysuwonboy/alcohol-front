@@ -1,5 +1,5 @@
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import StickyOrderMenu from './../components/alcoholdetail/StickyOrderMenu';
 import AlcoholProductCard from '../components/alcoholdetail/AlcoholProductCard';
 import AlcoholFood from '../components/alcoholdetail/AlcoholFood';
@@ -12,6 +12,7 @@ import BASE_URL from '../constants/baseurl';
 
 
 export default function AlcoholDetail() {
+    const navigate = useNavigate();
     const params = useParams();
     const [alcohol, setAlcohol] = useState({})
 
@@ -20,8 +21,14 @@ export default function AlcoholDetail() {
             method: 'get',
             url: `${BASE_URL}/alcoholdetail/${params.alcoholid}`
         })
-        .then(res => setAlcohol(res.data))
-        .catch(err => console.log(err))
+        .then(res => 
+            setAlcohol(res.data)
+        )
+        .catch(err => {
+            console.log(err)
+            alert('상품 정보가 없습니다.')
+            navigate('/findalcohol')
+        })
     }, [params.alcoholid])
 
     return (
@@ -38,7 +45,7 @@ export default function AlcoholDetail() {
                 <AlcoholDesc alcohol={alcohol} />
                 <AlcoholRecommend alcohol_id={alcohol.alcohol_id} alcohol_type={alcohol.alcohol_type} />
             </div>
-            <StickyOrderMenu />
+            <StickyOrderMenu alcohol={alcohol}/>
         </main>
     );
 }

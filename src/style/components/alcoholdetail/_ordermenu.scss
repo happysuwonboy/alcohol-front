@@ -1,0 +1,105 @@
+main.alcohol_detail {
+  // xlg이상 사이즈 (데스크탑 전용)
+  div.sticky_container {
+    width: 27%;
+    height: inherit;
+    z-index: 3;
+    max-width: 300px;
+    margin: 0 auto;
+    div.order_menu_container {
+      padding: 30px 10px;
+      position: sticky;
+      top: 100px;
+      box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.16);
+      background-color: #FFF;
+      div.wrapper_common_layout {
+        margin-bottom: 1.5rem;
+        h3.title {
+          font-size: .95rem;
+          font-weight: 600;
+          color: rgb(62, 62, 62);
+          margin-bottom: 1rem;
+        }
+        div.content_box {
+          border: 1px solid rgb(224, 224, 224);
+          height: 45px;
+          box-sizing: border-box;
+        }
+      }
+      div.order_prodname_wrapper {
+        div.content_box {
+          @include ellipsis();
+          padding: 0 .8rem;
+          text-align: center;
+          span.prod_name {
+            font-size: .85rem;
+            line-height: 45px;
+          }
+        }
+      }
+      div.order_qty_wrapper {
+        div.qty_controller {
+          display: flex;
+          align-items: center;
+          
+          button.control_btn {
+            width: 25%;
+            height: 100%;
+            svg {
+              margin: 0 auto;
+            }
+          }
+          span.order_qty {
+            text-align: center;
+            height: 100%;
+            line-height: 45px;
+            border-left: 1px solid rgb(224, 224, 224);
+            border-right: 1px solid rgb(224, 224, 224);
+            width: 50%;
+          }
+        }
+      }
+      div.order_totalprice_wrapper {
+        div.content_box {
+          @include ellipsis();
+          padding: 0 .8rem;
+          text-align: center;
+          span.order_total_price {
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 45px;
+          }
+        }
+      }
+      div.delivery_info_wrapper {
+        background-color: #EEE;
+        border-radius: 3px;
+        span.delivery_title {
+          display: flex;
+          align-items: center;
+          font-size: .9em;
+          font-weight: 600;
+          color: rgb(0, 150, 243);
+          svg {
+            font-size: 1.2rem;
+            margin-right: 3px;
+          }
+        }
+      }
+    }
+  }
+
+  // xlg 미만 사이즈 (모바일 디바이스 전용)
+}
+
+
+/* 반응형 미디어 쿼리 */
+
+// xlg
+@media screen and (max-width: $xlg-breakpoint) {
+  main.alcohol_detail {
+    div.sticky_container {
+      display: none;
+    }
+  }
+}
