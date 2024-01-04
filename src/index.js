@@ -10,6 +10,7 @@ import FindAlcohol from './pages/FindAlcohol';
 import AlcoholDetail from './pages/AlcoholDetail';
 import Cart from './pages/Cart';
 import Payment from './pages/Payment';
+import Receipt from './pages/Receipt';
 import Join from './pages/Join';
 import Login from './pages/Login';
 import MyPage from './pages/MyPage';
@@ -26,6 +27,7 @@ const router = createBrowserRouter([{
     {path : '/findalcohol/:alcoholid', element : <AlcoholDetail/>},
     {path : '/cart', element : <Cart/>},
     {path : '/payment', element : <Payment/>},
+    {path : '/payment/receipt', element : <Receipt/>},
     {path : '/join', element : <Join/>},
     {path : '/login', element : <Login/>},
     {path : '/mypage', element : <MyPage/>},
