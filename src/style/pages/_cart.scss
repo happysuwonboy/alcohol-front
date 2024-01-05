@@ -270,5 +270,199 @@ main.main_cart{
                 }
             }
         }
+        div.cart_pay_mobile{
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-width: 880px) {
+    main.main_cart{
+        padding-bottom: 90px;
+        div.cart_container{
+            display: block;
+            padding: 0;
+            div.cart_list_wrapper{
+                width: 100%;
+                margin-bottom: 15px;
+                div.cart_list_select{
+                    position: sticky;
+                    top: 0;
+                    left: 0;
+                    margin: 0 0 15px 0;
+                    padding: 25px 20px;
+                    background-color: #FFF;
+                    border-bottom: 1px solid #DDD;                    
+                    div.all_select{
+                        button.checkbox{
+                            img{
+                            }
+                        }
+                        span{
+                        }
+                    }
+                    div.delete_selected{
+                        button{
+                        }
+                    }
+                }
+                div.cart_list{
+                    border: none;
+                    border-radius: 0;
+                    p.empty_cart{
+                    }
+                    div.cart_list_title{
+                        div.title_left{
+                            span:first-child{
+                            }
+                        }
+                        div.title_right{
+                        }
+                    }
+                    div.carted{
+                        button.checkbox{
+                            img{
+                            }
+                        }
+                        div.carted_content{
+                            div.carted_alcohol{
+                                a.carted_alcohol_img{
+                                    img{
+                                    }
+                                }
+                                div.carted_alcohol_info{
+                                    div.info_1{
+                                        a.title{
+                                        }
+                                        button{
+                                            svg{
+                                            }
+                                        }
+                                    }
+                                    div.info_2{
+                                        div.qty_control{
+                                            span{
+                                                &.minus,
+                                                &.plus{
+                                                }
+                                                &.qty{
+                                                }
+                                            }
+                                        }
+                                        div.over_warning{
+                                        }
+                                        div.price{
+                                            span{
+                                                &.origin_price{
+                                                }
+                                            }
+                                            div.dc{
+                                                span.dc_percent{
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            div.soldout_soon{
+                                svg{
+                                    path{
+                                    }
+                                }
+                            }
+                            div.stock{
+                            }
+                        }
+                    }
+                }
+            }
+            div.cart_bill_wrapper{
+                width: 100%;
+                margin-left: 0;
+                padding: 0;
+                div.cart_bill{
+                    margin: 0;
+                    border: none;
+                    border-radius: 0;
+                    div.bill_title{
+                        p{
+                        }
+                    }
+                    div.bill_content{
+                        p{
+                            span{
+                                &.price{
+                                }
+                            }
+                        }
+                    }
+                    div.bill_price{
+                        p{
+                            span{
+                                &.total_price{
+                                }
+                            }
+                        }
+                    }
+                }
+                div.cart_pay{
+                    display: none;
+                    button{
+                        &.buy{
+                            &:hover{
+                            }
+                        }
+                        &.impossible{
+                        }
+                    }
+                }
+            }
+            div.cart_pay_mobile{
+                display: block;
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                padding: 10px 20px;
+                border-top: 1px solid #DDD;
+                background-color: #FFF;
+                p{
+                    text-align: right;
+                    margin-bottom: 5px;
+                    span{
+                        font-size: 13px;
+                        &.total_price{
+                            margin-left: 10px;
+                            font-size: 15px;
+                            font-weight: bold;
+                        }
+                    }
+                }
+                button{
+                    width: 100%;
+                    padding: 15px 0;
+                    font-size: 18px;
+                    font-weight: bold;
+                    border-radius: 5px;
+                    &.buy{
+                        background-color: rgb(0, 150, 243);
+                        color: #FFF;
+                        border: 1px solid rgb(0, 150, 243);
+                        transition: all 0.3s ease 0s;
+                        &:hover{
+                            background-color: #4379BD;
+                            border: 1px solid #4379BD;
+                        }
+                    }
+                    &.impossible{
+                        background-color: #B2B2B2;
+                        color: #8E8E8E;
+                        border: 1px solid #B2B2B2;
+                        cursor: default;
+                        pointer-events: none;
+                    }
+                }
+            }
+        }
     }
 }

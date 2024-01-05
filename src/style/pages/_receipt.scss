@@ -115,9 +115,9 @@ main.main_reclist{
                 position: fixed;
                 left: 50%;
                 top: 50%;
-                transform: translate(-50%, -50%);
+                transform: translate(-50%, calc(-50% + 25px));
                 width: 375px;
-                padding: 40px 30px;
+                padding: 40px 30px 20px 30px;
                 background-color: #FFF;
                 border-radius: 4px;
                 div.modal_header{
