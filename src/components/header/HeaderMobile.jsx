@@ -11,25 +11,12 @@ export default function HeaderMobile({ user, curPage }) {
   const ref = useRef(null);
   const [showHamb, setShowHamb] = useState(false);
 
-  let showTimeOut;
-  let hideTimeOut;
-  const showHamburgerMenu = () => {
-    clearTimeout(showTimeOut);
-    clearTimeout(hideTimeOut);
-    ref.current.style.display = 'block'
-    showTimeOut = setTimeout(()=>setShowHamb(true),10)
-  }
-  const hideHamburgerMenu = e => {
-    clearTimeout(showTimeOut);
-    clearTimeout(hideTimeOut);
-    setShowHamb(false)
-    hideTimeOut = setTimeout(()=>ref.current.style.display = 'none', 700)
-  }
+  const showHamburgerMenu = () => setShowHamb(true)
+  const hideHamburgerMenu = () => setShowHamb(false)
   
   const handelResize = () => {
-    const isMobile = window.innerWidth < 881
-    if (!isMobile) {
-      hideHamburgerMenu();
+    if (window.innerWidth >= 880) {
+        hideHamburgerMenu();
     }
   }
 

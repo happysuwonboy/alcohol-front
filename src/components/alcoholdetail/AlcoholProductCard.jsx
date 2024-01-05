@@ -1,4 +1,5 @@
 import ReviewInfo from './ReviewInfo';
+import getImgUrl from '../../util/getImgUrl';
 
 export default function AlcoholProductCard({ alcohol }) {
 
@@ -8,7 +9,7 @@ export default function AlcoholProductCard({ alcohol }) {
   return (
     <div className="alcohol_card_container">
       <div className="alcohol_img">
-        <img src={`/assets/images/alcohol_img/${alcohol_img1}`} alt="" />
+        <img src={getImgUrl.alcohol(alcohol_img1)} alt="" />
       </div>
       <div className="alcohol_info">
         <h3 className="alcohol_name">{alcohol_name}</h3>

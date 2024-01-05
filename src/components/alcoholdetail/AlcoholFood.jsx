@@ -1,4 +1,4 @@
-
+import getImgUrl from '../../util/getImgUrl';
 
 export default function AlcoholFood({foods}) {
   return (
@@ -8,7 +8,7 @@ export default function AlcoholFood({foods}) {
         {foods?.split('/').map(food =>
           <figure key={food}>
             <div className='food_img'>
-              <img src={`/assets/images/food_img/${food}.png`} alt="" />
+              <img src={getImgUrl.food(`${food}.png`)} alt="" />
             </div>
             <figcaption>
               {food}
