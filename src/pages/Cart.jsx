@@ -5,7 +5,7 @@ import CartedAlcohol from '../components/cart/CartedAlcohol';
 
 export default function Cart() {
 
-    const userId = 'tneod2';    //수정필요
+    const userId = 'user123';    //수정필요
     
     const navigate = useNavigate();
     const [totalPrice, setTotalPrice] = useState(0);
@@ -212,6 +212,13 @@ export default function Cart() {
                     <div className='cart_pay'>
                         <button type='button' onClick={handleClickPayment} className={checked.length===0 || cartList.length===0 ? 'impossible' : 'buy'}>구매하기</button>
                     </div>
+                </div>
+                <div className='cart_pay_mobile'>
+                    <p>
+                        <span>총 결제 예상 금액</span>
+                        <span className='total_price'>{(totalPrice+totalDcPrice+deliveryPrice).toLocaleString()}원</span>
+                    </p>
+                    <button type='button' onClick={handleClickPayment} className={checked.length===0 || cartList.length===0 ? 'impossible' : 'buy'}>구매하기</button>
                 </div>
             </div>
         </main>
