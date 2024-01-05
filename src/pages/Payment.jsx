@@ -145,7 +145,7 @@ export default function Payment() {
                         </div>
                         <div className='default_none'>
                             <p>기본 배송지가 없습니다.</p>
-                            <button type='button' onClick={handleRecList}>배송지 추가</button>
+                            <button type='button' onClick={handleRecList}>배송지 선택</button>
                         </div>
                     </div>
                     {/* 주문예정상품 */}
