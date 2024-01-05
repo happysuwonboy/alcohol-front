@@ -149,6 +149,8 @@ export default function Join(){
   
         // 회원 가입 성공 시의 처리 (예: 리다이렉트, 알림 메시지 등)
         console.log('회원 가입 성공:', response.data);
+        // 리다이렉트
+        navigate('/login');
       }
   
       // 미성년자인 경우 리다이렉션
