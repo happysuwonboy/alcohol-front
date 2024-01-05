@@ -1,0 +1,68 @@
+main.alcohol_detail {
+  div.alcohol_detail_container {
+    div.review_section {
+      & > div {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        & > button {
+          padding: 7px 12px;
+          border-radius: 10px;
+          background-color: rgb(0, 150, 243);
+          color: white;
+          font-weight: 700;
+        }
+        & > div.review_sort {
+          & > select {
+            color: rgb(64, 64, 64);
+          }
+        }
+      }
+      & > ul {
+        & > li {
+          & > div {
+            display: flex;
+            justify-content: space-between;
+            padding: 7px 12px;
+            margin: 2vh 0;
+            border-radius: 10px;
+            background-color: rgb(221, 221, 221);
+            & > div {
+              display: flex;
+              div.star_wrap {
+                display: flex;
+                & > svg {
+                  fill: rgb(255, 209, 84);
+                }
+              }
+              & > p {
+                &:nth-child(2) {
+                  margin: 0 1vw;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    @include responsive(lg-pad) {
+      div.review_section {
+        & > div {
+          & > button {
+            padding: 7px 12px;
+            border-radius: 10px;
+            background-color: rgb(0, 150, 243);
+            color: white;
+            font-weight: 700;
+          }
+          & > div.review_sort {
+            & > select {
+              color: rgb(64, 64, 64);
+            }
+          }
+        }
+      }
+    }
+  }
+}

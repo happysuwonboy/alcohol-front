@@ -18,7 +18,7 @@ export default function MainSwiper() {
 
   return (
     <Swiper
-      modules={[Autoplay]}
+      // modules={[Autoplay]}
       loop={true}
       onActiveIndexChange={(e) => setSwiperIndex(e.realIndex)}
       onSwiper={(e) => setSwiper(e)}

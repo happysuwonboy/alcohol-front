@@ -9,12 +9,13 @@ import AlcoholRecommend from './../components/alcoholdetail/AlcoholRecommend';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import BASE_URL from '../constants/baseurl';
+import ReviewSection from '../components/alcoholdetail/ReviewSection';
 
 
 export default function AlcoholDetail() {
     const navigate = useNavigate();
     const params = useParams();
-    const [alcohol, setAlcohol] = useState({})
+    const [alcohol, setAlcohol] = useState({});
 
     useEffect(() => {
         axios({
@@ -44,6 +45,7 @@ export default function AlcoholDetail() {
                 }} />
                 <AlcoholDesc alcohol={alcohol} />
                 <AlcoholRecommend alcohol_id={alcohol.alcohol_id} alcohol_type={alcohol.alcohol_type} />
+                <ReviewSection />
             </div>
             <StickyOrderMenu alcohol={alcohol}/>
         </main>
