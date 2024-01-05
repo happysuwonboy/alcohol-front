@@ -8,6 +8,7 @@ main.home {
         position: relative;
         overflow: hidden;
         button {
+          display: block;
           img {
             position: absolute;
             width: 100%;
@@ -200,10 +201,9 @@ main.home {
     & > div.category_button_swiper {
       display: flex;
       align-items: center;
-      padding: 0 0.7rem;
+      padding: 0 0.7rem 5vh .7rem;
       margin: 0 10vw;
       & > button {
-        width: 3vw;
         padding-bottom: 13vh;
         &:first-child {
           margin-right: 20px;

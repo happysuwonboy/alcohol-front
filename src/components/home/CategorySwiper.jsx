@@ -26,10 +26,7 @@ export default function CategorySwiper({ params, title, subtitle, png }) {
 
   useEffect(() => {
     axios.get(`${BASE_URL}`, { params })
-      .then(result => {
-        setcategoryList(result.data)
-        console.log(result.data);
-      })
+      .then(result => setcategoryList(result.data))
       .catch(error => console.log(error));
   }, []);
 
@@ -101,7 +98,8 @@ export default function CategorySwiper({ params, title, subtitle, png }) {
                 <AlcoholInfo name={category.alcohol_name}
                   price={category.alcohol_price}
                   hashtag={category.hashtag}
-                  sale={category.dc_percent} />
+                  sale={category.dc_percent}
+                  alcohol_id={category.alcohol_id} />
               </Link>
             </SwiperSlide>
           ))}

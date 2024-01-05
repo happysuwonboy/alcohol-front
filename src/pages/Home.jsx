@@ -16,6 +16,7 @@ export default function Home() {
       <CategoryIcon />
       {categorySwiper.map(category =>
         <CategorySwiper
+        key={category[3]}
           params={category[0]}
           title={category[1]}
           subtitle={category[2]}

@@ -87,7 +87,7 @@ export default function ReviewSwiper() {
           {reviewList?.map(review => (
             <SwiperSlide key={review.review_id}>
               <Link to={`/findalcohol/${review.alcohol_id}`}>
-                <AlcoholAvata img={`/assets/images/review/${review.review_img}`} />
+                <AlcoholAvata img={`/assets/images/review/${review.review_img}`} alt={review.review_img} />
                 <ReviewStar rating={review.review_star} />
                 <p>{review.review_content}</p>
                 <p>{review.user_id}</p>
