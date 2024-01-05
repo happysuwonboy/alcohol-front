@@ -4,7 +4,7 @@ main.findalcohol_section {
   padding: 1rem 4rem;
   div.avata_container {
     @include flexbox($jc:space-between);
-    margin: 10px 0 3rem 0;
+    margin: 2rem 0 3rem 0;
     padding: 20px 50px;
     background: #eee;
     border-radius: 1rem;
@@ -88,13 +88,13 @@ main.findalcohol_section {
     align-items: flex-end;
     &.toggle::before {
       content: '';
+      z-index: 10;
       position: fixed;
-      width: 100%;
-      height: 100%;
       top: 0;
       left: 0;
+      width: 100%;
+      height: 100%;
       background-color: rgba(0,0,0, 0.5);
-      z-index: 1;
     }
     // search
     div.search_wrap {
@@ -270,7 +270,6 @@ main.findalcohol_section {
         border-top: 1px solid #eee;
         border-bottom: 10px solid #eee;
         div.label_box {
-          // @include flexbox($jc: flex-start);
           display: flex;
           flex-wrap: wrap;
           width: 85%;
@@ -318,6 +317,7 @@ main.findalcohol_section {
   
       // common filter 버튼 클릭시 ( 880이하 )
       &.toggle.before {
+        z-index: 10;
         right: 0px;
       }
       &.toggle {
@@ -479,8 +479,10 @@ main.findalcohol_section {
           }
           div.price_box {
             p {
+              display: flex;
               font-weight: bold;
               span {
+                margin-left: 0.5px;
                 font-size: 0.9rem;
                 font-weight: normal;
               }
@@ -510,7 +512,7 @@ main.findalcohol_section {
           div.review_box {
             display: flex;
             align-items: flex-end;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
             svg {
               color: #FFBE00;
               margin-right: 1px;
@@ -529,6 +531,7 @@ main.findalcohol_section {
             }
           }
           p.tag{
+            margin-left: 3px;
             font-size: 0.9rem;
             color: #747474;
           }
@@ -540,7 +543,7 @@ main.findalcohol_section {
   ul.pagination {
     @include flexbox($ai: flex-end);
     width: 100%;
-    margin-top: 3rem;
+    margin: 1rem 0 3rem 0;
 
     li {
       margin: 0 0.5rem;
@@ -825,7 +828,10 @@ main.findalcohol_section {
         }
         div.checked_label_wrap {
           div.label_box {
+            flex-wrap: nowrap;
+            overflow-x: auto;
             div.checked_label {
+              flex-shrink: 0;
               span:first-child {
               }
               span:last-child {

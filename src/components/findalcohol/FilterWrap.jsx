@@ -9,7 +9,7 @@ import FilterSortCommon from './FilterSortCommon';
 export default function FilterWrap(props) {
   const dispatch = useDispatch();
   const { pad, isFilterClick, setIsFilterClick } = props;
-  const { filterInfo, checkedOption } = useSelector(state => state.filterSlice);
+  const { searchInput, filterInfo, checkedOption } = useSelector(state => state.filterSlice);
 
   const clickCategoryIdList = checkedOption.map(list => list.categoryId); // 체크된 카테고리 색상 css
   const [ optionModal, setOptionModal ] = useState('');  // 카테고리 클릭 시 다른 체크박스 모달 닫기
@@ -64,7 +64,7 @@ export default function FilterWrap(props) {
 
   // 가격 체크박스 안 input 핸들러
   const handleChangePrice1 = (e) => {
-    if(Number(e.target.value) || e.target.value === '') {
+    if(Number(e.target.value) >= 0) {
       setInputPrice(prev => [
         { ...prev[0],
           value: e.target.value
@@ -74,11 +74,12 @@ export default function FilterWrap(props) {
       ])
     } else {
       alert('숫자를 입력해주세요');
+      document.querySelectorAll('.price').forEach(input => input.value = '');
     }
   }
   
   const handleChangePrice2 = (e) => {
-    if(Number(e.target.value) || e.target.value === '') {
+    if(Number(e.target.value) >= 0) {
       setInputPrice(prev => [
         prev[0],
         { ...prev[1],
@@ -88,6 +89,7 @@ export default function FilterWrap(props) {
       ])
     } else {
       alert('숫자를 입력해주세요');
+      document.querySelectorAll('.price').forEach(input => input.value = '');
     }
   }
 
@@ -128,6 +130,7 @@ export default function FilterWrap(props) {
           type='text'
           placeholder='전통주 이름 검색'
           id='search'
+          value={searchInput}
           onChange={handleChangeInput} />
         <IoSearchOutline />
       </div>
@@ -138,14 +141,13 @@ export default function FilterWrap(props) {
           setIsFilterClick={setIsFilterClick}
           handleClickFilter={handleClickFilter} />
     }
-      {/* <div className={`filter_container`}> */}
       <div className={`filter_container ${isFilterClick ? 'toggle' : ''} ${beforeClass? 'before' : ''}`}>
         <div className={`filter_wrap ${pad ? 'pad' : ''}`}>
         { filterInfo.map(filter => (
           <div className='type_wrap' key={filter.categoryId} onClick={() => handleClickTypeBox(filter.categoryId)}>
             <div className={ `type_box ${optionModal === filter.categoryId ? 'showModal' : '' } ${clickCategoryIdList.find(id => id === filter.categoryId) ? 'click' : ''}`}>
               <span>{filter.category}</span>
-              <img src='/assets/images/alcohol_detail/arrow_down.png' alt='화살표 이미지' />
+              <img src='/assets/images/etc/arrow_down.png' alt='화살표 이미지' />
             </div>
             <div className={`option_box ${optionModal === filter.categoryId ? null : 'hidden'}`}>
             { filter.categoryId === 6 &&
@@ -182,7 +184,6 @@ export default function FilterWrap(props) {
           </div>
           ))}
         </div>
-      {/* { checkedOption.length > 0 && */}
       { ( isFilterClick  || checkedOption.length > 0 ) &&
         <div className='checked_label_wrap'>
           <div className='label_box'>

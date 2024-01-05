@@ -8,7 +8,7 @@ export default function Avata() {
         <p>담화 마켓의 모든 술을 만들어보세요!</p>
       </div>
       <div className='avata_img'>
-        <img src='/assets/images/alcohol_detail/alcohol_icon.png' alt='술담화 심볼 이미지' />
+        <img src='/assets/images/etc/alcohol_icon.png' alt='술담화 심볼 이미지' />
       </div>
     </div>
   );
