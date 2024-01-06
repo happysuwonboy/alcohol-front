@@ -1,0 +1,106 @@
+main.admin_contanier {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 2rem 3rem;
+  background: #faf9f6;
+  // &::before {
+  //   content: '';
+  //   position: fixed;
+  //   z-index: 10;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   // background: rgba(0,0,0,0.4);
+  //   background: rgba(197, 190, 178, 0.4);
+  // }
+  div.title_navbar_wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+    padding: 0 1rem;
+    div.name_wrap {
+      margin-bottom: 1.5rem;
+      padding : 1rem 2rem 0.5rem 0;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+      p {
+        display: inline;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+      span {
+        font-size: 0.8rem;
+      }
+    }
+    ul.navbar_wrap {
+      display: flex;
+      justify-content: space-between;
+      li {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        cursor: pointer;
+          border-right: 1px solid #71583c;
+          padding-right: 10px;
+        p {
+          font-size: 0.9rem;
+          font-weight: 500;
+          color: #71583c;
+        }
+        &.active {
+          border-width: 1.5px;
+          p {
+            font-weight: bold;
+            border-bottom: 1px solid #71583c;
+          }
+        }
+      }
+    }
+  }
+
+  div.admin_content_container {
+    min-height: 32rem;
+    padding: 1rem;
+    // border: 1px solid rgba(239, 220, 182, 0.5);
+    // background-color: rgba(246, 246, 242, 0.3);
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+  }
+
+  @media screen and (max-width: $md-breakpoint) {
+    & {
+      padding: 1rem;
+        div.title_navbar_wrap {
+          div.name_wrap {
+            margin-bottom: 1rem;
+            p {
+              font-size: 0.9rem;
+            }
+            span {
+              font-size: 0.7rem;
+              color: rgb(99, 99, 99);
+            }
+          }
+          ul.navbar_wrap {
+            li {
+              p {
+                font-size: 0.8rem;
+              }
+              span {}
+              &:last-child {
+                border-right: none;
+              }
+              &.active {
+                border-width: 1px;
+                p {}
+                span {}
+              }
+            }
+          }
+        }
+      }
+    }
+}
