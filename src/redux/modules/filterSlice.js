@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import BASE_URL from '../../constants/baseurl';
 
 // 선택한 필터 체크박스 axios 요청 
 export const filterData = createAsyncThunk('data/filterData', async(filterList) => {
-  const result = await axios.post('http://localhost:8000/findalcohol', filterList);
+  const result = await axios.post( `${BASE_URL}/findalcohol`, filterList);
   return result.data;
 })
 

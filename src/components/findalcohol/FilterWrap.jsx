@@ -23,7 +23,8 @@ export default function FilterWrap(props) {
 
 // 하위 카테고리 체크박스 클릭 시 리덕스 액션 진행 
   const handleCheckboxChange = async (categoryId, category, optionId, optionName) => {
-    document.querySelectorAll('.price').forEach(input => input.value = '')
+    document.querySelectorAll('.price').forEach(input => input.value = '');
+    dispatch(changeInput(''));
     dispatch(checkboxSeleted({categoryId, category, optionId, optionName}));
   }
 

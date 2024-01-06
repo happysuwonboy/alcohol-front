@@ -1,5 +1,5 @@
 import Avata from '../components/findalcohol/Avata';
-import FilterContainer from '../redux/FilterContainer';
+import FilterContainer from '../components/findalcohol/FilterContainer';
 
 export default function FindAlcohol() {
     return(
