@@ -12,7 +12,6 @@ export default function ShowAlcohol(props) {
   const { pad, isFilterClick, setIsFilterClick } = props;
   const { products, currentPage } = useSelector(state => state.filterSlice);
   const dispatch = useDispatch();
-  console.log(products);
 
   const handleChangePage = (page) => {
     dispatch(clickPageNation(page));
