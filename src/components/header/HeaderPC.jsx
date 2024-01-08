@@ -2,6 +2,7 @@ import { FaSearch } from "react-icons/fa";
 import { RiShoppingBagLine } from "react-icons/ri";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import HeaderNavbar from './HeaderNavbar';
+import CartButton from './CartButton';
 
 export default function HeaderPC ({user, curPage}) {
   const navigate = useNavigate();
@@ -30,9 +31,7 @@ export default function HeaderPC ({user, curPage}) {
                                 <button className='header_log logout_btn' to='/login'> 로그아웃 </button>
                             </>
                             : null}
-                        <button className='cart_btn'>
-                            <RiShoppingBagLine />
-                        </button>
+                        <CartButton user_id={user.user_id}/>
                     </div>
                 </div>
             </div>

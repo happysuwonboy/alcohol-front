@@ -8,6 +8,7 @@ import BASE_URL from './../../constants/baseurl';
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
+import getImgUrl from '../../util/getImgUrl';
 
 
 
@@ -29,7 +30,7 @@ export default function AlcoholRecommend({ alcohol_id, alcohol_type }) {
   const getHandleClick = alcohol_id => () => {
     navigate(`/findalcohol/${alcohol_id}`)
     setTimeout(()=>{
-      window.scrollTo({top : 0})
+      window.scrollTo({top : 0, behavior : 'smooth'})
     },0)
   } 
 
@@ -67,7 +68,7 @@ export default function AlcoholRecommend({ alcohol_id, alcohol_type }) {
             {list.map(alcohol => 
               <SwiperSlide key={alcohol.alcohol_id} onClick={getHandleClick(alcohol.alcohol_id)}>
                   <div className='alcohol_img'>
-                    <img src={`/assets/images/alcohol_img/${alcohol.alcohol_img}`} alt="" />
+                    <img src={getImgUrl.alcohol(alcohol.alcohol_img)} alt="" />
                   </div>
                   <h6 className="alcohol_name">
                     {alcohol.alcohol_name}

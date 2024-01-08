@@ -23,6 +23,25 @@ div.header_static_wrapper {
     background-color: #FFF;
 }
 
+
+div.header_top {
+    button.cart_btn {
+        position: relative;
+        span.cart_cnt {
+            position: absolute;
+            bottom: -5px;
+            height: 15px; width: 15px;
+            line-height: 15px;
+            text-align: center;;
+            font-size: .625rem;
+            font-weight: 600;
+            border-radius: 50%;
+            background-color: #000;
+            color: #FFF;
+        }
+    }
+}
+
 // pc 
 div.pc_header {
     div.header_top {
@@ -116,7 +135,7 @@ div.pc_header {
 div.mobile_header {
     div.header_top {
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-between;
         align-items: center;
         padding: 12px 0;
         align-items: center;
@@ -129,6 +148,16 @@ div.mobile_header {
             img {
                 width: 100%;
             }
+        }
+        button.prev_page_btn {
+            font-size: 1.5rem; 
+            transform: scale(1.5);  
+        }
+        span.page_title {
+            font-size: .9rem;
+            font-weight: 600;
+            max-width: 50vw;
+            @include ellipsis();
         }
         form.header_search {
             background-color: #eeeeee;
@@ -155,7 +184,7 @@ div.mobile_header {
             }
         }
         div.header_user_menu {
-            flex: 1;
+            // flex: 1;
             display: flex;
             align-items: center;
             justify-content: flex-end;
@@ -187,7 +216,7 @@ div.mobile_header {
         li {
             padding: 10px 0;
             a {
-                font-weight: 600;
+                font-weight: 600; 
                 color: rgb(112, 112, 112);
                 font-size: 0.8em;
             }
@@ -363,5 +392,20 @@ div.hamburger_menu_wrapper {
 @media screen and (max-width : $lg-breakpoint) {
     div.pc_header {
         display: none;
+    }
+    div.mobile_header {
+        div.header_top {
+            div.header_user_menu {
+                button.user_menu_btn {
+                    font-size: 1.5em;
+                    &:not(:first-of-type) {
+                        margin-left: 1rem;
+                    }
+                    &.search_btn {
+                        font-size: 1.2em;
+                    }
+                }
+            }
+        }
     }
 }
