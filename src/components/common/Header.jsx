@@ -1,14 +1,20 @@
-import { FaSearch } from "react-icons/fa";
-import { RiShoppingBagLine } from "react-icons/ri";
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import HeaderPC from './../header/HeaderPC';
 import HeaderMobile from '../header/HeaderMobile';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchCartCount } from '../../redux/modules/cartCountSlice';
 
 export default function Header() {
-const user = { user_id: '해피수원보이', isAdmin: false}
+    const user = { user_id: 'user123', isAdmin: false};
     const location = useLocation();
     const curPage = location.pathname;
+    const dispatch = useDispatch();
 
+    useEffect(()=>{
+        dispatch(fetchCartCount(user.user_id));
+    },[user.user_id])
+    
     return (
         <>
            <HeaderPC user={user} curPage={curPage}/>

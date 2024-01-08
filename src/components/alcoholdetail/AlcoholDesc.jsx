@@ -1,3 +1,5 @@
+import getImgUrl from '../../util/getImgUrl';
+
 export default function AlcoholDesc({alcohol}) {
   
   return (
@@ -5,7 +7,7 @@ export default function AlcoholDesc({alcohol}) {
       <h4>상품 설명</h4>
       <figure className='alcohol_comment_wrapper'>
         <div className='alcohol_comment_img'>
-          <img src={`/assets/images/alcohol_img/${alcohol.alcohol_img2}`} alt="" />
+          <img src={getImgUrl.alcohol(alcohol.alcohol_img2)} alt="" />
         </div>
         <figcaption className='alcohol_comment_text'>
           <h5> [{alcohol.alcohol_name}], 어떤 맛을 갖고 있나요? </h5>
@@ -18,7 +20,7 @@ export default function AlcoholDesc({alcohol}) {
       </figure>
       <figure className='alcohol_comment_wrapper'>
         <div className='alcohol_comment_img'>
-          <img src={`/assets/images/alcohol_img/${alcohol.alcohol_img3}`} alt="" />
+          <img src={getImgUrl.alcohol(alcohol.alcohol_img3)} alt="" />
         </div>
         <figcaption className='alcohol_comment_text'>
           <h5> [{alcohol.alcohol_name}], 어떤 음식과 잘 어울리나요? </h5>

@@ -23,9 +23,15 @@ const HamburgerMenu = forwardRef(({user, show, hideHamburgerMenu, curPage}, ref)
         </div>
         {user.user_id ?
           <div className='ham_member_loggedin'>
+            {!user.isAdmin 
+            ?
             <Link to='/mypage' className='mypage_link'>
               {user.user_id} 님 &gt;
             </Link>
+            : 
+            <Link to='/adminpage' className='mypage_link'>
+              관리자 페이지 &gt;
+            </Link>}
             <button className='header_log logout_btn' to='/login'> 로그아웃 </button>
             <ul className='mypage_submenus'>
               <li>
@@ -44,18 +50,18 @@ const HamburgerMenu = forwardRef(({user, show, hideHamburgerMenu, curPage}, ref)
           </div> : null}
         {!user.user_id ? <div className='ham_member_unloggedin'>
           <Link className='header_log login_btn' to='/login'> 로그인/회원가입  &gt; </Link>
-          <div className='join_event_noti'>
+          {!user.isAdmin ?<div className='join_event_noti'>
             <p>
               <span>지금 회원가입 하면</span>
             </p>
             <p>
               <b>신규 회원 쿠폰 & 최대 4,000 포인트</b><span> 적립!</span>
             </p>
-          </div>
+          </div> : null}
         </div> : null}
-        <div className='mini_banner'>
+        {!user.isAdmin ? <div className='mini_banner'>
           <img src="/assets/images/etc/hamburger_banner.jpg" alt="" />
-        </div>
+        </div> : <div style={{background:'#EEE', height:'1px'}}></div>}
         <div className='page_links'>
           <h2>메뉴</h2>
           <HeaderNavbar curPage={curPage} />
