@@ -4,6 +4,7 @@ import axios from "axios";
 import { TbTruckDelivery } from "react-icons/tb";
 import { IoIosArrowDown } from "react-icons/io";
 import Agree from "../components/payment/Agree";
+import getImgUrl from "../util/getImgUrl";
 
 export default function Payment() {
     const navigate = useNavigate();
@@ -16,15 +17,17 @@ export default function Payment() {
     const totalPrice = state.totalPrice;
     const totalDcPrice = state.totalDcPrice;
     const deliveryPrice = state.deliveryPrice;
-    //배송지를 선택하면 receipt 페이지에서 payment 페이지로 넘어오는 값 (수령인 이름, 전화번호, 주소)
+    //배송지를 선택하면 receipt 페이지에서 payment 페이지로 넘어오는 값 (수령인 이름, 전화번호, 주소, 배송지id)
     const recName = state.name; 
     const recPhone = state.phone;
     const recAddress = state.address;
+    const recId = state.recId;
     //결제 페이지에서 출력되는 상품정보, 배송지정보
     const [orderAlcohol, setOrderAlcohol] = useState([]);
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
+    const [rId, setRId] = useState('');
 
     const [isAgreeModal, setIsAgreeModal] = useState(false);
     const [isAgreeCheck, setIsAgreeCheck] = useState(false);
@@ -68,22 +71,26 @@ export default function Payment() {
                     setName(result.data[0].rec_name);
                     setPhone(result.data[0].rec_phone);
                     setAddress(result.data[0].rec_address);
+                    setRId(result.data[0].rec_id);
                 }else{
                     document.querySelector('.address_title button').style.display = 'block';
                     document.querySelector('.default_none').style.display = 'none';
                     setName(recName);
                     setPhone(recPhone);
                     setAddress(recAddress);
+                    setRId(recId);
                 }
             }else{
                 if(recName===undefined){
                     setName(result.data[0].rec_name);
                     setPhone(result.data[0].rec_phone);
                     setAddress(result.data[0].rec_address);
+                    setRId(result.data[0].rec_id);
                 }else{
                     setName(recName);
                     setPhone(recPhone);
                     setAddress(recAddress);
+                    setRId(recId);
                 }
             }
         })
@@ -127,6 +134,31 @@ export default function Payment() {
         navigate(`receipt`, { state: { userId : userId, cartData : state }});
     }
 
+    /**
+     * 결제 버튼 클릭
+     */
+    const handlePay = () => {
+        if (window.confirm("결제하시겠습니까?")) {
+            axios({
+                method : 'post',
+                url : `http://127.0.0.1:8000/payment`,
+                data : {
+                    userId : userId,
+                    recId : rId,
+                    totalOrderPrice : totalPrice+totalDcPrice+deliveryPrice,
+                    orderAlcohol : orderAlcohol
+                }
+            })
+            .then((result) => {
+                alert('결제가 완료되었습니다', result.data);
+                navigate(`/mypage?showContent=MyOrder`);
+            })
+            .catch((err) => {
+                console.error('axios 결제 진행 중 에러 발생 => ' + err);
+            });
+        }
+    }
+
     return(
         <main className='main_payment'>
             <div className='pay_container'>    
@@ -157,7 +189,7 @@ export default function Payment() {
                             {orderAlcohol.map((alcohol, index) => 
                                 <div className='alcohol' key={index}>
                                     <div className='alcohol_img'>
-                                        <img src={`assets/images/alcohol_img/${alcohol.alcohol_img1}`} alt='alcohol_img' />
+                                        <img src={getImgUrl.alcohol(alcohol.alcohol_img1)} alt='alcohol_img' />
                                     </div>
                                     <div className="alcohol_info">
                                         <p className='alcohol_title'>
@@ -236,7 +268,7 @@ export default function Payment() {
                     {isAgreeModal===true?<Agree />:''}
                     {/* 결제 버튼 */}
                     <div className='pay'>
-                        <button type='button' className={isAgreeCheck===false || name===undefined?'impossible':''}>
+                        <button type='button' onClick={handlePay} className={isAgreeCheck===false || name===undefined?'impossible':''}>
                             <span>{(totalPrice+totalDcPrice+deliveryPrice).toLocaleString()}</span>
                             원 결제하기
                         </button>

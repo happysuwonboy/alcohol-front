@@ -124,8 +124,6 @@ main.main_payment{
                                     font-size: 12px;
                                     color: gray;
                                 }
-                                span.alcohol_price{}
-                                span.alcohol_qty{}
                             }
                         }
                     }
@@ -284,6 +282,56 @@ main.main_payment{
                     }
                     span{
                         font-size: 19px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 880px) {
+    main.main_payment{
+        background-color: #F1F1F1;
+        padding-bottom: 65px;
+        div.pay_container{
+            margin: 0;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            p.pay_title{
+                display: none;
+            }
+            div.pay_content{
+                width: 100%;
+                div.address{
+                    background-color: #FFF;
+                    border: none;
+                }
+                div.order_alcohol{
+                    background-color: #FFF;
+                    border: none;
+                }
+                div.bill{
+                    background-color: #FFF;
+                    border: none;
+                }
+                div.agree{
+                    background-color: #FFF;
+                    border: none;
+                }
+                div.pay{
+                    position: fixed;
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                    padding: 10px 0;
+                    border-top: 1px solid #DDD;
+                    background-color: #FFF;
+                    button{
+                        font-size: 16px;
+                        span{
+                            font-size: 16px;
+                        }
                     }
                 }
             }
