@@ -1,15 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { RiShoppingBagLine } from "react-icons/ri";
-import useCart from '../../hooks/useCart';
+import { useSelector } from 'react-redux';
 
-export default function CartButton ({user_id}) {
-    const [cartList] = useCart(user_id);
+export default function CartButton () {
     const navigate = useNavigate();
+    const count = useSelector((state)=>state.cartCountSlice.count);
     
     return (
         <button className='user_menu_btn cart_btn' onClick={()=>navigate('/cart')}>
             <RiShoppingBagLine />
-            {cartList.length ? <span className='cart_cnt'>{cartList?.length}</span> : null}
+            {count ? <span className='cart_cnt'>{count}</span> : null}
         </button>
-    );
+    ) 
 }

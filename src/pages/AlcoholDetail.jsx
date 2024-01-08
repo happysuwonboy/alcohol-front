@@ -18,6 +18,7 @@ export default function AlcoholDetail() {
     const params = useParams();
     const [alcohol, setAlcohol] = useState({})
     let [qty, setQty] = useState(1);
+    
 
     useEffect(()=>{
         window.scrollTo({top : 0})

@@ -6,6 +6,7 @@ import CartButton from './CartButton';
 
 export default function HeaderPC ({user, curPage}) {
   const navigate = useNavigate();
+
   
   return (
     <>
@@ -31,7 +32,7 @@ export default function HeaderPC ({user, curPage}) {
                                 <button className='header_log logout_btn' to='/login'> 로그아웃 </button>
                             </>
                             : null}
-                        <CartButton user_id={user.user_id}/>
+                        {!user.isAdmin ? <CartButton/> : null}
                     </div>
                 </div>
             </div>

@@ -1,21 +1,15 @@
 import { FaSearch } from "react-icons/fa";
-import { RiShoppingBagLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { GrFormPrevious } from "react-icons/gr";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import HeaderNavbar from './HeaderNavbar';
 import { useEffect, useRef, useState } from 'react';
 import HamburgerMenu from './HamburgerMenu';
-import axios from 'axios';
-import BASE_URL from '../../constants/baseurl';
 import usePageTitle from '../../hooks/usePageTitle';
 import CartButton from './CartButton';
 
-
-
 export default function HeaderMobile({ user, curPage }) {
   const navigate = useNavigate();
-  const params = useParams();
   const ref = useRef(null);
   const [showHamb, setShowHamb] = useState(false);
   const pageTitle = usePageTitle();
@@ -55,7 +49,7 @@ export default function HeaderMobile({ user, curPage }) {
               <FaSearch />
             </button> 
             : null}
-            <CartButton user_id={user.user_id}/>
+              {!user.isAdmin ? <CartButton/> : null}
             <button onClick={showHamburgerMenu} className='user_menu_btn hamburger_btn'>
               <RxHamburgerMenu />
             </button>
