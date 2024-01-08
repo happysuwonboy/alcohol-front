@@ -9,7 +9,7 @@ export default function ProductContent() {
   const [ alcoholData, setAlcoholData ] = useState([]);
   const [ page, setPage ] = useState(1);
   const [ registerBtnToggle, setRegisterBtnToggle ] = useState(false);
-  console.log(alcoholData);
+  // console.log(alcoholData);
   
   useEffect(() => {
     axios.get(`${BASE_URL}/adminpage/product/${page}`)
