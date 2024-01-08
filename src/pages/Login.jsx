@@ -14,7 +14,6 @@ export default function Login() {
     const handleChange = (e) => {
         const {name, value} = e.target;
         setLoginForm({...loginForm, [name]:value});
-        console.log(loginForm);
     }
 
     const handleSubmit = async (e) => {
@@ -32,7 +31,10 @@ export default function Login() {
                 // 토큰 및 사용자 정보 저장
                 Cookies.set("x-auth-jwt", response.data.token);
                 const userInfo = jwtDecode(response.data.token);
-                localStorage.setItem("userInfo", JSON.stringify(userInfo));
+                console.log("Decoded Token:", userInfo);
+                const { id, user_role } = userInfo;
+                console.log("Extracted Values:", id, user_role);
+                localStorage.setItem("userInfo", JSON.stringify({id, user_role}));
     
                 const sproduct = Cookies.get("sproduct");
                 if (sproduct === undefined) {

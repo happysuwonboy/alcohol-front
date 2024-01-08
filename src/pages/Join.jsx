@@ -112,15 +112,15 @@ export default function Join(){
       // selectedAddress와 detailaddress를 띄어쓰기로 구분된 하나의 문자열로 합치기
       const fullAddress = `${selectedAddress} ${detailaddress}`;
       
-      console.log('폼 데이터:', {
-        name,
-        userid,
-        password,
-        phone,
-        birthdate,
-        email,
-        fullAddress,
-      });
+      //console.log('폼 데이터:', {
+      //  name,
+      //  userid,
+      //  password,
+      //  phone,
+      //  birthdate,
+      //  email,
+      //  fullAddress,
+      //});
 
       // 현재 연도 가져오기
       const currentYear = new Date().getFullYear();
@@ -148,7 +148,7 @@ export default function Join(){
         });
   
         // 회원 가입 성공 시의 처리 (예: 리다이렉트, 알림 메시지 등)
-        console.log('회원 가입 성공:', response.data);
+        //console.log('회원 가입 성공:', response.data);
         // 리다이렉트
         navigate('/login');
       }
