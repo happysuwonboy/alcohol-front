@@ -18,7 +18,7 @@ export default function MainSwiper() {
 
   return (
     <Swiper
-      // modules={[Autoplay]}
+      modules={[Autoplay]}
       loop={true}
       onActiveIndexChange={(e) => setSwiperIndex(e.realIndex)}
       onSwiper={(e) => setSwiper(e)}
@@ -27,7 +27,7 @@ export default function MainSwiper() {
     >
       {slidesData.map(slide => (
         <SwiperSlide key={slide}>
-          <button>
+          <button type='button'>
             <img src={`/assets/images/home/${slide}.jpg`} alt={slide} />
           </button>
         </SwiperSlide>

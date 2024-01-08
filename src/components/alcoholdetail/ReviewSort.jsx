@@ -1,4 +1,4 @@
-export default function ReviewSort({setSelectOption}) {
+export default function ReviewSort({setSelectOption, setReviewList, setPage}) {
   const handleSelectChange = (e) => {
     setSelectOption(e.target.value);
   };

@@ -9,7 +9,7 @@ export default function AlcoholInfo({ name, price, hashtag, sale, alcohol_id }) 
   const salePrice = salePriceCalc.toLocaleString();
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/${alcohol_id}`)
+    axios.get(`${BASE_URL}/home/${alcohol_id}`)
     .then(result => setReviewStar(result.data))
     .catch(error => console.log(error))
   }, []);

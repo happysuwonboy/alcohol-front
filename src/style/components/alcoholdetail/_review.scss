@@ -1,7 +1,8 @@
 main.alcohol_detail {
   div.alcohol_detail_container {
     div.review_section {
-      & > div {
+      margin-bottom: 5vh;
+      & > div.sor_tab {
         display: flex;
         align-items: flex-end;
         justify-content: space-between;
@@ -18,17 +19,34 @@ main.alcohol_detail {
           }
         }
       }
+      & > div.no_review {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        & > figcaption {
+          margin-bottom: 3vh;
+        }
+        & > p {
+          margin: 1vh 0;
+        }
+      }
       & > ul {
         & > li {
-          & > div {
+          margin-bottom: 8vh;
+          & > div.review_detail_tab {
             display: flex;
             justify-content: space-between;
             padding: 7px 12px;
             margin: 2vh 0;
             border-radius: 10px;
             background-color: rgb(221, 221, 221);
+            & > p {
+              color: rgb(78, 78, 78);
+            }
             & > div {
               display: flex;
+              justify-content: flex-end;
+              width: 60%;
               div.star_wrap {
                 display: flex;
                 & > svg {
@@ -37,8 +55,24 @@ main.alcohol_detail {
               }
               & > p {
                 &:nth-child(2) {
-                  margin: 0 1vw;
+                  margin: 0 4%;
+                  font-weight: 700;
                 }
+                &:nth-child(3) {
+                  color: rgb(78, 78, 78);
+                }
+              }
+            }
+          }
+          & > div.review_detail_content {
+            padding: 0 1.5rem;
+            & > p {
+              margin-bottom: 2vh;
+            }
+            & > figcaption {
+              width: 20%;
+              & > img {
+                width: 100%;
               }
             }
           }

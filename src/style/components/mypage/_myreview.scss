@@ -1,0 +1,239 @@
+div.my_review {
+  max-width: 1144px;
+  margin: 0 auto;
+  ul.subcategory {
+    display: flex;
+    gap: 3%;
+    padding: 2rem;
+    & > li {
+      & > button {
+        font-weight: 700;
+        color: rgb(158, 158, 158);
+        text-decoration: underline;
+      }
+      & > button.active {
+        color: rgb(255, 186, 0);
+      }
+    }
+  }
+  div.create_review {
+    & > div.no_review {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 5vh;
+      & > figcaption {
+        margin-bottom: 3vh;
+      }
+      & > p {
+        margin: 1vh 0;
+      }
+    }
+  }
+  div.submit_review {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    & > ul {
+      & > li {
+        /*         display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8vh;
+        & > input {
+        }
+        input[type="checkbox"] {
+          display: none;
+        }
+        input[type="checkbox"] + label {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          position: relative;
+          border-radius: 5px;
+          border: 1px solid gray;
+        }
+        input[type="checkbox"]:checked + label::after {
+          content: "✔";
+          font-size: 15px;
+          width: 21px;
+          height: 21px;
+          text-align: center;
+          position: absolute;
+          border-radius: 5px;
+          left: -1px;
+          top: -1px;
+          background-color: rgb(255, 186, 0);
+        } */
+        margin-bottom: 5vh;
+        div.review_detail {
+          & > div.review_detail_tab {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 7px 12px;
+            margin: 2vh 0;
+            border-radius: 10px;
+            background-color: rgb(221, 221, 221);
+            & > p {
+              font-weight: 700;
+              font-size: 1.2rem;
+            }
+            & > div {
+              display: flex;
+              justify-content: flex-end;
+              width: 60%;
+              gap: 7%;
+              div.review_star {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                width: 30%;
+                gap: 4%;
+                div.star_wrap {
+                  display: flex;
+                  & > svg {
+                    fill: rgb(255, 209, 84);
+                  }
+                }
+                & > p {
+                  font-weight: 700;
+                }
+              }
+              & > p {
+                  color: rgb(78, 78, 78);
+              }
+            }
+          }
+          & > div.review_detail_content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1%;
+            div.review_content_img {
+              width: 84%;
+              & > p {
+                margin-bottom: 2vh;
+              }
+              & > figcaption {
+                width: 20%;
+                & > img {
+                  width: 100%;
+                }
+              }
+            }
+            div.edit_delete_btn {
+              display: flex;
+              flex-direction: column;
+              width: 15%;
+              justify-content: center;
+              gap: 1vh;
+              & > button {
+                padding: 1vh 0;
+                border-radius: 10px;
+                font-weight: 700;
+                font-size: .9rem;
+              }
+              & > button:nth-child(1) {
+                background-color: rgb(233, 233, 233);
+              }
+              & > button:nth-child(2) {
+                background-color: rgb(255, 186, 0);
+                color: white;
+              }
+            }
+          }
+        }
+      }
+    }
+    & > ul.pagination {
+      display: flex;
+      justify-content: center;
+      gap: 2vw;
+      margin-top: 2vh;
+    }
+  }
+
+  @media screen and (max-width: $md-breakpoint) {
+    div.submit_review {
+      & > ul {
+        & > li {
+          /*         display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 8vh;
+          & > input {
+          }
+          input[type="checkbox"] {
+            display: none;
+          }
+          input[type="checkbox"] + label {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            position: relative;
+            border-radius: 5px;
+            border: 1px solid gray;
+          }
+          input[type="checkbox"]:checked + label::after {
+            content: "✔";
+            font-size: 15px;
+            width: 21px;
+            height: 21px;
+            text-align: center;
+            position: absolute;
+            border-radius: 5px;
+            left: -1px;
+            top: -1px;
+            background-color: rgb(255, 186, 0);
+          } */
+          div.review_detail {
+            & > div.review_detail_tab {
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              & > p {
+                margin-bottom: 1vh;
+                font-size: 1.1rem;
+              }
+              & > div {
+                justify-content: space-between;
+                width: 100%;
+                div.review_star {
+                  justify-content: flex-start;
+                  div.star_wrap {
+                    & > svg {
+                    }
+                  }
+                  & > p {
+                    font-size: .8rem;
+                  }
+                }
+                & > p {
+                    font-size: .9rem;
+                }
+              }
+            }
+            & > div.review_detail_content {
+              div.review_content_img {
+                & > p {
+                  margin-bottom: 2vh;
+                }
+                & > figcaption {
+                  & > img {
+                  }
+                }
+              }
+              div.edit_delete_btn {
+                & > button {
+                }
+                & > button:nth-child(1) {
+                }
+                & > button:nth-child(2) {
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

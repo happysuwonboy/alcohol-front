@@ -7,6 +7,7 @@ import axios from 'axios';
 import BASE_URL from '../../constants/baseurl';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ReviewStar from './ReviewStar';
+import getImgUrl from '../../util/getImgUrl';
 
 export default function ReviewSwiper() {
   const [reviewList, setReviewList] = useState([]);
@@ -42,7 +43,7 @@ export default function ReviewSwiper() {
   }, []);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/review`)
+    axios.get(`${BASE_URL}/home/review`)
     .then(result => setReviewList(result.data))
     .catch(error => console.log(error))
   }, []);
@@ -87,7 +88,7 @@ export default function ReviewSwiper() {
           {reviewList?.map(review => (
             <SwiperSlide key={review.review_id}>
               <Link to={`/findalcohol/${review.alcohol_id}`}>
-                <AlcoholAvata img={`/assets/images/review/${review.review_img}`} alt={review.review_img} />
+                <AlcoholAvata img={getImgUrl.review(review.review_img)} alt={review.review_img} />
                 <ReviewStar rating={review.review_star} />
                 <p>{review.review_content}</p>
                 <p>{review.user_id}</p>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import AlcoholAvata from './AlcoholAvata';
 import AlcoholInfo from './AlcoholInfo';
 import CategoryTitle from './CategoryTitle';
@@ -7,6 +7,7 @@ import BASE_URL from '../../constants/baseurl';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from 'react-router-dom';
 import { IoIosArrowForward } from "react-icons/io";
+import getImgUrl from '../../util/getImgUrl';
 
 export default function CategorySwiper({ params, title, subtitle, png }) {
   const [categoryList, setcategoryList] = useState([]);
@@ -15,6 +16,7 @@ export default function CategorySwiper({ params, title, subtitle, png }) {
   const [prevArrow, setPrevArrow] = useState('icon_prev_arrow_inactive');
   const [nextArrow, setNextArrow] = useState('icon_next_arrow_active');
   const [slidePerView, setSlidePerView] = useState(4);
+
 
   // navigation
   const handlePrev = () => {
@@ -25,7 +27,7 @@ export default function CategorySwiper({ params, title, subtitle, png }) {
   };
 
   useEffect(() => {
-    axios.get(`${BASE_URL}`, { params })
+    axios.get(`${BASE_URL}/home`, { params })
       .then(result => setcategoryList(result.data))
       .catch(error => console.log(error));
   }, []);
@@ -94,7 +96,7 @@ export default function CategorySwiper({ params, title, subtitle, png }) {
           {categoryList?.map(category => (
             <SwiperSlide key={category.alcohol_id}>
               <Link to={`/findalcohol/${category.alcohol_id}`}>
-                <AlcoholAvata img={`/assets/images/alcohol_img/${category.alcohol_img1}`} alt={category.alcohol_img1} />
+                <AlcoholAvata img={getImgUrl.alcohol(category.alcohol_img1)} alt={category.alcohol_img1} />
                 <AlcoholInfo name={category.alcohol_name}
                   price={category.alcohol_price}
                   hashtag={category.hashtag}
