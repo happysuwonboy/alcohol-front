@@ -14,7 +14,7 @@ export default function ProductContent() {
   useEffect(() => {
     axios.get(`${BASE_URL}/adminpage/product/${page}`)
     .then(result => {
-      setAlcoholData(result.data)
+      setAlcoholData(result.data);
     })
     .catch(error => console.log(error))
   }, [page]);
