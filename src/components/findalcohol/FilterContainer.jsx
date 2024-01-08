@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterData } from '../redux/modules/filterSlice';
-import FilterWrap from '../components/findalcohol/FilterWrap';
-import ShowAlcohol from '../components/findalcohol/ShowAlcohol';
+import { filterData } from '../../redux/modules/filterSlice';
+import FilterWrap from './FilterWrap';
+import ShowAlcohol from './ShowAlcohol';
 
 export default function FilterContainer() {
   const dispatch = useDispatch();

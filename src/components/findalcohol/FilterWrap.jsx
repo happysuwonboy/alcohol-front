@@ -23,7 +23,8 @@ export default function FilterWrap(props) {
 
 // 하위 카테고리 체크박스 클릭 시 리덕스 액션 진행 
   const handleCheckboxChange = async (categoryId, category, optionId, optionName) => {
-    document.querySelectorAll('.price').forEach(input => input.value = '')
+    document.querySelectorAll('.price').forEach(input => input.value = '');
+    dispatch(changeInput(''));
     dispatch(checkboxSeleted({categoryId, category, optionId, optionName}));
   }
 
@@ -42,14 +43,16 @@ export default function FilterWrap(props) {
   // ( 880px이하 ) filter navbar 닫기
   const handleClickCloseNav = (e) => {
     e.stopPropagation();
+    document.body.style.overflow = 'auto';
     setBeforeClass(!beforeClass);
     setTimeout(() => {
-        setIsFilterClick(!isFilterClick);
-      }, 300); // 300ms는 트랜지션 시간과 동일하게 설정
+      setIsFilterClick(!isFilterClick);
+    }, 300); // 300ms는 트랜지션 시간과 동일하게 설정
   }
   
   // ( 880px 이하 ) filter navbar 하위 컴포넌트 이벤트 핸들러
   const handleClickFilter = () => {
+    document.body.style.overflow = 'hidden'; 
     setIsFilterClick(!isFilterClick);
     setTimeout(() => {
       setBeforeClass(!beforeClass);

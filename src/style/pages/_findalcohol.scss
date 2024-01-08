@@ -249,7 +249,7 @@ main.findalcohol_section {
                   cursor: pointer;
                 }
               }
-              input:checked + label::before {
+              input:checked + label:before {
                 content: '\2713';
                 border: none;
                 background-color: #5197f2;
@@ -463,8 +463,10 @@ main.findalcohol_section {
           margin-bottom: 1rem;
           overflow: hidden;
           border-radius: 10px;
-          &:hover img {
-            transform: scale(1.1);
+          @media (hover:hover) {
+            &:hover img {
+              transform: scale(1.1);
+            }
           }
           img {
             width: 100%;
@@ -536,6 +538,18 @@ main.findalcohol_section {
             color: #747474;
           }
         }
+      }
+    }
+    div.filter_empty {
+      height: 300px;
+      @include flexbox;
+      flex-direction: column;
+      color: gray;
+      svg {
+        margin-bottom: 1rem;
+        font-size: 2rem;
+      }
+      p {
       }
     }
   }
