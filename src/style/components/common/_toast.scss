@@ -13,6 +13,8 @@ div.toast_container {
     opacity: 0;
     pointer-events: none;
     transition: all .8s;
+    border-radius: 10px;
+    background-color: #CCC;
     span.toast_msg {
       align-items: center;
       display: flex;

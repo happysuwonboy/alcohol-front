@@ -17,6 +17,9 @@ export default function HeaderMobile({ user, curPage }) {
   const showHamburgerMenu = () => setShowHamb(true)
   const hideHamburgerMenu = () => setShowHamb(false)
   
+  const movePrevPage = () => navigate(-1)
+
+  
   const handelResize = () => {
     if (window.innerWidth >= 880) {
         hideHamburgerMenu();
@@ -34,7 +37,7 @@ export default function HeaderMobile({ user, curPage }) {
         <div className='header_top'>
           {!pageTitle 
           ?
-            <div className='main_logo' onClick={() => navigate('/')}>
+            <div className='main_logo' onClick={movePrevPage}>
               <img src="/assets/images/main-logo.png" alt="" />
             </div>
           :
