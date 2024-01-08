@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import QtyControl from "./QtyControl";
 import { IoCloseSharp } from "react-icons/io5";
 import { IoTimeOutline } from "react-icons/io5";
-
+import getImgUrl from '../../util/getImgUrl';
 
 export default function CartedAlcohol({ alcohol, checked, onCheck, onUpdate, onDelete, userId }){
     const alcoholId = alcohol.alcohol_id;
@@ -37,7 +37,7 @@ export default function CartedAlcohol({ alcohol, checked, onCheck, onUpdate, onD
             <div className='carted_content'>
                 <div className='carted_alcohol'>
                     <Link to={`/findalcohol/${alcoholId}`} className='carted_alcohol_img'>
-                        <img src={`assets/images/alcohol_img/${img}`} alt='carted_alcohol_img' />
+                        <img src={getImgUrl.alcohol(img)} alt='carted_alcohol_img' />
                     </Link>
                     <div className='carted_alcohol_info'>
                         <div className='info_1'>
