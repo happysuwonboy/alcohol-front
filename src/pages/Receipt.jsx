@@ -48,8 +48,8 @@ export default function Receipt() {
     /**
      * 배송지 선택
      */
-    const handleSelectRec = (name, phone, address) => {
-        navigate(`/payment`, { state: {  
+    const handleSelectRec = (name, phone, address, recId) => {
+        navigate(`/payment`, { state: {
             userId: userId,
             checked : checked,
             totalPrice : totalPrice,
@@ -57,7 +57,8 @@ export default function Receipt() {
             deliveryPrice : deliveryPrice,
             name: name,
             phone: phone,
-            address: address
+            address: address,
+            recId: recId
         }});
     }
 
@@ -90,7 +91,7 @@ export default function Receipt() {
                                 </div>
                                 <div className='btns'>
                                     <button type='button' className='update_btn' onClick={() => handleUpdateRec(rec.rec_id)}>수정</button>
-                                    <button type='button' className='select_btn' onClick={() => handleSelectRec(rec.rec_name, rec.rec_phone, rec.rec_address)}>선택</button>
+                                    <button type='button' className='select_btn' onClick={() => handleSelectRec(rec.rec_name, rec.rec_phone, rec.rec_address, rec.rec_id)}>선택</button>
                                 </div>
                             </div>
                         )}

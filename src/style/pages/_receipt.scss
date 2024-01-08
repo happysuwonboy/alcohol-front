@@ -5,7 +5,6 @@ main.main_reclist{
     div.reclist_container{
         margin: 30px auto;
         padding: 60px 50px;
-        min-height: 120vh;
         p.reclist_title{
             margin-bottom: 20px;
             padding-bottom: 20px;
@@ -169,6 +168,9 @@ main.main_reclist{
                             left: 0;
                             width: 100%;
                             border: 1px solid #000;
+                            div{
+                                height: 300px !important;
+                            }
                         }
                     }
                 }
@@ -210,6 +212,40 @@ main.main_reclist{
                         font-size: 18px;
                         font-weight: normal;
                     }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 880px) {
+    main.main_reclist{
+        div.reclist_container{
+            margin: 0;
+            padding: 0;
+            p.reclist_title{
+                display: none;
+            }
+            div.reclist_content{
+                div.reclist{
+                    width: 100%;
+                    margin: 0;
+                    border: none;
+                    border-radius: 0;
+                }
+            }
+            div.receipt_modal{
+                div.modal_background{
+                    background: none;
+                }
+                div.modal_container{
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    transform: translate(0);
+                    width: 100%;
+                    height: 100%;
+                    padding: 100px 30px 20px 30px;
                 }
             }
         }
