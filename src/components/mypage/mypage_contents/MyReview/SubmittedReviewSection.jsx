@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import AlcoholAvata from '../home/AlcoholAvata';
-import ReviewStar from '../home/ReviewStar';
+import AlcoholAvata from '../../../home/AlcoholAvata';
+import ReviewStar from '../../../home/ReviewStar';
 import axios from 'axios';
-import BASE_URL from '../../constants/baseurl';
+import BASE_URL from '../../../../constants/baseurl';
 import PagiNation from 'react-js-pagination';
-import getImgUrl from '../../util/getImgUrl';
+import getImgUrl from '../../../../util/getImgUrl';
 
 export default function SubmittedReviewSection() {
   const [myReviewList, setMyReviewList] = useState([]);

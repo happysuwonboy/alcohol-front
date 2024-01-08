@@ -1,4 +1,4 @@
-import NoReview from '../alcoholdetail/NoReview';
+import NoReview from '../../../alcoholdetail/NoReview';
 
 export default function CreateReviewSection() {
   return (

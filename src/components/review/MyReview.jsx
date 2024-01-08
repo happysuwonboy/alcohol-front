@@ -1,7 +1,7 @@
 import { useState } from "react";
-import SubCategory from "./SubCategory";
-import CreateReviewSection from "./CreateReviewSection";
-import SubmittedReviewSection from "./SubmittedReviewSection";
+import SubCategory from "../mypage/mypage_contents/MyReview/SubCategory";
+import CreateReviewSection from "../mypage/mypage_contents/MyReview/CreateReviewSection";
+import SubmittedReviewSection from "../mypage/mypage_contents/MyReview/SubmittedReviewSection";
 
 export default function MyReview() {
   const [tab, setTab] = useState(1);
