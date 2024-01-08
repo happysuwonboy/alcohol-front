@@ -17,6 +17,8 @@ export const getUserInfo = () => {
   }
 };
 
+export default getUserInfo;
+
 /*         
 
         // Call getUserInfo to get user information
