@@ -1,0 +1,67 @@
+div.my_user_info, div.user_recommender{
+  border: 1px solid #DDD;
+  border-radius: 10px;
+  padding: 30px 60px;
+  margin-bottom: 15px;
+  div.my_user_title,
+  div.user_recommender_title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 8px;
+    span.user_info_title,
+    span.user_code_title,
+    button{
+      font-weight: bold;
+    }
+    button.user_info_edit{
+      font-size: 13px;
+      color: #0096F3;
+      text-decoration: underline;
+    }
+    button.code_copy_button{
+      width: 70px;
+      height: 40px;
+      margin-left:15px;
+      font-size: 15px;
+      color: white;
+      background: #FFBB00;
+      border-radius: 5px;
+    }
+  }
+  div.my_user_title{
+    margin-bottom: 30px;
+    border-bottom: 1px solid #F9DEAE;
+  }
+  div.user_info_name,
+  div.user_info_id,
+  div.user_info_email,
+  div.user_info_phone,
+  div.user_info_address{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 13px;
+    span.user_info_detail_title{
+      color: rgb(112,112,122);
+    }
+    span.user_info_content{
+      font-weight: bold;
+      color: #707070;
+    }
+  }
+  input{
+    border: 1px solid #707070;
+    height: 30px;
+    padding: 5px;
+    border-radius: 5px;
+    color: #707070;
+  }
+  button.save_button{
+    margin-top : 50px;
+    text-decoration: underline;
+    font-size: 16px;
+    font-weight: bold;
+    color: #0096F3;
+  }
+}

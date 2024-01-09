@@ -52,34 +52,52 @@ export default function Join(){
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-        // 이름, 아이디, 이메일은 알파벳과 숫자만 허용
-        if (name === 'name' || name === 'userid' || name === 'email' || name === 'password' || name === 'confirmpassword' || name === 'detailaddress') {
-          setForm({ ...form, [name]: value });
-        }
-            // 비밀번호와 비밀번호 확인이 다를 경우 에러 메시지 설정
-        if (name === 'password' || name === 'confirmpassword') {
-          if (form.password !== value) {
-            setPasswordMatchError('비밀번호가 일치하지 않습니다.');
-          } else {
-            setPasswordMatchError('');
-          }
-        }
-        else if (name === 'phone' || name === 'birthdate') {
-          // 전화번호, 생일은 숫자만 허용
-          const numericValue = value.replace(/\D/g, '');
-          const limitedValue = numericValue.slice(0, (name === 'phone') ? 11 : 8);
-    
-          // 전화번호 형식 변환 (00000000000 -> 000-0000-0000)
-          // 생일 형식 변환 (YYYYMMDD -> YYYY-MM-DD)
-          const formattedValue = (name === 'phone')
-            ? limitedValue.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
-            : limitedValue.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
-    
-          setForm({ ...form, [name]: formattedValue });
-        }
-          
-
+  
+    if (name === 'name' || name === 'userid' || name === 'email' || name === 'password' || name === 'confirmpassword' || name === 'detailaddress') {
+      // 이름, 아이디, 이메일, 비밀번호, 상세주소는 그대로 업데이트
+      setForm((prevForm) => ({
+        ...prevForm,
+        [name]: value,
+      }));
+    }
+  
+    if (name === 'password' || name === 'confirmpassword') {
+      // 비밀번호와 비밀번호 확인이 다를 경우 에러 메시지 설정
+      if (form.password !== value) {
+        setPasswordMatchError('비밀번호가 일치하지 않습니다.');
+      } else {
+        setPasswordMatchError('');
+      }
+    } else if (name === 'phone') {
+      // 전화번호는 숫자만 허용
+      const numericValue = value.replace(/\D/g, '');
+      const limitedValue = numericValue.slice(0, 11);
+  
+      // 화면에 표시될 형식으로 변환
+      const formattedValue = limitedValue.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+  
+      // 상태 업데이트: 숫자만 포함된 값으로 업데이트
+      setForm((prevForm) => ({
+        ...prevForm,
+        [name]: limitedValue,
+      }));
+    } else if (name === 'birthdate') {
+      // 생년월일은 숫자만 허용
+      const numericValue = value.replace(/\D/g, '');
+      const limitedValue = numericValue.slice(0, 8);
+  
+      // 화면에 표시될 형식으로 변환
+      const formattedValue = limitedValue.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+  
+      // 상태 업데이트: 형식 변환된 값으로 업데이트
+      setForm((prevForm) => ({
+        ...prevForm,
+        [name]: formattedValue,
+      }));
+    }
   };
+  
+  
 
 
   const inputName = useRef(null); 
