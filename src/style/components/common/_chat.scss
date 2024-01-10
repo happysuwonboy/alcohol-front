@@ -1,0 +1,37 @@
+div.float_chat_container {
+    position: fixed;
+    bottom: 0; right: 0; 
+    z-index: 12;
+    button.float_chat_btn {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: rgb(78, 78, 247);
+      bottom: 65px;
+      right: 15px;
+      transition: all 0.5s;
+      svg {
+        pointer-events: none;
+        color: #fff;
+        margin: 0 auto;
+        font-size: 1.5rem;
+      }
+    }
+    div.chat_content_container {
+        position: absolute;
+        width: 250px;
+        height: 500px;
+        bottom: 115px; right: 75px;
+        background-color: #EEE;
+        transition: all .3s;
+        transform: scale(0);
+        transform-origin: 100% 100%;
+        pointer-events: none;
+        &.show {
+            transform: scale(1);
+            pointer-events: all;
+        }
+    }
+}
+
