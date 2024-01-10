@@ -4,11 +4,13 @@ import PagiNation from 'react-js-pagination';
 import BASE_URL from '../../constants/baseurl';
 import ProductList from './product_content/ProductList';
 import ProductRegisterForm from './product_content/ProductRegisterForm';
+import ProductUpdateForm from './product_content/ProductUpdateForm';
 
 export default function ProductContent() {
   const [ alcoholData, setAlcoholData ] = useState([]);
   const [ page, setPage ] = useState(1);
   const [ registerBtnToggle, setRegisterBtnToggle ] = useState(false);
+  const [ updateClick, setUpdateClcik ] = useState(false);
   // console.log(alcoholData);
   
   useEffect(() => {
@@ -25,12 +27,12 @@ export default function ProductContent() {
       top: 0,
       behavior: 'smooth',
     })
-  }
+  };
 
   return (
     <>
-      <div className={`product_container ${registerBtnToggle ? 'toggle' : '' }`}>
-        <ProductList alcoholData={alcoholData} setRegisterBtnToggle={setRegisterBtnToggle}/>
+      <div className={`product_container ${(registerBtnToggle || updateClick)? 'toggle' : '' }`}>
+        <ProductList alcoholData={alcoholData} setRegisterBtnToggle={setRegisterBtnToggle} setUpdateClcik={setUpdateClcik}/>
         <PagiNation 
           activePage={page}
           itemsCountPerPage={10}
@@ -41,7 +43,8 @@ export default function ProductContent() {
           nextPageText='>'
         />
       </div>
-      <ProductRegisterForm registerBtnToggle={registerBtnToggle} setRegisterBtnToggle={setRegisterBtnToggle}/>
+      <ProductRegisterForm registerBtnToggle={registerBtnToggle} setRegisterBtnToggle={setRegisterBtnToggle} />
+      <ProductUpdateForm updateClick={updateClick} setUpdateClcik={setUpdateClcik}/>
       {/* { registerBtn ?  <ProductRegisterForm registerBtn={registerBtn}/>  : null} */}
     </>
   );

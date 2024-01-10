@@ -3,13 +3,24 @@ import { FaWineBottle } from 'react-icons/fa';
 import { TbTrashXFilled } from 'react-icons/tb';
 import getImgUrl from '../../../util/getImgUrl';
 
-export default function ProductList({alcoholData, setRegisterBtnToggle}) {
+export default function ProductList({alcoholData, setRegisterBtnToggle, setUpdateClcik}) {
 
   // 상품 등록하기 버튼 핸들러
   const handleClickRegister = () => {
     document.body.style.overflow = 'hidden'; // 모달이 나올 때 윈도우의 기본 스크롤바 생성을 막음
     setRegisterBtnToggle(true);
   }
+
+  const handleClickRow = (e, id) => {
+    // td (체크박스) 요소 담기
+    const isFirstChild = e.currentTarget.children[0] === e.target;
+    if( isFirstChild || e.target.tagName === 'LABEL' || e.target.tagName === 'INPUT' || e.target.type === 'checkbox') {
+      return
+    } else {
+      document.body.style.overflow = 'hidden';
+      setUpdateClcik(true);
+    }
+  };
 
   return(
     <>
@@ -48,7 +59,7 @@ export default function ProductList({alcoholData, setRegisterBtnToggle}) {
             </thead>
             <tbody>
             { alcoholData.map(list => (
-              <tr key={list.alcohol_id}>
+              <tr key={list.alcohol_id} onClick={(e) => handleClickRow(e, list.alcohol_id)}>
                 <td className='checkbox_td'>
                   <input type='checkbox' id={list.alcohol_id}/>
                   <label htmlFor={list.alcohol_id}></label>

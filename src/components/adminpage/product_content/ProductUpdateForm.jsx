@@ -5,7 +5,7 @@ import { IoIosClose } from "react-icons/io";
 import { GrPowerReset } from 'react-icons/gr';
 import BASE_URL from '../../../constants/baseurl';
 
-export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnToggle}) {
+export default function ProductUpdateForm({updateClick, setUpdateClcik}) {
   const initialViewImg = ({ 0: '', 1: '', 2: ''});
 
   const [ foodViewImages, setFoodViewImages ] = useState(initialViewImg); // 미리보기, map 사용
@@ -14,7 +14,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
   let [ alcoholImgFiles, setAlcoholImgFiles ] = useState(['', '', '']); // 서버 데이터용
   const [ duplicatedImages, setDuplicatedImages ] = useState(false); // food 이미지 중복 버튼 활성화
 
-  const initialFormData = {
+  const initialFormData = { // 서버에서 가져오는 값 필요 
     alcohol_name: { text: '', error: ''},
     alcohol_price: { text : '', error : '' },
     dc_percent: { text : '', error : '' },
@@ -35,12 +35,13 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
   }
 
   const [ formData, setFormData ] =  useState(initialFormData);
-  console.log(formData);
 
   // form 제출
   const handleSubmitRegister = (e) => {
     e.preventDefault();
     const passed = Object.values(formData).every(filed => filed.text !== '');
+    // console.log(foodImgFiles);
+    // console.log(alcoholImgFiles);
 
     if(passed && duplicatedImages) { // 모든 값이 들어 있는 경우
       const food = ['food1', 'food2', 'food3']
@@ -96,10 +97,11 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
   // 등록 모달 닫기 클릭
   const handleClickClose = () => {
     document.body.style.overflow = 'auto'; // 윈도우 스크롤 생성
-    setRegisterBtnToggle(false);
+    // setRegisterBtnToggle(false);
+    setUpdateClcik(false);
   };
 
-  // 초기화
+  // 초기화 : 수정에서는 되돌리기로 할까..?
   const handleClickReset = () => {
     // 미리보기 이미지와 form 모든 값 초기화
     setFormData(initialFormData);
@@ -110,19 +112,14 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
     setDuplicatedImages(false);
   }
 
-  // 동일한 파일 선택 시 이미지 값 비우기
-  const handleClickFile = (e) => {
-    e.target.value = '';
-  }
-
   // 선택 이미지 중복 체크 ( 서버 가기 전 프론트에서의 파일명 중복 )
   const validateFoodImages = (currentFile) => {
-    return foodImgFiles.some(imgFile => imgFile.name === currentFile);
+    return foodImgFiles.some(imgFile => imgFile === currentFile);
   }
-    
+
   // food 음식 이미지 미리보기
   const handleChangeFoodImg = (e, idx) => {
-    setDuplicatedImages(false);
+    console.log(e.target);
     const uploadFile = e.target.files[0]; // 업로드한 파일 가져오기
 
     if(uploadFile) {
@@ -131,7 +128,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
       reader.onload = (e) => {
         const uploadFileName = uploadFile.name;
         if(validateFoodImages(uploadFileName)) {
-          alert('선택한 이미지 파일이 중복된 이미지가 있습니다. 다시 올려주세요');
+          alert('중복된 이미지가 있습니다. 다시 올려주세요');
         } else {
           setFoodImgFiles(prev => {
             const newState = [...prev];
@@ -148,7 +145,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
     }
   };
 
-  // alcohol 상품 이미지 미리보기
+  // // alcohol 상품 이미지 미리보기
   const handleChageAlcohol = (e, idx) => {
     const uploadFile = e.target.files[0];
 
@@ -171,13 +168,12 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
 
   // food 음식 이미지 중복 체크
   const handleClickImgCheck = (e) => {
-    console.log(foodImgFiles);
-    const foodImgNames = foodImgFiles.map(file => file.name);
-    if(foodImgNames.length === 3) { // 이미지 3개 다 있는지 확인
+    // console.log(foodImages);
+    if(foodImgFiles.every(img => img !== '')) { // 이미지 3개 다 있는지 확인
       axios({
         url : `${BASE_URL}/adminpage/imgduplicate`,
         method : 'post',
-        data : {foodImages: foodImgNames}
+        data : {foodImages: foodImgFiles}
       })
       .then(result => { // 중복 데이터 넘어옴
 
@@ -227,7 +223,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
     const inputPercent = e.target.value;
     const numberInput = Number(inputPercent)
 
-    if(numberInput >= 0 && numberInput <= 100 && inputPercent !== '' && inputPercent !== '00' && inputPercent !== '000' ) {
+    if(numberInput >= 0 && numberInput <= 100 && inputPercent !== '') {
       setFormData(prev => ({...prev, dc_percent: {text: inputPercent, error: ''}}));
     }else {
       setFormData(prev => ({...prev, dc_percent: {text: '' , error: '0 - 100 사이의 숫자를 입력해주세요' }}));
@@ -245,17 +241,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
   const handleChangeAbv = (e) => {
     const inputAbv = e.target.value;
 
-    if (Number(inputAbv) >= 0 && inputAbv.trim() !== '' ) {
-      setFormData(prev => ({ ...prev, abv: {text : inputAbv, error: '' }}));
-    } else {
-      setFormData(prev => ({ ...prev, abv: {text: '', error: '%를 제외한 소수점 숫자를 입력해주세요 (30.4)'} }));
-    }
-  };
-
-  const handleBlurAbv = (e) => {
-    const inputAbv = e.target.value;
-
-    if (Number(inputAbv) >= 0 && inputAbv.trim() !== '' && inputAbv[2] === '.') {
+    if (Number(inputAbv) >= 0 && inputAbv.trim() !== '') {
       setFormData(prev => ({ ...prev, abv: {text : inputAbv, error: '' }}));
     } else {
       setFormData(prev => ({ ...prev, abv: {text: '', error: '%를 제외한 소수점 숫자를 입력해주세요 (30.4)'} }));
@@ -265,8 +251,8 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
   const handleChangeVolume = (e) => {
     const inputVloume = e.target.value;
 
-    if (Number(inputVloume) >= 0 &&  Number(inputVloume) <= 2000 && inputVloume.trim() !== '') {
-      setFormData(prev => ({ ...prev, alcohol_volume: {text: inputVloume, error: '' }}));
+    if (Number(inputVloume) >= 0 && inputVloume.trim() !== '') {
+      setFormData(prev => ({ ...prev, alcohol_volume: inputVloume }));
     } else {
       setFormData(prev => ({ ...prev, alcohol_volume: {text: '', error: '단위를 제외한 숫자로 입력해주세요' } }));
     }
@@ -321,9 +307,9 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
   
 
   return (
-    <div className={`register_form_container ${registerBtnToggle ? 'toggle' : ''}`}>
+    <div className={`register_form_container ${updateClick ? 'toggle' : ''}`}>
       <div className='title_wrap'>
-        <p>Product Register</p>
+        <p>Product Update</p>
         <div className='btn_wrap'>
           <div className='reset_btn' onClick={handleClickReset} >
             <GrPowerReset />
@@ -356,7 +342,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
           <div className='percent'>
             <div className='text_box'>
               <label htmlFor='dc_percent'>할인율</label>
-              <input value={formData.dc_percent?.text} className={formData.dc_percent.error && 'error'} type='text' id='dc_percent' name='dc_percent' placeholder='1 - 100사이 숫자를 입력해주세요' maxLength={3}  onChange={handleChangePercent}/>
+              <input value={formData.dc_percent?.text} className={formData.dc_percent.error && 'error'} type='text' id='dc_percent' name='dc_percent' placeholder='1 - 100사이 숫자를 입력해주세요' onChange={handleChangePercent}/>
             </div>
           { formData.dc_percent?.error && <span>{formData.dc_percent.error}</span> }
           </div>
@@ -372,7 +358,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
           <div className='abv'>
             <div className='text_box'>
               <label htmlFor='abv'>도수</label>
-              <input value={formData.abv?.text} className={formData.abv.error && 'error'} type='text' id='abv' name='abv'  placeholder='%를 제외한 소수점 숫자를 입력해주세요 (30.4)' maxLength={4} onChange={handleChangeAbv} onBlur={handleBlurAbv}/>
+              <input value={formData.abv?.text} className={formData.abv.error && 'error'} type='text' id='abv' name='abv'  placeholder='%를 제외한 소수점 숫자를 입력해주세요 (30.4)' maxLength={4} onChange={handleChangeAbv}/>
             </div>
           { formData.abv?.error && <span>{formData.abv.error}</span> }
           </div>
@@ -380,7 +366,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
           <div className='volume'>
             <div className='text_box'>
               <label htmlFor='alcohol_volume'>용량</label>
-              <input value={formData.alcohol_volume?.text} className={formData.alcohol_volume.error && 'error'}  type='text' id='alcohol_volume' name='alcohol_volume' placeholder='ml 단위를 제외한 숫자로 입력해주세요' maxLength={4} onChange={handleChangeVolume}/>
+              <input value={formData.alcohol_volume?.text} className={formData.alcohol_volume.error && 'error'}  type='text' id='alcohol_volume' name='alcohol_volume' placeholder='단위를 제외한 숫자로 입력해주세요' onChange={handleChangeVolume}/>
             </div>
           { formData.alcohol_volume?.error && <span>{formData.alcohol_volume.error}</span>}
           </div>
@@ -400,7 +386,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
                       <img src={foodViewImages[idx] || 'assets/images/etc/default.png'} alt={`음식 상품 이미지 ${parseInt(idx, 10) + 1}`} />
                     </div>
                     <label htmlFor={`food_img${idx}`}><IoCamera/></label>
-                    <input type='file' accept='image/*' id={`food_img${idx}`} name={`food_img${idx}`} onClick={handleClickFile} onChange={(e) => handleChangeFoodImg(e, idx)} />
+                    <input type='file' accept='image/*' id={`food_img${idx}`} name={`food_img${idx}`} onChange={(e) => handleChangeFoodImg(e, idx)} />
                   </div>
                   </div>)) } 
               </div>
@@ -438,6 +424,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
             <div className='write_box'>
               <label htmlFor='alcohol_comment1'>상품 소개1</label>
               <textarea value={formData.alcohol_comment1?.text} className={formData.alcohol_comment1.error && 'error'} name='alcohol_comment1' id='alcohol_comment1' color='30' rows='5' maxLength='1000' placeholder='문장을 /로 구분해주세요' onChange={(e) => handleChangeComment(e, 1)} ></textarea>
+            {/* <input type='text' id='alcohol_comment1' name='alcohol_comment1' placeholder='문장을 /로 구분해주세요' /> */}
             </div>
             <div className='text_length_box'>
             { formData.alcohol_comment1?.error && <span>{formData.alcohol_comment1.error}</span> }
@@ -522,7 +509,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
           <div className='hashtag'>
             <div className='text_box'>
               <label htmlFor='hashtag'>#태그</label>
-              <input value={formData.hashtag.text} className={formData.hashtag.error && 'error'} type='text' id='hashtag' name='hashtag' placeholder='#을 제외하고 20자 이하로 넣어주세요' maxLength={20} onChange={handleChangeTag}/>
+              <input value={formData.hashtag.text} className={formData.hashtag.error && 'error'} type='text' id='hashtag' name='hashtag' placeholder='#을 제외하고 넣어주세요' onChange={handleChangeTag}/>
             </div>
             { formData.hashtag?.error && <span>{formData.hashtag.error}</span> }
           </div>
