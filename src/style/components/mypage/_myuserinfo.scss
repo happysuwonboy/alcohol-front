@@ -1,8 +1,71 @@
-div.my_user_info, div.user_recommender{
+div.my_user_info, 
+div.user_recommender,
+div.user_event_alert,
+div.cancel_button_frame{
   border: 1px solid #DDD;
   border-radius: 10px;
   padding: 30px 60px;
   margin-bottom: 15px;
+  div.cancel_button_frame{
+    display: flex;
+    justify-content: flex-end;
+  }
+  div.user_event_title{
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  div.user_event_comment{
+    font-size: 12px;
+    color: #3D3D3D99;
+    margin-bottom: 30px;
+  }
+  div.flex_frame_top{
+    margin-bottom: 20px;
+  }
+  div.user_event_flex_frame{
+    display: flex;
+    justify-content: space-between;
+    div.event_content_title{
+      font-size: 13px;
+      font-weight: 600;
+    }
+    div.toggle_frame{
+      input.toggle_input{
+        display: none;
+      }
+      label.toggle_label{
+        color: #E0E0E0; 
+        cursor: pointer;
+        width: 100px;
+        height: 50px;
+        background-color: #e0e0e0;
+        border-radius: 25px;
+        position:relative;
+        transition: 0.5s ease-out;
+      }
+      label.toggle_label::after {
+        content: ''; 
+        width: 18px; 
+        height: 18px;
+        background-color: #fff;
+        position: absolute;
+        border-radius: 50%;
+        top: 1px;
+        left: 1px;
+        transition: 0.5s ease-out;
+    }
+    #toggle-slider1:checked + label,
+    #toggle-slider2:checked + label{
+      background-color: #20d51a;
+      color: #20d51a;
+    }
+    #toggle-slider1:checked + label::after,
+    #toggle-slider2:checked + label::after {
+      left:calc(150% - 43px);
+      background-color: #fff;
+    }
+  }
+  }
   div.my_user_title,
   div.user_recommender_title{
     display: flex;
@@ -35,6 +98,8 @@ div.my_user_info, div.user_recommender{
   }
   div.user_info_name,
   div.user_info_id,
+  div.user_info_password,
+  div.user_info_confirmpassword,
   div.user_info_email,
   div.user_info_phone,
   div.user_info_address{
@@ -48,6 +113,14 @@ div.my_user_info, div.user_recommender{
     span.user_info_content{
       font-weight: bold;
       color: #707070;
+    }
+    div.confirmpassword_sm_frame{
+      display: flex;
+      flex-direction: column;
+      p.confirm_comment{
+        color: red;
+        font-size: 10px;
+      }
     }
   }
   input{
@@ -64,4 +137,22 @@ div.my_user_info, div.user_recommender{
     font-weight: bold;
     color: #0096F3;
   }
+}
+
+@media screen and (max-width: 880px){
+    div.my_user_info, 
+    div.user_recommender,
+    div.user_event_alert,
+    div.cancel_button_frame{
+      background: white;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+      div.button_flex_frame{
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+    div.cancel_button_frame{
+      display: flex;
+      justify-content: flex-end;
+    }
 }
