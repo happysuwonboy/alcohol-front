@@ -20,9 +20,10 @@ div.float_chat_container {
     }
     div.chat_content_container {
         position: absolute;
-        width: 250px;
-        height: 500px;
-        bottom: 115px; right: 75px;
+        width: 100vw;
+        height: 100vh;
+        // width: 250px;
+        // height: 500px;
         background-color: #EEE;
         transition: all .3s;
         transform: scale(0);
