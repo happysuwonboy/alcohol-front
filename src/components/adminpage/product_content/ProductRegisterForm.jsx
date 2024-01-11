@@ -7,7 +7,7 @@ import BASE_URL from '../../../constants/baseurl';
 import useProduct from '../../../hooks/useProduct';
 
 export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnToggle}) {
-  const [foodViewImages, alcoholViewImages, foodImgFiles, alcoholImgFiles, duplicatedImages, formData, setFormData, setFoodViewImages, setAlcoholViewImages, setFoodImgFiles, setAlcoholImgFiles, handleClickClose, handleClickReset, handleChangeFoodImges,  handleChageAlcoholImges, handleClickImgCheck, handleChangeName, handleChangePrice, handleChangePercent, handleChangeType, handleChangeAbv, handleBlurAbv, handleChangeVolume, handleChangeFood, handleChangeComment, handleChangeFlavor, handleChangeTag, handleChangeStock, resetForm ] = useProduct(setRegisterBtnToggle);
+  const [foodViewImages, alcoholViewImages, foodImgFiles, alcoholImgFiles, duplicatedImages, formData, setFormData, setFoodViewImages, setAlcoholViewImages, setFoodImgFiles, setAlcoholImgFiles, handleClickClose, handleClickReset, handleChangeFoodImges,  handleChageAlcoholImges, handleClickImgCheck, handleChangeName, handleChangePrice, handleChangePercent, handleChangeType, handleChangeAbv, handleBlurAbv, handleChangeVolume, handleChangeComment, handleChangeFlavor, handleChangeTag, handleChangeStock, resetForm ] = useProduct(setRegisterBtnToggle);
 
   // form 제출
   const handleSubmitRegister = (e) => {
@@ -151,7 +151,6 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
                     </div>
                     <label htmlFor={`food_img${idx}`}><IoCamera/></label>
                     <input type='file' accept='image/*' id={`food_img${idx}`} name={`food_img${idx}`} onChange={(e) => handleChangeFoodImges(e, idx)} />
-                    {/* <input type='file' accept='image/*' id={`food_img${idx}`} name={`food_img${idx}`} onClick={handleClickFile} onChange={(e) => handleChangeFoodImg(e, idx)} /> */}
                   </div>
                   </div>)) } 
               </div>
@@ -164,7 +163,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
           <div className='food_1'>
             <div className='text_box'>
               <label htmlFor='food_1'>음식1</label>
-              <input value={formData.food1?.text} className={formData.food1.error && 'error'} type='text' id='food_1' name='food_1' placeholder='음식을 입력해주세요' onChange={(e) => handleChangeFood(e, 1)}/>
+              <input value={formData.food1?.text} readOnly className={formData.food1.error && 'error'} type='text' id='food_1' name='food_1' placeholder='사진을 업로드하면 자동으로 입력됩니다'/>
             </div>
             { formData.food1?.error && <span>{formData.food1.error}</span> }
           </div>
@@ -172,7 +171,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
           <div className='food_2'>
             <div className='text_box'>
               <label htmlFor='food_2'>음식2</label>
-              <input value={formData.food2?.text} className={formData.food2.error && 'error'} type='text' id='food_2' name='food_2' placeholder='음식을 입력해주세요'onChange={(e) => handleChangeFood(e, 2)}/>
+              <input value={formData.food2?.text}  readOnly className={formData.food2.error && 'error'} type='text' id='food_2' name='food_2' placeholder='사진을 업로드하면 자동으로 입력됩니다'/>
             </div>
             { formData.food2?.error && <span>{formData.food2.error}</span> }
           </div>
@@ -180,7 +179,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
           <div className='food_3'>
             <div className='text_box'>
               <label htmlFor='food_3'>음식3</label>
-              <input value={formData.food3?.text} className={formData.food3.error && 'error'} type='text' id='food_3' name='food_3' placeholder='음식을 입력해주세요' onChange={(e) => handleChangeFood(e, 3)}/>
+              <input value={formData.food3?.text} readOnly className={formData.food3.error && 'error'} type='text' id='food_3' name='food_3' placeholder='사진을 업로드하면 자동으로 입력됩니다'/>
             </div>
             { formData.food3?.error && <span>{formData.food3.error}</span> }
           </div>

@@ -11,25 +11,25 @@ export default function useProduct(btnToggle) {
   const [ duplicatedImages, setDuplicatedImages ] = useState(false); // food 이미지 중복 버튼 활성화
   
   // 초기 데이터
-    const initialFormData = {
-      alcohol_name: { text: '', error: ''},
-      alcohol_price: { text : '', error : '' },
-      dc_percent: { text : '', error : '' },
-      alcohol_type: { text : '', error : '' },
-      abv: { text : '', error : '' },
-      alcohol_volume: { text : '', error : '' },
-      food1: { text : '', error : '' },
-      food2: { text : '', error : '' },
-      food3: { text : '', error : '' },
-      alcohol_comment1: { text : '', error : '' },
-      alcohol_comment2: { text : '', error : '' },
-      flavor_sour: { text : '', error : '' },
-      flavor_soda: { text : '', error : '' },
-      flavor_sweet: { text : '', error : '' },
-      flavor_body: { text : '', error : '' },
-      hashtag: { text : '', error : '' },
-      stock: { text : '', error : '' }
-    };
+  const initialFormData = {
+    alcohol_name: { text: '', error: ''},
+    alcohol_price: { text : '', error : '' },
+    dc_percent: { text : '', error : '' },
+    alcohol_type: { text : '', error : '' },
+    abv: { text : '', error : '' },
+    alcohol_volume: { text : '', error : '' },
+    food1: { text : '', error : '' },
+    food2: { text : '', error : '' },
+    food3: { text : '', error : '' },
+    alcohol_comment1: { text : '', error : '' },
+    alcohol_comment2: { text : '', error : '' },
+    flavor_sour: { text : '', error : '' },
+    flavor_soda: { text : '', error : '' },
+    flavor_sweet: { text : '', error : '' },
+    flavor_body: { text : '', error : '' },
+    hashtag: { text : '', error : '' },
+    stock: { text : '', error : '' }
+  };
 
     const [ formData, setFormData ] =  useState(initialFormData);
 
@@ -61,7 +61,6 @@ export default function useProduct(btnToggle) {
     
   // food 음식 이미지 미리보기
   const handleChangeFoodImges= (e, idx) => {
-    console.log('change');
     setDuplicatedImages(false);
     const uploadFile = e.target.files[0]; // 업로드한 파일 가져오기
 
@@ -70,8 +69,12 @@ export default function useProduct(btnToggle) {
 
       reader.onload = (e) => {
         const uploadFileName = uploadFile.name;
+        let index = uploadFileName.indexOf('.'); // 확장자 구분 위해서 . 인덱스 찾기
+        let viewFileName = uploadFileName.substring(0, index); // 해당 인덱스까지 문자열 추출
+        
         if(validateFoodImages(uploadFileName)) {
           alert('선택한 이미지 파일이 중복된 이미지가 있습니다. 다시 올려주세요');
+          // setFormData(prev => ({...prev, [`food${parseInt(idx) + 1}`] : {text: '', error: ''} }));
         } else {
           setFoodImgFiles(prev => {
             const newState = [...prev];
@@ -82,6 +85,8 @@ export default function useProduct(btnToggle) {
             ...prev,
             [idx]: e.target.result,
           }));
+          // 사진에서 추출한 문자열 음식 이름에 넣기
+          setFormData(prev => ({...prev, [`food${parseInt(idx) + 1}`] : {text: viewFileName, error: ''} }));
         }
       };
       reader.readAsDataURL(uploadFile); // 지정된 File 객체를 읽기 ( 파일을 Base64 인코딩된 데이터 URI로 읽어옴 )
@@ -113,7 +118,6 @@ export default function useProduct(btnToggle) {
 
   // food 음식 이미지 중복 체크
   const handleClickImgCheck = (e) => {
-    console.log(foodImgFiles);
     const foodImgNames = foodImgFiles.map(file => file.name);
     if(foodImgNames.length === 3) { // 이미지 3개 다 있는지 확인
       axios({
@@ -126,6 +130,15 @@ export default function useProduct(btnToggle) {
         if(result.data.duplicates) {
           setDuplicatedImages(false);
           alert('중복된 이미지가 있습니다. 다시 올려주세요');
+
+          // 모든 이미지의 food 값을 '' 빈 문자열로 수정
+          for(let i=0; i<3; i++) {
+            setFormData(prev => ({
+              ...prev,
+              [`food${i + 1}`] : { text :'', error: '' }
+            }));
+          }
+
           const deleteDupulicates = [...foodImgFiles]; // 배열 복사
           const deletVieweDupulicates = Object.assign({}, foodViewImages); // 객체 복사
 
@@ -214,14 +227,6 @@ export default function useProduct(btnToggle) {
     }
   };
 
-  const handleChangeFood = (e, number) => {
-    if(e.target.value !== '') {
-      setFormData(prev => ({ ...prev, [`food${number}`] : {text: e.target.value, error: ''} }));
-    } else {
-      setFormData(prev => ({ ...prev, [`food${number}`] : {text: '', error: '음식을 입력해주세요'} }));
-    }
-  };
-  
   const handleChangeComment = (e, number) => {
     if(e.target.value !== '' || e.target.value.length > 1000 ) {
       setFormData(prev => ({ ...prev, [`alcohol_comment${number}`] : {text: e.target.value, error: '' }}));
@@ -251,8 +256,6 @@ export default function useProduct(btnToggle) {
   };
   
   const handleChangeStock = (e) => {
-    console.log('여긴오나');
-    console.log(e.target);
     const inputStock = e.target.value;
     const numberStock = Number(inputStock);
 
@@ -263,6 +266,6 @@ export default function useProduct(btnToggle) {
     }
   };
 
-  return[foodViewImages, alcoholViewImages, foodImgFiles, alcoholImgFiles, duplicatedImages, formData, setFormData, setFoodViewImages, setAlcoholViewImages, setFoodImgFiles, setAlcoholImgFiles, handleClickClose, handleClickReset, handleChangeFoodImges,  handleChageAlcoholImges, handleClickImgCheck, handleChangeName, handleChangePrice, handleChangePercent, handleChangeType, handleChangeAbv, handleBlurAbv, handleChangeVolume, handleChangeFood, handleChangeComment, handleChangeFlavor, handleChangeTag, handleChangeStock, resetForm ];
+  return[foodViewImages, alcoholViewImages, foodImgFiles, alcoholImgFiles, duplicatedImages, formData, setFormData, setFoodViewImages, setAlcoholViewImages, setFoodImgFiles, setAlcoholImgFiles, handleClickClose, handleClickReset, handleChangeFoodImges,  handleChageAlcoholImges, handleClickImgCheck, handleChangeName, handleChangePrice, handleChangePercent, handleChangeType, handleChangeAbv, handleBlurAbv, handleChangeVolume, handleChangeComment, handleChangeFlavor, handleChangeTag, handleChangeStock, resetForm ];
 }
 

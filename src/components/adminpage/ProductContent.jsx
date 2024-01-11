@@ -45,7 +45,6 @@ export default function ProductContent() {
       </div>
       <ProductRegisterForm registerBtnToggle={registerBtnToggle} setRegisterBtnToggle={setRegisterBtnToggle} />
       <ProductUpdateForm setAlcoholId={setAlcoholId} alcoholId={alcoholId} />
-      {/* { registerBtn ?  <ProductRegisterForm registerBtn={registerBtn}/>  : null} */}
     </>
   );
 }

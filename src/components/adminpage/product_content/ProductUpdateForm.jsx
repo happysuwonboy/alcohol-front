@@ -8,14 +8,13 @@ import getImgUrl from '../../../util/getImgUrl';
 import useProduct from '../../../hooks/useProduct';
 
 export default function ProductUpdateForm({alcoholId, setAlcoholId}) {
-  const [foodViewImages, alcoholViewImages, foodImgFiles, alcoholImgFiles, duplicatedImages, formData, setFormData, setFoodViewImages, setAlcoholViewImages, setFoodImgFiles, setAlcoholImgFiles, handleClickClose, handleClickReset, handleChangeFoodImges,  handleChageAlcoholImges, handleClickImgCheck, handleChangeName, handleChangePrice, handleChangePercent, handleChangeType, handleChangeAbv, handleBlurAbv, handleChangeVolume, handleChangeFood, handleChangeComment, handleChangeFlavor, handleChangeTag, handleChangeStock, resetForm ] = useProduct(setAlcoholId);
+  const [foodViewImages, alcoholViewImages, foodImgFiles, alcoholImgFiles, duplicatedImages, formData, setFormData, setFoodViewImages, setAlcoholViewImages, setFoodImgFiles, setAlcoholImgFiles, handleClickClose, handleClickReset, handleChangeFoodImges,  handleChageAlcoholImges, handleClickImgCheck, handleChangeName, handleChangePrice, handleChangePercent, handleChangeType, handleChangeAbv, handleBlurAbv, handleChangeVolume, handleChangeComment, handleChangeFlavor, handleChangeTag, handleChangeStock, resetForm ] = useProduct(setAlcoholId);
 
   // update
   useEffect(() => {
     if(alcoholId) {
       axios.get(`${BASE_URL}/adminpage/update/${alcoholId}`)
       .then(result => {
-        console.log(result.data);
         const axiosData = result.data;
         const foodArr = axiosData.food.split('/');
         setFormData({
@@ -202,7 +201,7 @@ export default function ProductUpdateForm({alcoholId, setAlcoholId}) {
           <div className='food_1'>
             <div className='text_box'>
               <label htmlFor='food_1'>음식1</label>
-              <input value={formData.food1?.text} className={formData.food1.error && 'error'} type='text' id='food_1' name='food_1' placeholder='음식을 입력해주세요' onChange={(e) => handleChangeFood(e, 1)}/>
+              <input value={formData.food1?.text} readOnly className={formData.food1.error && 'error'} type='text' id='food_1' name='food_1' placeholder='사진을 업로드하면 자동으로 입력됩니다'/>
             </div>
             { formData.food1?.error && <span>{formData.food1.error}</span> }
           </div>
@@ -210,7 +209,7 @@ export default function ProductUpdateForm({alcoholId, setAlcoholId}) {
           <div className='food_2'>
             <div className='text_box'>
               <label htmlFor='food_2'>음식2</label>
-              <input value={formData.food2?.text} className={formData.food2.error && 'error'} type='text' id='food_2' name='food_2' placeholder='음식을 입력해주세요'onChange={(e) => handleChangeFood(e, 2)}/>
+              <input value={formData.food2?.text} readOnly className={formData.food2.error && 'error'} type='text' id='food_2' name='food_2' placeholder='사진을 업로드하면 자동으로 입력됩니다'/>
             </div>
             { formData.food2?.error && <span>{formData.food2.error}</span> }
           </div>
@@ -218,7 +217,7 @@ export default function ProductUpdateForm({alcoholId, setAlcoholId}) {
           <div className='food_3'>
             <div className='text_box'>
               <label htmlFor='food_3'>음식3</label>
-              <input value={formData.food3?.text} className={formData.food3.error && 'error'} type='text' id='food_3' name='food_3' placeholder='음식을 입력해주세요' onChange={(e) => handleChangeFood(e, 3)}/>
+              <input value={formData.food3?.text} readOnly className={formData.food3.error && 'error'} type='text' id='food_3' name='food_3' placeholder='사진을 업로드하면 자동으로 입력됩니다'/>
             </div>
             { formData.food3?.error && <span>{formData.food3.error}</span> }
           </div>
@@ -309,16 +308,16 @@ export default function ProductUpdateForm({alcoholId, setAlcoholId}) {
 
           <div className='hashtag'>
             <div className='text_box'>
-              <label htmlFor='hashtag'>#태그</label>
-              <input value={formData.hashtag.text} className={formData.hashtag.error && 'error'} type='text' id='hashtag' name='hashtag' placeholder='#을 제외하고 20자 이하로 넣어주세요' maxLength={20} onChange={handleChangeTag}/>
+              <label htmlFor='hashtag_update'>#태그</label>
+              <input value={formData.hashtag.text} className={formData.hashtag.error && 'error'} type='text' id='hashtag_update' name='hashtag_update' placeholder='#을 제외하고 20자 이하로 넣어주세요' maxLength={20} onChange={handleChangeTag}/>
             </div>
             { formData.hashtag?.error && <span>{formData.hashtag.error}</span> }
           </div>
 
           <div className='stock'>
             <div className='text_box'>
-              <label htmlFor='stock'>재고</label>
-              <input value={formData.stock.text} className={formData.stock.error && 'error'} type='text' id='stock' name='stock' placeholder='숫자로 입력해주세요' onChange={handleChangeStock}/>
+              <label htmlFor='stock_update'>재고</label>
+              <input value={formData.stock.text} className={formData.stock.error && 'error'} type='text' id='stock_update' name='stock_update' placeholder='숫자로 입력해주세요' onChange={handleChangeStock}/>
             </div>
             { formData.stock?.error && <span>{formData.stock.error}</span> }
           </div>
