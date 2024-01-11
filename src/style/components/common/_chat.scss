@@ -2,21 +2,36 @@ div.float_chat_container {
     position: fixed;
     bottom: 0; right: 0; 
     z-index: 12;
-    button.float_chat_btn {
-      position: absolute;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: rgb(78, 78, 247);
-      bottom: 65px;
-      right: 15px;
-      transition: all 0.5s;
-      svg {
-        pointer-events: none;
-        color: #fff;
-        margin: 0 auto;
-        font-size: 1.5rem;
-      }
+    div.float_chat_btn_wrapper {
+        position: relative;
+        button.float_chat_btn {
+          position: absolute;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background-color: rgb(78, 78, 247);
+          bottom: 65px;
+          right: 15px;
+          transition: all 0.5s;
+          svg {
+            pointer-events: none;
+            color: #fff;
+            margin: 0 auto;
+            font-size: 1.5rem;
+          }
+        }
+        div.user_unread_cnt {
+            position: absolute;
+            font-size: .8rem;
+            color: #FFF;
+            text-align: center;
+            top: -115px; right: 50px;
+            width: 20px; height: 20px;
+            line-height: 20px;
+            font-weight: 600;
+            border-radius: 50%;
+            background-color: red;
+        }
     }
     div.chat_content_container {
         position: absolute;
@@ -63,7 +78,7 @@ div.float_chat_container {
             padding: .5rem .5rem;
     
                 .rce-smsg {
-                    transform: scale(.9);
+                    transform: scale(.85);
                     background: none; 
                     box-shadow: none;
                     margin: 10px 0;

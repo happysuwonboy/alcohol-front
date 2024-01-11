@@ -4,7 +4,6 @@ import BASE_URL from '../../constants/baseurl';
 import { IoMdClose } from 'react-icons/io';
 import { useEffect, useRef, useState } from 'react';
 import { getUserInfo } from '../../util/getUserInfo';
-import useToast from '../../hooks/useToast';
 
 export default function UserChat({toggleShowContent, showChat, unReadCount, setUnReadCount}) {
   const [isConnected, setIsConnected] = useState(false);

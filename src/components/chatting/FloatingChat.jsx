@@ -3,8 +3,11 @@ import { IoChatbubbleEllipsesSharp } from 'react-icons/io5';
 import 'react-chat-elements/dist/main.css';
 import Draggable from 'react-draggable';
 import UserChat from './UserChat';
+import { getUserInfo } from './../../util/getUserInfo';
+import AdminChat from './AdminChat';
 
 export default function FloatingChat() {
+  const user = getUserInfo();
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [showChat, setShowChat] = useState(false)
   const [isMobileDevice, setIsMobileDevice] = useState(
@@ -87,7 +90,7 @@ export default function FloatingChat() {
       <div className="float_chat_container">
         <Draggable
           position={{ x: position.x, y: position.y }}
-          handle= ".float_chat_btn"
+          handle= ".float_chat_btn_wrapper"
           onDrag={handleDrag}
           onStop={handleDragStop}
         >
@@ -100,6 +103,10 @@ export default function FloatingChat() {
             >
               <IoChatbubbleEllipsesSharp />
             </button>
+            {(unReadCount >= 1)
+            ? <div className='user_unread_cnt'>
+              {unReadCount}
+            </div> : null}
           </div>
         </Draggable>
         <div
@@ -108,16 +115,19 @@ export default function FloatingChat() {
           style={{
             bottom: !isMobileDevice ? 115 - position.y : 0,
             right: !isMobileDevice ? 75 - position.x : 0,
-            maxWidth: !isMobileDevice ? '350px' : '100vw',
+            maxWidth: !isMobileDevice ? '400px' : '100vw',
             maxHeight: !isMobileDevice ? '600px' : '100vh',
           }}
         >
-          <UserChat 
+          {(!user.user_role )
+          ? <UserChat 
           toggleShowContent={toggleShowContent} 
           showChat={showChat} 
           setUnReadCount={setUnReadCount} 
           unReadCount={unReadCount}
           />
+          : <AdminChat
+            toggleShowContent={toggleShowContent}/>}
         </div>
       </div>
     </>
