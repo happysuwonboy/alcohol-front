@@ -18,7 +18,9 @@ import MyPage from './pages/MyPage';
 import AdminPage from './pages/AdminPage';
 import FindId from './pages/FindId';
 import FindPw from './pages/FindPw';
+import PasswordReset from './pages/PasswordReset';
 import store from './redux/store/store';
+
 
 const router = createBrowserRouter([{
   path : '/',
@@ -35,7 +37,9 @@ const router = createBrowserRouter([{
     {path : '/mypage', element : <MyPage/>},
     {path : '/adminpage', element : <AdminPage/>},
     {path : '/find/id', element : <FindId/>},
-    {path : '/find/pw', element : <FindPw/>}
+    {path : '/find/pw', element : <FindPw/>},
+    {path : '/find/pw/:id', element : <PasswordReset/>},
+
   ]
 }])
 
