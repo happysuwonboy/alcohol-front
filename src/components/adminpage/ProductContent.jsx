@@ -11,7 +11,7 @@ export default function ProductContent() {
   const [ page, setPage ] = useState(1);
   const [ registerBtnToggle, setRegisterBtnToggle ] = useState(false);
   const [ updateClick, setUpdateClcik ] = useState(false);
-  // console.log(alcoholData);
+  const [ alcoholId, setAlcoholId ] = useState(''); // 클릭한 row 상품 id
   
   useEffect(() => {
     axios.get(`${BASE_URL}/adminpage/product/${page}`)
@@ -31,8 +31,8 @@ export default function ProductContent() {
 
   return (
     <>
-      <div className={`product_container ${(registerBtnToggle || updateClick)? 'toggle' : '' }`}>
-        <ProductList alcoholData={alcoholData} setRegisterBtnToggle={setRegisterBtnToggle} setUpdateClcik={setUpdateClcik}/>
+      <div className={`product_container ${(registerBtnToggle || alcoholId)? 'toggle' : '' }`}>
+        <ProductList alcoholData={alcoholData} setRegisterBtnToggle={setRegisterBtnToggle} setAlcoholId={setAlcoholId}/>
         <PagiNation 
           activePage={page}
           itemsCountPerPage={10}
@@ -44,7 +44,7 @@ export default function ProductContent() {
         />
       </div>
       <ProductRegisterForm registerBtnToggle={registerBtnToggle} setRegisterBtnToggle={setRegisterBtnToggle} />
-      <ProductUpdateForm updateClick={updateClick} setUpdateClcik={setUpdateClcik}/>
+      <ProductUpdateForm setAlcoholId={setAlcoholId} alcoholId={alcoholId} />
       {/* { registerBtn ?  <ProductRegisterForm registerBtn={registerBtn}/>  : null} */}
     </>
   );

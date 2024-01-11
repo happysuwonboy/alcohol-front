@@ -1,65 +1,74 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { IoCamera } from 'react-icons/io5';
 import { IoIosClose } from "react-icons/io";
 import { GrPowerReset } from 'react-icons/gr';
 import BASE_URL from '../../../constants/baseurl';
+import getImgUrl from '../../../util/getImgUrl';
+import useProduct from '../../../hooks/useProduct';
 
-export default function ProductUpdateForm({updateClick, setUpdateClcik}) {
-  const initialViewImg = ({ 0: '', 1: '', 2: ''});
+export default function ProductUpdateForm({alcoholId, setAlcoholId}) {
+  const [foodViewImages, alcoholViewImages, foodImgFiles, alcoholImgFiles, duplicatedImages, formData, setFormData, setFoodViewImages, setAlcoholViewImages, setFoodImgFiles, setAlcoholImgFiles, handleClickClose, handleClickReset, handleChangeFoodImges,  handleChageAlcoholImges, handleClickImgCheck, handleChangeName, handleChangePrice, handleChangePercent, handleChangeType, handleChangeAbv, handleBlurAbv, handleChangeVolume, handleChangeFood, handleChangeComment, handleChangeFlavor, handleChangeTag, handleChangeStock, resetForm ] = useProduct(setAlcoholId);
 
-  const [ foodViewImages, setFoodViewImages ] = useState(initialViewImg); // 미리보기, map 사용
-  const [ alcoholViewImages, setAlcoholViewImages ] = useState(initialViewImg); // 미리보기, map 사용
-  let [ foodImgFiles, setFoodImgFiles ] = useState(['', '', '']); // 서버 데이터용
-  let [ alcoholImgFiles, setAlcoholImgFiles ] = useState(['', '', '']); // 서버 데이터용
-  const [ duplicatedImages, setDuplicatedImages ] = useState(false); // food 이미지 중복 버튼 활성화
-
-  const initialFormData = { // 서버에서 가져오는 값 필요 
-    alcohol_name: { text: '', error: ''},
-    alcohol_price: { text : '', error : '' },
-    dc_percent: { text : '', error : '' },
-    alcohol_type: { text : '', error : '' },
-    abv: { text : '', error : '' },
-    alcohol_volume: { text : '', error : '' },
-    food1: { text : '', error : '' },
-    food2: { text : '', error : '' },
-    food3: { text : '', error : '' },
-    alcohol_comment1: { text : '', error : '' },
-    alcohol_comment2: { text : '', error : '' },
-    flavor_sour: { text : '', error : '' },
-    flavor_soda: { text : '', error : '' },
-    flavor_sweet: { text : '', error : '' },
-    flavor_body: { text : '', error : '' },
-    hashtag: { text : '', error : '' },
-    stock: { text : '', error : '' }
-  }
-
-  const [ formData, setFormData ] =  useState(initialFormData);
+  // update
+  useEffect(() => {
+    if(alcoholId) {
+      axios.get(`${BASE_URL}/adminpage/update/${alcoholId}`)
+      .then(result => {
+        console.log(result.data);
+        const axiosData = result.data;
+        const foodArr = axiosData.food.split('/');
+        setFormData({
+          alcohol_name: { text: axiosData.alcohol_name, error: '' },
+          alcohol_price: { text: axiosData.alcohol_price, error: '' },
+          dc_percent: { text: axiosData.dc_percent, error: '' },
+          alcohol_type: { text: axiosData.alcohol_type, error: '' },
+          abv: { text: axiosData.ABV, error: '' },
+          alcohol_volume: { text: axiosData.alcohol_volume, error: '' },
+          food1: { text: foodArr[0], error: '' },
+          food2: { text: foodArr[1], error: '' },
+          food3: { text: foodArr[2], error: '' },
+          alcohol_comment1: { text: axiosData.alcohol_comment1, error: '' },
+          alcohol_comment2: { text: axiosData.alcohol_comment2, error: '' },
+          flavor_sour: { text: axiosData.flavor_sour, error: '' },
+          flavor_soda: { text: axiosData.flavor_soda, error: '' },
+          flavor_sweet: { text: axiosData.flavor_sweet, error: '' },
+          flavor_body: { text: axiosData.flavor_body, error: '' },
+          hashtag: { text: axiosData.hashtag, error: '' },
+          stock: { text: axiosData.stock, error: '' },
+        });
+        setFoodViewImages({0: getImgUrl.food(`${foodArr[0]}.png`), 1: getImgUrl.food(`${foodArr[1]}.png`), 2: getImgUrl.food(`${foodArr[2]}.png`)});
+        setFoodImgFiles([`${foodArr[0]}.png`, `${foodArr[1]}.png`,`${foodArr[2]}.png`]);
+        setAlcoholImgFiles([axiosData.alcohol_img1, axiosData.alcohol_img2, axiosData.alcohol_img3]);
+        setAlcoholViewImages({0: getImgUrl.alcohol(axiosData.alcohol_img1), 1: getImgUrl.alcohol(axiosData.alcohol_img2), 2: getImgUrl.alcohol(axiosData.alcohol_img3)});
+      })
+      .catch(error => console.log(error));
+    }
+  }, [alcoholId]);
 
   // form 제출
   const handleSubmitRegister = (e) => {
     e.preventDefault();
     const passed = Object.values(formData).every(filed => filed.text !== '');
-    // console.log(foodImgFiles);
-    // console.log(alcoholImgFiles);
 
     if(passed && duplicatedImages) { // 모든 값이 들어 있는 경우
       const food = ['food1', 'food2', 'food3']
                     .map(food => formData[food].text)
                     .join('/');
 
-      const confirm = window.confirm('상품을 등록하시겠습니까?');
+      const confirm = window.confirm('상품을 수정하시겠습니까?');
       const newFormData = new FormData();
       if(confirm) {
 
-        foodImgFiles.forEach((file, index) => {
+        foodImgFiles.forEach((file, idx) => {
           newFormData.append('food_img', file);
         });
 
-        alcoholImgFiles.forEach((file, index) => {
-          newFormData.append('alcohol_img', file);
+        alcoholImgFiles.forEach((file, idx) => {
+          newFormData.append(`alcohol_img${idx}`, file);
         });
 
+        newFormData.append('alcohol_id', alcoholId);
         newFormData.append('alcohol_name', formData.alcohol_name.text);
         newFormData.append('alcohol_price', formData.alcohol_price.text);
         newFormData.append('dc_percent', formData.dc_percent.text);
@@ -77,7 +86,7 @@ export default function ProductUpdateForm({updateClick, setUpdateClcik}) {
         newFormData.append('stock', formData.stock.text);
       }
       axios({
-        url: `${BASE_URL}/adminpage/product`,
+        url: `${BASE_URL}/adminpage/update/modify/${alcoholId}`,
         method: 'post',
         data: newFormData,
         headers: {
@@ -86,228 +95,22 @@ export default function ProductUpdateForm({updateClick, setUpdateClcik}) {
         }
       })
       .then(result => {
-        console.log(result)
-      })
-      .catch(error => console.log(error));
-    } else {
-      alert('양식에 맞춰 입력해주세요')
-    }
-  }
-
-  // 등록 모달 닫기 클릭
-  const handleClickClose = () => {
-    document.body.style.overflow = 'auto'; // 윈도우 스크롤 생성
-    // setRegisterBtnToggle(false);
-    setUpdateClcik(false);
-  };
-
-  // 초기화 : 수정에서는 되돌리기로 할까..?
-  const handleClickReset = () => {
-    // 미리보기 이미지와 form 모든 값 초기화
-    setFormData(initialFormData);
-    setFoodImgFiles(['', '', '']);
-    setFoodViewImages(initialViewImg);
-    setAlcoholImgFiles(['', '', '']);
-    setAlcoholViewImages(initialViewImg);
-    setDuplicatedImages(false);
-  }
-
-  // 선택 이미지 중복 체크 ( 서버 가기 전 프론트에서의 파일명 중복 )
-  const validateFoodImages = (currentFile) => {
-    return foodImgFiles.some(imgFile => imgFile === currentFile);
-  }
-
-  // food 음식 이미지 미리보기
-  const handleChangeFoodImg = (e, idx) => {
-    console.log(e.target);
-    const uploadFile = e.target.files[0]; // 업로드한 파일 가져오기
-
-    if(uploadFile) {
-      const reader = new FileReader(); // 파일 비동기적으로 읽어와 데이터 URI를 생성
-
-      reader.onload = (e) => {
-        const uploadFileName = uploadFile.name;
-        if(validateFoodImages(uploadFileName)) {
-          alert('중복된 이미지가 있습니다. 다시 올려주세요');
+        if(result.data === 'update ok') {
+          resetForm();
+          alert('상품 수정이 완료되었습니다');
         } else {
-          setFoodImgFiles(prev => {
-            const newState = [...prev];
-            newState[idx] = uploadFile;
-            return newState;
-          });
-          setFoodViewImages(prev => ({
-            ...prev,
-            [idx]: e.target.result,
-          }));
-        }
-      };
-      reader.readAsDataURL(uploadFile); // 지정된 File 객체를 읽기 ( 파일을 Base64 인코딩된 데이터 URI로 읽어옴 )
-    }
-  };
-
-  // // alcohol 상품 이미지 미리보기
-  const handleChageAlcohol = (e, idx) => {
-    const uploadFile = e.target.files[0];
-
-    if(uploadFile) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setAlcoholImgFiles(prev => {
-          const newState = [...prev];
-          newState[idx] = uploadFile;
-          return newState;
-        })
-        setAlcoholViewImages(prev => ({
-          ...prev,
-          [idx]: e.target.result,
-        }));
-      };
-      reader.readAsDataURL(uploadFile);
-    }
-  };
-
-  // food 음식 이미지 중복 체크
-  const handleClickImgCheck = (e) => {
-    // console.log(foodImages);
-    if(foodImgFiles.every(img => img !== '')) { // 이미지 3개 다 있는지 확인
-      axios({
-        url : `${BASE_URL}/adminpage/imgduplicate`,
-        method : 'post',
-        data : {foodImages: foodImgFiles}
-      })
-      .then(result => { // 중복 데이터 넘어옴
-
-        if(result.data.duplicates) {
-          setDuplicatedImages(false);
-          alert('중복된 이미지가 있습니다. 다시 올려주세요');
-          const deleteDupulicates = [...foodImgFiles]; // 배열 복사
-          const deletVieweDupulicates = Object.assign({}, foodViewImages); // 객체 복사
-
-          for(const list of result.data.duplicates) {
-            deleteDupulicates[list.idx] = ''; // 중복 되는 이미지 비우기
-            deletVieweDupulicates[list.idx] = '';
-          };
-
-          setFoodImgFiles(deleteDupulicates);
-          setFoodViewImages(deletVieweDupulicates);
-        } else {
-          setDuplicatedImages(true);
+          alert('상품 수정이 실패하였습니다');
         }
       })
       .catch(error => console.log(error));
     } else {
-      alert('파일을 세개 다 올린 뒤 중복 체크를 확인해주세요');
-    }
-  };
-
-  /* form 입력 핸들러 */
-  const handleChangeName = (e) => {
-    if(e.target.value.trim() !== '') {
-      setFormData(prev => ({...prev, alcohol_name: { text: e.target.value, error: ''}}));
-    } else {
-      setFormData(prev => ({...prev, alcohol_name: { text: e.target.value, error: '이름을 입력해주세요'}}));
-    }
-  };
-
-  const handleChangePrice = (e) => {
-    const inputPrice = e.target.value;
-
-    if (Number(inputPrice) >= 1 && inputPrice.trim() !== '') {
-      setFormData(prev => ({...prev, alcohol_price: {text: inputPrice, error: ''}}));
-    } else {
-      setFormData(prev => ({...prev, alcohol_price: {text: '', error: '숫자를 입력해주세요'}}));
-    }
-  };
-
-  const handleChangePercent = (e) => {
-    const inputPercent = e.target.value;
-    const numberInput = Number(inputPercent)
-
-    if(numberInput >= 0 && numberInput <= 100 && inputPercent !== '') {
-      setFormData(prev => ({...prev, dc_percent: {text: inputPercent, error: ''}}));
-    }else {
-      setFormData(prev => ({...prev, dc_percent: {text: '' , error: '0 - 100 사이의 숫자를 입력해주세요' }}));
-    }
-  };
-
-  const handleChangeType = (e) => {
-    if(e.target.value.trim() !== '') {
-      setFormData(prev => ({ ...prev, alcohol_type: {text :e.target.value, error: '' } }));
-    } else {
-      setFormData(prev => ({ ...prev, alcohol_type: {text : '', error: '주종을 입력해주세요'} }));
+      alert('이미지 중복체크와 form 양식에 맞춰 입력해주세요');
     }
   }
 
-  const handleChangeAbv = (e) => {
-    const inputAbv = e.target.value;
-
-    if (Number(inputAbv) >= 0 && inputAbv.trim() !== '') {
-      setFormData(prev => ({ ...prev, abv: {text : inputAbv, error: '' }}));
-    } else {
-      setFormData(prev => ({ ...prev, abv: {text: '', error: '%를 제외한 소수점 숫자를 입력해주세요 (30.4)'} }));
-    }
-  };
-
-  const handleChangeVolume = (e) => {
-    const inputVloume = e.target.value;
-
-    if (Number(inputVloume) >= 0 && inputVloume.trim() !== '') {
-      setFormData(prev => ({ ...prev, alcohol_volume: inputVloume }));
-    } else {
-      setFormData(prev => ({ ...prev, alcohol_volume: {text: '', error: '단위를 제외한 숫자로 입력해주세요' } }));
-    }
-  };
-
-  const handleChangeFood = (e, number) => {
-    if(e.target.value !== '') {
-      setFormData(prev => ({ ...prev, [`food${number}`] : {text: e.target.value, error: ''} }));
-    } else {
-      setFormData(prev => ({ ...prev, [`food${number}`] : {text: '', error: '음식을 입력해주세요'} }));
-    }
-  };
-
-  const handleChangeComment = (e, number) => {
-    if(e.target.value !== '' || e.target.value.length > 1000 ) {
-      setFormData(prev => ({ ...prev, [`alcohol_comment${number}`] : {text: e.target.value, error: '' }}));
-    } else {
-      alert('1000자 이내의 상세 소개글을 적어주세요');
-      setFormData(prev => ({ ...prev, [`alcohol_comment${number}`] : {text: '', error: '1000자 이내의 상세 소개글을 적어주세요' }}));
-    }
-  };
-
-  const handleChangeFlavor = (e, type) => {
-    const inputValue = e.target.value;
-    const numberValue = Number(inputValue);
-
-    if((numberValue >= 1 && numberValue <= 5 ) && inputValue !== '') {
-      setFormData(prev => ({ ...prev, [`${type}`] : {text: inputValue, error: '' }}));
-    } else {
-      setFormData(prev => ({ ...prev, [`${type}`] : {text: '', error: '1 - 5 사이의 숫자를 입력해주세요' }}));
-    }
-  };
-
-  const handleChangeTag = (e) => {
-    if(e.target.value !== '' && e.target.value !== '' && !e.target.value.includes('#')) {
-      setFormData(prev => ({ ...prev, hashtag: {text: e.target.value, error: '' }}));
-    } else {
-      setFormData(prev => ({ ...prev, hashtag: {text: '', error: '#을 제외한 해시태그를 적어주세요' }}));
-    }
-  };
-  
-  const handleChangeStock = (e) => {
-    const inputStock = e.target.value;
-    const numberStock = Number(inputStock);
-
-    if(numberStock >= 1 && inputStock !== '' ) {
-      setFormData(prev => ({ ...prev, stock: { text: inputStock, error: ''} }));
-    } else {
-      setFormData(prev => ({ ...prev, stock : {text: '', error: '숫자를 적어주세요'} }));
-    }
-  };
-  
 
   return (
-    <div className={`register_form_container ${updateClick ? 'toggle' : ''}`}>
+    <div className={`product_form_container ${alcoholId ? 'toggle' : ''}`}>
       <div className='title_wrap'>
         <p>Product Update</p>
         <div className='btn_wrap'>
@@ -321,8 +124,8 @@ export default function ProductUpdateForm({updateClick, setUpdateClcik}) {
           </div>
         </div>
       </div>
-      <div className='register_form_wrap'>
-        <form className='register_form' onSubmit={handleSubmitRegister} >
+      <div className='product_form_wrap'>
+        <form className='product_form' onSubmit={handleSubmitRegister} >
           <div className='name'>
             <div className='text_box'>
             <label htmlFor='alcohol_name'>이름</label>
@@ -334,7 +137,7 @@ export default function ProductUpdateForm({updateClick, setUpdateClcik}) {
           <div className='price'>
             <div className='text_box'>
               <label htmlFor='alcohol_price'>가격</label>
-              <input value={formData.alcohol_price?.text} className={formData.alcohol_price.error && 'error'} type='text' id='alcohol_price' name='alcohol_price' placeholder='숫자를 입력해주세요' onChange={handleChangePrice} />
+              <input value={formData.alcohol_price?.text} className={formData.alcohol_price.error && 'error'} type='text' id='alcohol_price' name='alcohol_price' placeholder='50만원 이하의 숫자를 입력해주세요' onChange={handleChangePrice} />
             </div>
             { formData.alcohol_price?.error && <span>{formData.alcohol_price.error}</span> }
           </div>
@@ -342,7 +145,7 @@ export default function ProductUpdateForm({updateClick, setUpdateClcik}) {
           <div className='percent'>
             <div className='text_box'>
               <label htmlFor='dc_percent'>할인율</label>
-              <input value={formData.dc_percent?.text} className={formData.dc_percent.error && 'error'} type='text' id='dc_percent' name='dc_percent' placeholder='1 - 100사이 숫자를 입력해주세요' onChange={handleChangePercent}/>
+              <input value={formData.dc_percent?.text} className={formData.dc_percent.error && 'error'} type='text' id='dc_percent' name='dc_percent' placeholder='1 - 100사이 숫자를 입력해주세요' maxLength={3}  onChange={handleChangePercent}/>
             </div>
           { formData.dc_percent?.error && <span>{formData.dc_percent.error}</span> }
           </div>
@@ -358,7 +161,7 @@ export default function ProductUpdateForm({updateClick, setUpdateClcik}) {
           <div className='abv'>
             <div className='text_box'>
               <label htmlFor='abv'>도수</label>
-              <input value={formData.abv?.text} className={formData.abv.error && 'error'} type='text' id='abv' name='abv'  placeholder='%를 제외한 소수점 숫자를 입력해주세요 (30.4)' maxLength={4} onChange={handleChangeAbv}/>
+              <input value={formData.abv?.text} className={formData.abv.error && 'error'} type='text' id='abv' name='abv'  placeholder='%를 제외한 소수점 숫자를 입력해주세요 (30.4)' maxLength={4} onChange={handleChangeAbv} onBlur={handleBlurAbv}/>
             </div>
           { formData.abv?.error && <span>{formData.abv.error}</span> }
           </div>
@@ -366,7 +169,7 @@ export default function ProductUpdateForm({updateClick, setUpdateClcik}) {
           <div className='volume'>
             <div className='text_box'>
               <label htmlFor='alcohol_volume'>용량</label>
-              <input value={formData.alcohol_volume?.text} className={formData.alcohol_volume.error && 'error'}  type='text' id='alcohol_volume' name='alcohol_volume' placeholder='단위를 제외한 숫자로 입력해주세요' onChange={handleChangeVolume}/>
+              <input value={formData.alcohol_volume?.text} className={formData.alcohol_volume.error && 'error'}  type='text' id='alcohol_volume' name='alcohol_volume' placeholder='ml 단위를 제외한 2000이하 숫자로 입력해주세요' maxLength={4} onChange={handleChangeVolume}/>
             </div>
           { formData.alcohol_volume?.error && <span>{formData.alcohol_volume.error}</span>}
           </div>
@@ -383,12 +186,12 @@ export default function ProductUpdateForm({updateClick, setUpdateClcik}) {
                   <p>음식 {parseInt(idx) + 1}</p>
                   <div className='img_box'>
                     <div>
-                      <img src={foodViewImages[idx] || 'assets/images/etc/default.png'} alt={`음식 상품 이미지 ${parseInt(idx, 10) + 1}`} />
+                      <img src={foodViewImages[idx] || 'assets/images/etc/default.png'} alt={`음식 이미지 ${parseInt(idx, 10) + 1}`} />
                     </div>
-                    <label htmlFor={`food_img${idx}`}><IoCamera/></label>
-                    <input type='file' accept='image/*' id={`food_img${idx}`} name={`food_img${idx}`} onChange={(e) => handleChangeFoodImg(e, idx)} />
+                    <label htmlFor={`food_update${idx}`}><IoCamera/></label>
+                    <input type='file' accept='image/*' id={`food_update${idx}`} name={`food_img${idx}`} onChange={(e) => handleChangeFoodImges(e, idx)} />
                   </div>
-                  </div>)) } 
+                </div>)) } 
               </div>
               <button type='button' 
                       onClick={() => handleClickImgCheck('food')}
@@ -424,7 +227,6 @@ export default function ProductUpdateForm({updateClick, setUpdateClcik}) {
             <div className='write_box'>
               <label htmlFor='alcohol_comment1'>상품 소개1</label>
               <textarea value={formData.alcohol_comment1?.text} className={formData.alcohol_comment1.error && 'error'} name='alcohol_comment1' id='alcohol_comment1' color='30' rows='5' maxLength='1000' placeholder='문장을 /로 구분해주세요' onChange={(e) => handleChangeComment(e, 1)} ></textarea>
-            {/* <input type='text' id='alcohol_comment1' name='alcohol_comment1' placeholder='문장을 /로 구분해주세요' /> */}
             </div>
             <div className='text_length_box'>
             { formData.alcohol_comment1?.error && <span>{formData.alcohol_comment1.error}</span> }
@@ -440,7 +242,6 @@ export default function ProductUpdateForm({updateClick, setUpdateClcik}) {
             <div className='write_box'>
               <label htmlFor='alcohol_comment2'>상품 소개2</label>
               <textarea value={formData.alcohol_comment2?.text} className={formData.alcohol_comment2.error && 'error'} name='alcohol_comment2' id='alcohol_comment2' color='30' rows='5' maxLength='1000' placeholder='문장을 /로 구분해주세요' onChange={(e) => handleChangeComment(e, 2)} ></textarea>
-            {/* <input type='text' id='alcohol_comment1' name='alcohol_comment1' placeholder='문장을 /로 구분해주세요' /> */}
             </div>
             <div className='text_length_box'>
             { formData.alcohol_comment2?.error && <span>{formData.alcohol_comment2.error}</span> }
@@ -465,8 +266,8 @@ export default function ProductUpdateForm({updateClick, setUpdateClcik}) {
                     <div>
                       <img src={ alcoholViewImages[idx] || 'assets/images/etc/default.png'} alt='상품 이미지' />
                     </div>
-                    <label htmlFor={`alcohol_img${idx}`} ><IoCamera/></label>
-                    <input type='file' accept='image/*' id={`alcohol_img${idx}`} name={`alcohol_img${idx}`} onChange={(e) => handleChageAlcohol(e, idx)}/>
+                    <label htmlFor={`alcohol_update${idx}`} ><IoCamera/></label>
+                    <input type='file' accept='image/*' id={`alcohol_update${idx}`} name={`alcohol_img${idx}`} onChange={(e) => handleChageAlcoholImges(e, idx)}/>
                   </div>
                 </div>)) }
               </div>
@@ -509,7 +310,7 @@ export default function ProductUpdateForm({updateClick, setUpdateClcik}) {
           <div className='hashtag'>
             <div className='text_box'>
               <label htmlFor='hashtag'>#태그</label>
-              <input value={formData.hashtag.text} className={formData.hashtag.error && 'error'} type='text' id='hashtag' name='hashtag' placeholder='#을 제외하고 넣어주세요' onChange={handleChangeTag}/>
+              <input value={formData.hashtag.text} className={formData.hashtag.error && 'error'} type='text' id='hashtag' name='hashtag' placeholder='#을 제외하고 20자 이하로 넣어주세요' maxLength={20} onChange={handleChangeTag}/>
             </div>
             { formData.hashtag?.error && <span>{formData.hashtag.error}</span> }
           </div>
@@ -522,7 +323,7 @@ export default function ProductUpdateForm({updateClick, setUpdateClcik}) {
             { formData.stock?.error && <span>{formData.stock.error}</span> }
           </div>
 
-          <div className='register_btn'>
+          <div className='product_btn'>
             <button>등록하기</button>
           </div>
 

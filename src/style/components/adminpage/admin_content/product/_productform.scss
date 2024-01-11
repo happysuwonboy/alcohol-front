@@ -13,7 +13,7 @@ main.admin_contanier {
     }
   }
   div.admin_content_container {
-    div.register_form_container {
+    div.product_form_container {
       position: fixed;
       z-index: 10;
       top: 0;
@@ -67,7 +67,7 @@ main.admin_contanier {
         }
       }
 
-      div.register_form_wrap {
+      div.product_form_wrap {
         width: 100%;
         overflow-y: auto;
         &::-webkit-scrollbar {
@@ -83,7 +83,7 @@ main.admin_contanier {
         &::-webkit-scrollbar-track {
           background-color: #2c2d2e; /* 스크롤바 트랙의 색상 */
         }
-        form.register_form {
+        form.product_form {
           display: flex;
           flex-direction: column;
           align-items: flex-end;
@@ -177,7 +177,7 @@ main.admin_contanier {
                 display: flex;
                 justify-content: space-between;
                 width: 100%;
-                margin-bottom: 10px;
+                margin-bottom: 16px;
                 >div {
                   display: flex;
                   flex-direction: column;
@@ -200,8 +200,8 @@ main.admin_contanier {
                     label { 
                       svg {
                         position: absolute;
-                        bottom: 0;
-                        left: 80%;
+                        bottom: -15px;
+                        left: 93%;
                         padding: 2px;
                         background: rgb(69, 68, 68);
                         border-radius: 5px;
@@ -284,7 +284,7 @@ main.admin_contanier {
             }
           }
 
-          div.register_btn {
+          div.product_btn {
             justify-content: center;
             width: 100%;
             margin-top: 3rem;
@@ -311,10 +311,10 @@ main.admin_contanier {
   @media screen and (max-width: 700px ) {
     & {
       div.admin_content_container {
-        div.register_form_container {
+        div.product_form_container {
           padding: 1rem 2rem;
-          div.register_form_wrap {
-            form.register_form {
+          div.product_form_wrap {
+            form.product_form {
               padding: 10px 20px;
               // 이미지 공통 적용
               div.img_common {
@@ -351,7 +351,7 @@ main.admin_contanier {
   @media screen and (max-width: $md-breakpoint ) {
     & {
       div.admin_content_container {
-        div.register_form_container {
+        div.product_form_container {
           width: 100%;
           right: -100%;
           padding: 1rem;
@@ -360,9 +360,9 @@ main.admin_contanier {
             margin-bottom: 0.5rem;
           }
     
-          div.register_form_wrap {
+          div.product_form_wrap {
             padding: 1rem 0;
-            form.register_form {
+            form.product_form {
               padding: 10px;
     
               // 이미지 공통 적용
@@ -397,7 +397,7 @@ main.admin_contanier {
                 }
               }
 
-              div.register_btn {
+              div.product_btn {
                 margin-top: 1rem;
                 margin-bottom: 0;
               }

@@ -18,7 +18,7 @@ export default function ShowAlcohol(props) {
       window.scrollTo({
         top: 0,
         behavior: 'smooth',
-    })
+    });
   }
 
   return(

@@ -3,7 +3,7 @@ import { FaWineBottle } from 'react-icons/fa';
 import { TbTrashXFilled } from 'react-icons/tb';
 import getImgUrl from '../../../util/getImgUrl';
 
-export default function ProductList({alcoholData, setRegisterBtnToggle, setUpdateClcik}) {
+export default function ProductList({alcoholData, setRegisterBtnToggle, setAlcoholId}) {
 
   // 상품 등록하기 버튼 핸들러
   const handleClickRegister = () => {
@@ -18,7 +18,7 @@ export default function ProductList({alcoholData, setRegisterBtnToggle, setUpdat
       return
     } else {
       document.body.style.overflow = 'hidden';
-      setUpdateClcik(true);
+      setAlcoholId(id);
     }
   };
 
