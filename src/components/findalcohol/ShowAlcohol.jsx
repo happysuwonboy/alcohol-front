@@ -7,7 +7,6 @@ import { clickPageNation } from '../../redux/modules/filterSlice';
 import getImgUrl from '../../util/getImgUrl';
 import FilterSortCommon from './FilterSortCommon';
 
-
 export default function ShowAlcohol(props) {
   const { pad, isFilterClick, setIsFilterClick } = props;
   const { products, currentPage } = useSelector(state => state.filterSlice);

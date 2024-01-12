@@ -100,7 +100,6 @@ export default function FilterWrap(props) {
   const handleClickPrice = () => {
     let input1 = Number(inputPrice[0].value);
     let input2 = Number(inputPrice[1].value);
-    console.log(input1, input2);
 
     if(!input1 || !input2) {
       alert('최소 가격과 최대 가격을 모두 입력해주세요');

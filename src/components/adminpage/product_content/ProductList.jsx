@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { HiMiniCursorArrowRays } from 'react-icons/hi2';
 import { FaWineBottle } from 'react-icons/fa';
@@ -6,10 +6,21 @@ import { TbTrashXFilled } from 'react-icons/tb';
 import getImgUrl from '../../../util/getImgUrl';
 import BASE_URL from '../../../constants/baseurl';
 
-export default function ProductList({alcoholData, setRegisterBtnToggle, setAlcoholId}) {
+export default function ProductList(props) {
+  const { alcoholData, setRegisterBtnToggle, setAlcoholId, searchInput, setSearchInput, setSeletedSort, setPage } = props;
   const [ checkedAll, setCheckedAll ] = useState([]); // 체크박스 리스트 전체 선택 (해당 페이지)
   const [ checkedItems, setCheckedItems ] = useState([]); // 체크박스 개별 선택
 
+  // 상품 이름 검색
+  const handleChangeInput = (e) => {
+    setSearchInput(e.target.value.trim());
+  };
+
+  // 상품 정렬 선택
+  const handleChangeSort = (e) => {
+    setPage(1);
+    setSeletedSort(e.target.value);
+  };
 
   // 상품 등록하기 버튼 핸들러
   const handleClickRegister = () => {
@@ -49,7 +60,6 @@ export default function ProductList({alcoholData, setRegisterBtnToggle, setAlcoh
     .catch(error => console.log(error));
   };
 
-
   // 전체 체크박스 선택
   const handelChangeAll = (e) => {
     const isChecked = e.target.checked;
@@ -85,9 +95,30 @@ export default function ProductList({alcoholData, setRegisterBtnToggle, setAlcoh
     <>
       <div className='list_container'>
         <div className='title_btn_wrap'>
-          <div className='title_box'>
-            <FaWineBottle />
-            <span>| 상품 리스트</span>
+          <div className='title_search_wrap'>
+            <div className='title_box'>
+              <div className='title'>
+                <FaWineBottle />
+                <span>| 상품 리스트</span>
+              </div>
+              <div className='data_wrap'>
+                <div className='search_box'>
+                  <input type='text' id='product_search' value={searchInput} placeholder='상품 이름을 검색하세요' onChange={handleChangeInput} />
+                  <label htmlFor='product_search' className='hidden_label'>상품 검색창</label>
+                </div>
+                <div className='select_box' onChange={handleChangeSort}>
+                  <select name='select_sort' id='select_sort'>
+                    <option value='register_date'>최신 등록순</option>
+                    <option value='low_stock'>재고 낮은순</option>
+                    <option value='high_stock'>재고 높은순</option>
+                    <option value='low_percent'>할인율 낮은순</option>
+                    <option value='high_percent'>할인율 높은순</option>
+                    <option value='low_price'>가격 낮은순</option>
+                    <option value='hign_price'>가격 높은순</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
           <div className='btn_box'>
             <div className='delete_btn'>

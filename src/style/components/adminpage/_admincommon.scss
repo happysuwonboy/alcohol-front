@@ -7,7 +7,6 @@ main.admin_contanier {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-bottom: 2.5rem;
     padding: 0 1rem;
     div.name_wrap {
       margin-bottom: 1.5rem;
@@ -53,8 +52,6 @@ main.admin_contanier {
   div.admin_content_container {
     min-height: 32rem;
     padding: 1rem;
-    // border: 1px solid rgba(239, 220, 182, 0.5);
-    // background-color: rgba(246, 246, 242, 0.3);
     background-color: rgba(255, 255, 255, 0.4);
     border-radius: 10px;
   }
@@ -78,14 +75,11 @@ main.admin_contanier {
               p {
                 font-size: 0.8rem;
               }
-              span {}
               &:last-child {
                 border-right: none;
               }
               &.active {
                 border-width: 1px;
-                p {}
-                span {}
               }
             }
           }
