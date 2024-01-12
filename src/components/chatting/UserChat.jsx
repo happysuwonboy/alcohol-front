@@ -1,18 +1,19 @@
-import { MessageBox, Button, SystemMessage, Input } from 'react-chat-elements';
+import { MessageBox, MessageList, Button, SystemMessage, Input } from 'react-chat-elements';
 import io from 'socket.io-client';
 import BASE_URL from '../../constants/baseurl';
 import { IoMdClose } from 'react-icons/io';
 import { useEffect, useRef, useState } from 'react';
 import { getUserInfo } from '../../util/getUserInfo';
 
-export default function UserChat({toggleShowContent, showChat, unReadCount, setUnReadCount}) {
+export default function UserChat({user, toggleShowContent, showChat, unReadCount, setUnReadCount}) {
   const [isConnected, setIsConnected] = useState(false);
   const [isAdminConnected, setIsAdminConnected] = useState(false);
   const [inputMsg, setInputMsg] = useState('')
   const [messages, setMessages] = useState([])
   const [chatRoom, setChatRoom] = useState('')
-  const user = getUserInfo();
+  // const user = getUserInfo();
   const socket = useRef(null); 
+  const messageListReferance = useRef(null);
 
   const handleSend = () => {
     const message = {
@@ -21,6 +22,7 @@ export default function UserChat({toggleShowContent, showChat, unReadCount, setU
       date : new Date(),
     }
     socket.current.emit('chatMessage', {message, chatRoomId : chatRoom});
+
 
     setInputMsg('');
   }
@@ -83,18 +85,33 @@ export default function UserChat({toggleShowContent, showChat, unReadCount, setU
               <IoMdClose />
             </button>
       </div>
-      <div className="chat_content_message_list">
+      <div className="chat_content_main">
         {isConnected ? (
-          <div className="connected">
+          <div className="chat_message_list">
             <SystemMessage
               text={`채팅 서버에 연결되었습니다. 자유롭게 문의를 작성해주세요!`}
             />
+            {/* {<MessageList
+            referance={messageListReferance}
+            className='message-list'
+            lockable={true}
+            toBottomHeight={'100%'}
+            dataSource={messages.map(msg => ({
+              position : msg?.sender===user.id ? 'right' : 'left',
+              type : msg?.text,
+              toBottomHeight : '100%',
+              date : msg?.date,
+              title : msg?.sender===user.id ? '' : '관리자',
+              maxWidth : 50
+            }))}
+            />} */}
+
             {messages.map((msg,i) => 
             <MessageBox key={`chatMsg${i}`}
               position={msg?.sender===user.id ? 'right' : 'left'}
               type='text'
-              title={msg?.sender===user.id ? '' : 'id'}
-              avatar={msg?.sender===user.id ? '' : 's'}
+              title={msg?.sender===user.id ? '' : '관리자'}
+              // avatar={msg?.sender===user.id ? '' : '/assets/images/main-logo.png'}
               date = {msg?.date}
               // dateString={timeStr(msg?.date)}
               text = {msg?.text}

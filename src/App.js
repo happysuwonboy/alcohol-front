@@ -24,7 +24,7 @@ function App() {
     <Outlet/>
     {!invisible && <Footer/>}
     <TopButton />
-    {user?.id ? <FloatingChat /> : null}
+    {user?.id ? <FloatingChat user={user} /> : null}
     </>
   );
 }

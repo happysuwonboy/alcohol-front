@@ -6,8 +6,8 @@ import UserChat from './UserChat';
 import { getUserInfo } from './../../util/getUserInfo';
 import AdminChat from './AdminChat';
 
-export default function FloatingChat() {
-  const user = getUserInfo();
+export default function FloatingChat({user}) {
+  // const user = getUserInfo();
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [showChat, setShowChat] = useState(false)
   const [isMobileDevice, setIsMobileDevice] = useState(
@@ -17,6 +17,7 @@ export default function FloatingChat() {
   const [isDragging, setIsDragging] = useState(false);
   const btnRef = useRef(null);
   const contentRef = useRef(null);
+  const dragRef = useRef(null)
 
   const updateBtnPosition = () => {
     const buttonRect = btnRef.current.getBoundingClientRect();
@@ -89,12 +90,12 @@ export default function FloatingChat() {
     <>
       <div className="float_chat_container">
         <Draggable
+          nodeRef={dragRef}
           position={{ x: position.x, y: position.y }}
-          handle= ".float_chat_btn_wrapper"
           onDrag={handleDrag}
           onStop={handleDragStop}
         >
-          <div className="float_chat_btn_wrapper">
+          <div className="float_chat_btn_wrapper" ref={dragRef}>
             <button
               className="float_chat_btn"
               onClick={toggleShowContent}
@@ -121,12 +122,14 @@ export default function FloatingChat() {
         >
           {(!user.user_role )
           ? <UserChat 
+          user={user}
           toggleShowContent={toggleShowContent} 
           showChat={showChat} 
           setUnReadCount={setUnReadCount} 
           unReadCount={unReadCount}
           />
           : <AdminChat
+            user={user}
             toggleShowContent={toggleShowContent}/>}
         </div>
       </div>
