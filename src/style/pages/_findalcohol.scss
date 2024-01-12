@@ -182,7 +182,7 @@ main.findalcohol_section {
           }
           div.option_box{
             position: absolute;
-            z-index: 1;
+            z-index: 5;
             top: 50px;
             left: 5px;
             @include flexbox($jc:space-between);
@@ -454,12 +454,34 @@ main.findalcohol_section {
       // justify-content: center;
       margin-top: 1rem;
       div.product_box {
+        position: relative;
         width: 23%;
         margin-bottom: 3rem;
         &:not(:nth-of-type(4n)) {
           margin-right: 2.5%;
         }
+        div.stock_label {
+          display: flex;
+          position: absolute;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          padding: 5px 10px;
+          background: rgb(239, 44, 37);
+          color: white;
+          border-top-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+          svg {
+            margin-right: 5px;
+            font-size: 0.9rem;
+          }
+          span {
+            font-size: 0.85rem;
+            font-weight: 600;
+          }
+        }
         div.img_box {
+          position: relative;
           margin-bottom: 1rem;
           overflow: hidden;
           border-radius: 10px;
@@ -467,11 +489,43 @@ main.findalcohol_section {
             &:hover img {
               transform: scale(1.1);
             }
+            &:hover div.sold_out.hover {
+              opacity: 0;
+            }
+          }
+          div.sold_out {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            @include flexbox;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.5);
+            &.hover {
+              opacity: 1;
+              transition: opacity 1s ease;
+            }
+            p {
+              color: white;
+              &:first-child {
+                font-weight: 600;
+                font-size: 1rem;
+                margin-bottom: 5px;
+                display: flex;
+                svg {
+                  margin-right: 3px;
+                }
+              }
+              &:last-child {
+                font-size: 0.9rem;
+              }
+            }
           }
           img {
             width: 100%;
             transition: transform 0.3s;
-            // transition: transform 0.3s linear;
           }
         }
         div.info_box {

@@ -41,7 +41,7 @@ export default function ProductContent() {
   return (
     <>
       <div className={`product_container ${(registerBtnToggle || alcoholId)? 'toggle' : '' }`}>
-        <ProductList alcoholData={alcoholData} setRegisterBtnToggle={setRegisterBtnToggle} setAlcoholId={setAlcoholId} searchInput={searchInput} setSearchInput={setSearchInput} setSeletedSort={setSeletedSort}/>
+        <ProductList alcoholData={alcoholData} setRegisterBtnToggle={setRegisterBtnToggle} setAlcoholId={setAlcoholId} searchInput={searchInput} setSearchInput={setSearchInput} setSeletedSort={setSeletedSort} setPage={setPage}/>
         { alcoholData.length > 0 ? 
           <PagiNation 
           activePage={page}

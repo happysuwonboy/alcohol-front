@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PagiNation from 'react-js-pagination';
 import { clickPageNation } from '../../redux/modules/filterSlice';
+import { MdOutlineAlarm } from 'react-icons/md';
 import getImgUrl from '../../util/getImgUrl';
 import FilterSortCommon from './FilterSortCommon';
+import { GiClothJar } from 'react-icons/gi';
 
 export default function ShowAlcohol(props) {
   const { pad, isFilterClick, setIsFilterClick } = props;
@@ -18,7 +20,7 @@ export default function ShowAlcohol(props) {
         top: 0,
         behavior: 'smooth',
     });
-  }
+  };
 
   return(
     <div className='product_container'>
@@ -32,7 +34,9 @@ export default function ShowAlcohol(props) {
       <div className='product_wrap'>
       { products.map(list => (
         <div className='product_box' key={list.alcohol_id}>
-          <div className='img_box'>
+          {(list.stock > 0 && list.stock <= 3) && <div className='stock_label'><MdOutlineAlarm /><span>품절임박</span></div> }
+          <div className={ list.stock === 0 ? 'img_box sold_img_box' : 'img_box'}>
+            { <div className={ list.stock === 0 ? 'sold_out hover' : 'sold_out'}><p><GiClothJar />품절</p><p>술 빚는 중이에요</p></div> }
             <Link to={`/findalcohol/${list.alcohol_id}`}>
               <img src={getImgUrl.alcohol(list.alcohol_img1)} alt={`${list.alcohol_name} 이미지`} />
             </Link>
