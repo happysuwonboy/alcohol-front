@@ -204,7 +204,55 @@ div.mobile_header {
                     margin-left: 20px;
                 }
                 &.search_btn {
+                    position: relative;
                     font-size: 1.2em;
+                    div.bg_search {
+                        &::before {
+                            content: '';
+                            position: fixed;
+                            top: 48px;
+                            left: 0;
+                            height: 100%;
+                            width: 100%;
+                            background: rgba(0, 0, 0, 0.8);
+                        }
+                        div.search_box {
+                            position: absolute;
+                            top: 50px;
+                            right: -60px;
+                            @include flexbox;
+                            width: 300px;
+                            height: 50px;
+                            border-radius: 5px;
+                            border: 1px solid rgb(192, 188, 188);
+                            background: rgba(100, 100, 100, 0.5);
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                top: -20px;
+                                right: 20%;
+                                width: 0;
+                                height: 0;
+                                border-top: 10px solid transparent;
+                                border-right: 10px solid transparent;
+                                border-bottom: 10px solid rgb(215, 213, 210);
+                                border-left: 10px solid transparent;
+                            }
+                            input {
+                                width: 95%;
+                                height: 71%;
+                                padding: 3px 14px;
+                                border-radius: 5px;
+                                background: rgba(32, 32, 32, 0.28);
+                                color: white;
+                                font-size: 0.9rem;
+                                &::placeholder {
+                                    font-size: 0.8rem;
+                                    color: rgb(166, 166, 166);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

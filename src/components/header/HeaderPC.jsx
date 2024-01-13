@@ -3,11 +3,12 @@ import { RiShoppingBagLine } from "react-icons/ri";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import HeaderNavbar from './HeaderNavbar';
 import CartButton from './CartButton';
+import useHeaderSearch from '../../hooks/useHeaderSearch';
 
 export default function HeaderPC ({user, curPage}) {
+  const handleSearchPress = useHeaderSearch();
   const navigate = useNavigate();
 
-  
   return (
     <>
             <div className='header_sticky_wrapper pc_header'>
@@ -16,9 +17,9 @@ export default function HeaderPC ({user, curPage}) {
                         <img src="/assets/images/main-logo.png" alt="" />
                     </div>
                     <form className='header_search' action="">
-                        <label className='hidden_label' htmlFor="">검색창</label>
+                        <label className='hidden_label' htmlFor='header_search'>검색창</label>
                         <FaSearch />
-                        <input type="text" placeholder='무엇을 찾고 계신가요?' />
+                        <input type="text" placeholder='무엇을 찾고 계신가요?' name='header_search' id='header_search' onKeyPress={handleSearchPress}/>
                     </form>
                     <div className='header_user_menu'>
                         {!user.user_id ?

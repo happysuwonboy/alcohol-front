@@ -6,81 +6,97 @@ import BASE_URL from '../../constants/baseurl';
 export const filterData = createAsyncThunk('data/filterData', async(filterList) => {
   const result = await axios.post( `${BASE_URL}/findalcohol`, filterList);
   return result.data;
-})
+});
+
+const initialState = {
+  currentPage : 1,
+  searchInput: '',
+  searchInputPrice: [
+    { isPrice : false },
+    { inputPrice : 1, value : '1'},
+    { inputPrice : 2, value : '100000'}
+  ],
+  checkedOption: [],
+  sort: 'register_date',
+  filterInfo : [
+    { categoryId: 1,
+      category: '주종',
+      isSelected: false,
+      option: [
+        { id: 'takju', name: '탁주', checked: false }, 
+        { id: 'yakcheongju', name: '약·청주',  checked: false }, 
+        { id: 'gwasilju', name: '과실주',  checked: false }, 
+        { id: 'jeunglyuju', name: '증류주',  checked: false }, 
+        { id: 'gitajulyu', name: '기타주류',  checked: false }] 
+    },
+    { categoryId: 2,
+      category: '도수',
+      isSelected: false,
+      option: [
+        { id: 'abv_1', name: '0% - 10%',  checked: false },
+        { id: 'abv_2', name: '10% - 20%',  checked: false }, 
+        { id: 'abv_3', name: '20% - 30%',  checked: false }, 
+        { id: 'abv_4', name: '30% 이상',  checked: false }] 
+    },
+    { categoryId: 3,
+      category: '단맛',
+      isSelected: false,
+      option: [
+        { id: 'sweet_1', name: '약한',  checked: false }, 
+        { id: 'sweet_2', name: '중간',  checked: false }, 
+        { id: 'sweet_3', name: '강한',  checked: false }] 
+    },
+    { categoryId: 4,
+      category: '신맛',
+      isSelected: false,
+      option: [
+        { id: 'sour_1', name: '약한',  checked: false }, 
+        { id: 'sour_2', name: '중간',  checked: false }, 
+        { id: 'sour_3', name: '강한',  checked: false }] 
+    },
+    { categoryId: 5,
+      category: '탄산',
+      isSelected: false,
+      option: [
+        { id: 'soda_1', name: '약한',  checked: false }, 
+        { id: 'soda_2', name: '중간',  checked: false }, 
+        { id: 'soda_3', name: '강한',  checked: false }] 
+    },
+    { categoryId: 6,
+      category: '가격',
+      isSelected: false,
+      option: [
+        { id: 'price_1', name: '~ 1만원',  checked: false }, 
+        { id: 'price_2', name: '1만원 ~ 3만원',  checked: false }, 
+        { id: 'price_3', name: '3만원 ~ 5만원',  checked: false }, 
+        { id: 'price_4', name: '5만원 ~ 10만원',  checked: false }, 
+        { id: 'price_5', name: '10만원 이상',  checked: false }] 
+    }
+  ],
+  products: [],
+  status: 'idle',
+  error: null,
+};
 
 const filterSlice = createSlice({
   name: 'filters',
-  initialState: {
-    currentPage : 1,
-    searchInput: '',
-    // searchInput: [],
-    searchInputPrice: [
-      { isPrice : false },
-      { inputPrice : 1, value : '1'},
-      { inputPrice : 2, value : '100000'}
-    ],
-    checkedOption: [],
-    sort: 'register_date',
-    filterInfo : [
-      { categoryId: 1,
-        category: '주종',
-        isSelected: false,
-        option: [
-          { id: 'takju', name: '탁주', checked: false }, 
-          { id: 'yakcheongju', name: '약·청주',  checked: false }, 
-          { id: 'gwasilju', name: '과실주',  checked: false }, 
-          { id: 'jeunglyuju', name: '증류주',  checked: false }, 
-          { id: 'gitajulyu', name: '기타주류',  checked: false }] 
-      },
-      { categoryId: 2,
-        category: '도수',
-        isSelected: false,
-        option: [
-          { id: 'abv_1', name: '0% - 10%',  checked: false },
-          { id: 'abv_2', name: '10% - 20%',  checked: false }, 
-          { id: 'abv_3', name: '20% - 30%',  checked: false }, 
-          { id: 'abv_4', name: '30% 이상',  checked: false }] 
-      },
-      { categoryId: 3,
-        category: '단맛',
-        isSelected: false,
-        option: [
-          { id: 'sweet_1', name: '약한',  checked: false }, 
-          { id: 'sweet_2', name: '중간',  checked: false }, 
-          { id: 'sweet_3', name: '강한',  checked: false }] 
-      },
-      { categoryId: 4,
-        category: '신맛',
-        isSelected: false,
-        option: [
-          { id: 'sour_1', name: '약한',  checked: false }, 
-          { id: 'sour_2', name: '중간',  checked: false }, 
-          { id: 'sour_3', name: '강한',  checked: false }] 
-      },
-      { categoryId: 5,
-        category: '탄산',
-        isSelected: false,
-        option: [
-          { id: 'soda_1', name: '약한',  checked: false }, 
-          { id: 'soda_2', name: '중간',  checked: false }, 
-          { id: 'soda_3', name: '강한',  checked: false }] 
-      },
-      { categoryId: 6,
-        category: '가격',
-        isSelected: false,
-        option: [
-          { id: 'price_1', name: '~ 1만원',  checked: false }, 
-          { id: 'price_2', name: '1만원 ~ 3만원',  checked: false }, 
-          { id: 'price_3', name: '3만원 ~ 5만원',  checked: false }, 
-          { id: 'price_4', name: '5만원 ~ 10만원',  checked: false }, 
-          { id: 'price_5', name: '10만원 이상',  checked: false }] 
-      }
-    ],
-    products: [],
-    status: 'idle',
-    error: null,
-  },
+  initialState: initialState,
   reducers: {
+    /* home 주종 클릭 */
+    clickHomeIcon: (state, action) => {
+      // 주종에 관한 값을 받아서 체크박스 선택한 라벨 보여주는 변수 값에 담기
+      const { optionId, optionName } = action.payload;
+      state.checkedOption.push({ categoryId : 1, category: '주종', id: optionId, name: optionName });
+
+      // 주종만 해당되므로 주종에 관한 객체 선택 후 주종 선택 값 ture 설정
+      const productCategory = state.filterInfo[0];
+      productCategory.isSelected = !productCategory.isSelected;
+
+      // 주종 안의 선택한 해당 option의 checked 값 true 설정
+      const option = productCategory.option.find(option => option.id === optionId);
+      option.checked = !option.checked;
+    },
+
     /* 체크박스 변동 */
     checkboxSeleted: (state, action) => {
       state.currentPage = 1;
@@ -155,20 +171,7 @@ const filterSlice = createSlice({
     },
 
     /* 초기화 리셋 클릭 */
-    optionReset: (state, action) => {
-      state.currentPage = 1;
-      const optionResultId = state.checkedOption.map(seleted => seleted.id);
-
-      state.filterInfo.forEach(filter => {
-        filter.isSelected = false;
-        filter.option.forEach(option => {
-          if (optionResultId.includes(option.id)) {
-            option.checked = !option.checked;
-          }
-        })
-      });
-      state.checkedOption = [];
-    },
+    optionReset: (state, action) => initialState,
 
     /* sort change */
     changeSort: (state, action) => {
@@ -230,5 +233,5 @@ const filterSlice = createSlice({
   }
 })
 
-export const { checkboxSeleted, optionRemove, optionReset, changeSort, changeInput, changeInputPrice, clickPageNation } = filterSlice.actions;
+export const { clickHomeIcon, checkboxSeleted, optionRemove, optionReset, changeSort, changeInput, changeInputPrice, clickPageNation } = filterSlice.actions;
 export default filterSlice.reducer;
