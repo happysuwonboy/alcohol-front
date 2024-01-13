@@ -23,9 +23,7 @@ export default function ProductContent() {
       method: 'post',
       data: pageData
     })
-    .then(result => {
-      setAlcoholData(result.data);
-    })
+    .then(result => { setAlcoholData(result.data);})
     .catch(error => console.log(error));
   }, [page, searchInput, seletedSort]);
 

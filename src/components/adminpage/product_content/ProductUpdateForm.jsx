@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { IoCamera } from 'react-icons/io5';
 import { IoIosClose } from "react-icons/io";
 import { GrPowerReset } from 'react-icons/gr';
 import BASE_URL from '../../../constants/baseurl';
 import getImgUrl from '../../../util/getImgUrl';
-import useProduct from '../../../hooks/useProduct';
+import useProductForm from '../../../hooks/useProductForm';
+import useProductAxios from '../../../hooks/useProductAxios';
 
 export default function ProductUpdateForm({alcoholId, setAlcoholId}) {
-  const [foodViewImages, alcoholViewImages, foodImgFiles, alcoholImgFiles, duplicatedImages, formData, setFormData, setFoodViewImages, setAlcoholViewImages, setFoodImgFiles, setAlcoholImgFiles, handleClickClose, handleClickReset, handleChangeFoodImges,  handleChageAlcoholImges, handleClickImgCheck, handleChangeName, handleChangePrice, handleChangePercent, handleChangeType, handleChangeAbv, handleBlurAbv, handleChangeVolume, handleChangeComment, handleChangeFlavor, handleChangeTag, handleChangeStock, resetForm ] = useProduct(setAlcoholId);
+  const [foodViewImages, alcoholViewImages, foodImgFiles, alcoholImgFiles, duplicatedImages, formData, setFormData, setFoodViewImages, setAlcoholViewImages, setFoodImgFiles, setAlcoholImgFiles, handleClickClose, handleClickReset, handleChangeFoodImges,  handleChageAlcoholImges, handleClickImgCheck, handleChangeName, handleChangePrice, handleChangePercent, handleChangeType, handleChangeAbv, handleBlurAbv, handleChangeVolume, handleChangeComment, handleChangeFlavor, handleChangeTag, handleChangeStock, resetForm ] = useProductForm(setAlcoholId);
+  const handleSubmitForm = useProductAxios(duplicatedImages, foodImgFiles, alcoholImgFiles, formData, resetForm, `/adminpage/update/modify/${alcoholId}`, 'update ok', '수정', alcoholId);
 
   // update
   useEffect(() => {
@@ -45,69 +47,6 @@ export default function ProductUpdateForm({alcoholId, setAlcoholId}) {
     }
   }, [alcoholId]);
 
-  // form 제출
-  const handleSubmitRegister = (e) => {
-    e.preventDefault();
-    const passed = Object.values(formData).every(filed => filed.text !== '');
-
-    if(passed && duplicatedImages) { // 모든 값이 들어 있는 경우
-      const food = ['food1', 'food2', 'food3']
-                    .map(food => formData[food].text)
-                    .join('/');
-
-      const confirm = window.confirm('상품을 수정하시겠습니까?');
-      const newFormData = new FormData();
-      if(confirm) {
-
-        foodImgFiles.forEach((file, idx) => {
-          newFormData.append('food_img', file);
-        });
-
-        alcoholImgFiles.forEach((file, idx) => {
-          newFormData.append(`alcohol_img${idx}`, file);
-        });
-
-        newFormData.append('alcohol_id', alcoholId);
-        newFormData.append('alcohol_name', formData.alcohol_name.text);
-        newFormData.append('alcohol_price', formData.alcohol_price.text);
-        newFormData.append('dc_percent', formData.dc_percent.text);
-        newFormData.append('alcohol_type', formData.alcohol_type.text);
-        newFormData.append('abv', formData.abv.text);
-        newFormData.append('alcohol_volume', formData.alcohol_volume.text);
-        newFormData.append('food', food);
-        newFormData.append('alcohol_comment1', formData.alcohol_comment1.text);
-        newFormData.append('alcohol_comment2', formData.alcohol_comment2.text);
-        newFormData.append('flavor_sour', formData.flavor_sour.text);
-        newFormData.append('flavor_soda', formData.flavor_soda.text);
-        newFormData.append('flavor_sweet', formData.flavor_sweet.text);
-        newFormData.append('flavor_body', formData.flavor_body.text);
-        newFormData.append('hashtag', formData.hashtag.text);
-        newFormData.append('stock', formData.stock.text);
-      }
-      axios({
-        url: `${BASE_URL}/adminpage/update/modify/${alcoholId}`,
-        method: 'post',
-        data: newFormData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Content-Disposition': 'form-data'
-        }
-      })
-      .then(result => {
-        if(result.data === 'update ok') {
-          resetForm();
-          alert('상품 수정이 완료되었습니다');
-        } else {
-          alert('상품 수정이 실패하였습니다');
-        }
-      })
-      .catch(error => console.log(error));
-    } else {
-      alert('이미지 중복체크와 form 양식에 맞춰 입력해주세요');
-    }
-  }
-
-
   return (
     <div className={`product_form_container ${alcoholId ? 'toggle' : ''}`}>
       <div className='title_wrap'>
@@ -124,7 +63,7 @@ export default function ProductUpdateForm({alcoholId, setAlcoholId}) {
         </div>
       </div>
       <div className='product_form_wrap'>
-        <form className='product_form' onSubmit={handleSubmitRegister} >
+        <form className='product_form' onSubmit={handleSubmitForm} >
           <div className='name'>
             <div className='text_box'>
             <label htmlFor='alcohol_name'>이름</label>
@@ -317,13 +256,13 @@ export default function ProductUpdateForm({alcoholId, setAlcoholId}) {
           <div className='stock'>
             <div className='text_box'>
               <label htmlFor='stock_update'>재고</label>
-              <input value={formData.stock.text} className={formData.stock.error && 'error'} type='text' id='stock_update' name='stock_update' placeholder='숫자로 입력해주세요' onChange={handleChangeStock}/>
+              <input value={formData.stock.text} className={formData.stock.error && 'error'} type='text' id='stock_update' name='stock_update' placeholder='0 이상의 숫자로 입력해주세요' onChange={handleChangeStock}/>
             </div>
             { formData.stock?.error && <span>{formData.stock.error}</span> }
           </div>
 
           <div className='product_btn'>
-            <button>등록하기</button>
+            <button>수정하기</button>
           </div>
 
         </form>

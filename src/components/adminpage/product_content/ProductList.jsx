@@ -13,7 +13,13 @@ export default function ProductList(props) {
 
   // 상품 이름 검색
   const handleChangeInput = (e) => {
-    setSearchInput(e.target.value.trim());
+    const searchInputValue = e.target.value;
+
+    if(searchInputValue.trim() || searchInputValue === '' ) {
+      setSearchInput(searchInputValue);
+    } else {
+      alert('상품 이름을 입력해주세요')
+    }
   };
 
   // 상품 정렬 선택

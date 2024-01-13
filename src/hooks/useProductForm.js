@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import BASE_URL from '../constants/baseurl';
+import getImgUrl from '../util/getImgUrl';
 
-export default function useProduct(btnToggle) {
+export default function useProductForm(btnToggle) {
   const initialViewImg = ({ 0: '', 1: '', 2: ''});
   const [ foodViewImages, setFoodViewImages ] = useState(initialViewImg); // 미리보기, map 사용
   const [ alcoholViewImages, setAlcoholViewImages ] = useState(initialViewImg); // 미리보기, map 사용
@@ -69,12 +70,11 @@ export default function useProduct(btnToggle) {
 
       reader.onload = (e) => {
         const uploadFileName = uploadFile.name;
-        let index = uploadFileName.indexOf('.'); // 확장자 구분 위해서 . 인덱스 찾기
-        let viewFileName = uploadFileName.substring(0, index); // 해당 인덱스까지 문자열 추출
+        let extIdx = uploadFileName.indexOf('.'); // 확장자 구분 위해서 . 인덱스 찾기
+        let viewFileName = uploadFileName.substring(0, extIdx); // 해당 인덱스까지 문자열 추출
         
         if(validateFoodImages(uploadFileName)) {
           alert('선택한 이미지 파일이 중복된 이미지가 있습니다. 다시 올려주세요');
-          // setFormData(prev => ({...prev, [`food${parseInt(idx) + 1}`] : {text: '', error: ''} }));
         } else {
           setFoodImgFiles(prev => {
             const newState = [...prev];
@@ -118,34 +118,31 @@ export default function useProduct(btnToggle) {
 
   // food 음식 이미지 중복 체크
   const handleClickImgCheck = (e) => {
-    const foodImgNames = foodImgFiles.map(file => file.name);
-    if(foodImgNames.length === 3) { // 이미지 3개 다 있는지 확인
+    const isFoodFile = foodImgFiles.every(file => file !== '');
+    if(isFoodFile) { // 이미지 3개 다 있는지 확인
+      const foodImgNames = foodImgFiles.map(file => file.name);
       axios({
         url : `${BASE_URL}/adminpage/imgduplicate`,
         method : 'post',
         data : {foodImages: foodImgNames}
       })
-      .then(result => { // 중복 데이터 넘어옴
-
+      .then(result => { // 중복 파일 데이터 넘어옴
         if(result.data.duplicates) {
           setDuplicatedImages(false);
-          alert('중복된 이미지가 있습니다. 다시 올려주세요');
-
-          // 모든 이미지의 food 값을 '' 빈 문자열로 수정
-          for(let i=0; i<3; i++) {
-            setFormData(prev => ({
-              ...prev,
-              [`food${i + 1}`] : { text :'', error: '' }
-            }));
-          }
-
           const deleteDupulicates = [...foodImgFiles]; // 배열 복사
           const deletVieweDupulicates = Object.assign({}, foodViewImages); // 객체 복사
+          let duplicatedName = '';
 
           for(const list of result.data.duplicates) {
-            deleteDupulicates[list.idx] = ''; // 중복 되는 이미지 비우기
-            deletVieweDupulicates[list.idx] = '';
+            const extIdx = list.filename.indexOf('.');
+            duplicatedName += list.filename.substring(0, extIdx) + ', ';
+
+            deleteDupulicates[list.idx] = list.filename; // 중복 되는 이미지 변경
+            deletVieweDupulicates[list.idx] = getImgUrl.food(list.filename); // 중복 되는 이미지 변경
           };
+
+          duplicatedName = duplicatedName.slice(0, -2);
+          alert(`${duplicatedName}의 파일명이 중복되어 중복된 이미지로 대체됩니다. 이미지 확인 후 필요시 다른 이름으로 재업로드 해주세요.`);
 
           setFoodImgFiles(deleteDupulicates);
           setFoodViewImages(deletVieweDupulicates);
@@ -155,7 +152,7 @@ export default function useProduct(btnToggle) {
       })
       .catch(error => console.log(error));
     } else {
-      alert('파일을 세개 다 올린 뒤 중복 체크를 확인해주세요');
+      alert('파일을 세 개 다 올린 뒤 중복 체크를 진행해 주세요');
     }
   };
 
@@ -240,10 +237,10 @@ export default function useProduct(btnToggle) {
     const inputValue = e.target.value;
     const numberValue = Number(inputValue);
 
-    if((numberValue >= 1 && numberValue <= 5 ) && inputValue !== '') {
+    if((numberValue >= 0 && numberValue <= 5 ) && inputValue !== '') {
       setFormData(prev => ({ ...prev, [`${type}`] : {text: inputValue, error: '' }}));
     } else {
-      setFormData(prev => ({ ...prev, [`${type}`] : {text: '', error: '1 - 5 사이의 숫자를 입력해주세요' }}));
+      setFormData(prev => ({ ...prev, [`${type}`] : {text: '', error: '0 - 5 사이의 숫자를 입력해주세요' }}));
     }
   };
   
@@ -262,10 +259,10 @@ export default function useProduct(btnToggle) {
     if(numberStock >= 1 && inputStock !== '' ) {
       setFormData(prev => ({ ...prev, stock: { text: inputStock, error: ''} }));
     } else {
-      setFormData(prev => ({ ...prev, stock : {text: '', error: '숫자를 적어주세요'} }));
+      setFormData(prev => ({ ...prev, stock : {text: '', error: '0 이상의 숫자를 적어주세요'} }));
     }
   };
 
-  return[foodViewImages, alcoholViewImages, foodImgFiles, alcoholImgFiles, duplicatedImages, formData, setFormData, setFoodViewImages, setAlcoholViewImages, setFoodImgFiles, setAlcoholImgFiles, handleClickClose, handleClickReset, handleChangeFoodImges,  handleChageAlcoholImges, handleClickImgCheck, handleChangeName, handleChangePrice, handleChangePercent, handleChangeType, handleChangeAbv, handleBlurAbv, handleChangeVolume, handleChangeComment, handleChangeFlavor, handleChangeTag, handleChangeStock, resetForm ];
+  return [ foodViewImages, alcoholViewImages, foodImgFiles, alcoholImgFiles, duplicatedImages, formData, setFormData, setFoodViewImages, setAlcoholViewImages, setFoodImgFiles, setAlcoholImgFiles, handleClickClose, handleClickReset, handleChangeFoodImges,  handleChageAlcoholImges, handleClickImgCheck, handleChangeName, handleChangePrice, handleChangePercent, handleChangeType, handleChangeAbv, handleBlurAbv, handleChangeVolume, handleChangeComment, handleChangeFlavor, handleChangeTag, handleChangeStock, resetForm ];
 }
 
