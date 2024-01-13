@@ -11,31 +11,19 @@ import NoReview from './NoReview';
 export default function ReviewSection() {
   const [reviewList, setReviewList] = useState([]);
   const [selectOption, setSelectOption] = useState('detail');
-  const [orderBy, setOrderBy] = useState('desc');
-  const [colum, setColum] = useState('detail');
   const [page, setPage] = useState(1);
   const isMounted = useRef(false);
   const params = useParams();
 
   const param = {
-    orderBy: orderBy,
-    colum: colum,
+    selectOption: selectOption,
     page: page,
     pageItem: 2
   };
 
   const fetchData = () => {
     axios.get(`${BASE_URL}/alcoholdetail/review/list/${params.alcoholid}`, { params: param })
-      // .then(result => setReviewList(prevData => [...prevData, ...result.data]))
-      // .then(result => setReviewList(result.data))
-      .then(result => {
-        if (page === 1) {
-          setReviewList(result.data);
-        } else {
-          setReviewList(prevData => [...prevData, ...result.data]);
-          // setReviewList(prevData => [...result.data, ...prevData]);
-        }
-      })
+      .then(result => setReviewList(prevData => [...prevData, ...result.data]))
       .catch(error => console.log(error));
   };
 
@@ -45,33 +33,11 @@ export default function ReviewSection() {
     } else {
       isMounted.current = true;
     }
-  }, [page, selectOption, orderBy, colum])
-
-  useEffect(() => {
-    setReviewList([]);
-    setPage(1);
-    if (selectOption === 'detail') {
-      setOrderBy('desc');
-      setColum('detail');
-    } else if (selectOption === 'newest') {
-      setOrderBy('desc');
-      setColum('review_date');
-    } else if (selectOption === 'desc') {
-      setOrderBy('desc');
-      setColum('review_star');
-    } else if (selectOption === 'asc') {
-      setOrderBy('asc');
-      setColum('review_star');
-    };
-    console.log('출력');
-  }, [selectOption, orderBy, colum]);
+  }, [page, selectOption])
 
   const handleMoreReview = () => {
     setPage(page => page + 1);
   };
-
-  console.log(reviewList);
-  console.log(page);
 
   return (
     <div className='review_section'>
