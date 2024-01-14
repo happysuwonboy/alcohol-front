@@ -1,18 +1,56 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 import { IoCamera } from 'react-icons/io5';
 import { IoIosClose } from "react-icons/io";
 import { GrPowerReset } from 'react-icons/gr';
+import BASE_URL from '../../../constants/baseurl';
+import getImgUrl from '../../../util/getImgUrl';
 import useProductForm from '../../../hooks/useProductForm';
 import useProductAxios from '../../../hooks/useProductAxios';
 
-export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnToggle}) {
-  const [foodViewImages, alcoholViewImages, foodImgFiles, alcoholImgFiles, duplicatedImages, formData, setFormData, setFoodViewImages, setAlcoholViewImages, setFoodImgFiles, setAlcoholImgFiles, handleClickClose, handleClickReset, handleChangeFoodImges,  handleChageAlcoholImges, handleClickImgCheck, handleChangeName, handleChangePrice, handleChangePercent, handleChangeType, handleChangeAbv, handleBlurAbv, handleChangeVolume, handleChangeComment, handleChangeFlavor, handleChangeTag, handleChangeStock, resetForm ] = useProductForm(setRegisterBtnToggle);
-  const handleSubmitForm = useProductAxios(duplicatedImages, foodImgFiles, alcoholImgFiles, formData, resetForm, `/adminpage/product/create`, 'insert ok', '등록');
+export default function ProductUpdateForm({alcoholId, setAlcoholId}) {
+  const [foodViewImages, alcoholViewImages, foodImgFiles, alcoholImgFiles, duplicatedImages, formData, setFormData, setFoodViewImages, setAlcoholViewImages, setFoodImgFiles, setAlcoholImgFiles, handleClickClose, handleClickReset, handleChangeFoodImges,  handleChageAlcoholImges, handleClickImgCheck, handleChangeName, handleChangePrice, handleChangePercent, handleChangeType, handleChangeAbv, handleBlurAbv, handleChangeVolume, handleChangeComment, handleChangeFlavor, handleChangeTag, handleChangeStock, resetForm ] = useProductForm(setAlcoholId);
+  const handleSubmitForm = useProductAxios(duplicatedImages, foodImgFiles, alcoholImgFiles, formData, resetForm, `/adminpage/update/modify/${alcoholId}`, 'update ok', '수정', alcoholId);
+
+  // update
+  useEffect(() => {
+    if(alcoholId) {
+      axios.get(`${BASE_URL}/adminpage/update/${alcoholId}`)
+      .then(result => {
+        const axiosData = result.data;
+        const foodArr = axiosData.food.split('/');
+        setFormData({
+          alcohol_name: { text: axiosData.alcohol_name, error: '' },
+          alcohol_price: { text: axiosData.alcohol_price, error: '' },
+          dc_percent: { text: axiosData.dc_percent, error: '' },
+          alcohol_type: { text: axiosData.alcohol_type, error: '' },
+          abv: { text: axiosData.ABV, error: '' },
+          alcohol_volume: { text: axiosData.alcohol_volume, error: '' },
+          food1: { text: foodArr[0], error: '' },
+          food2: { text: foodArr[1], error: '' },
+          food3: { text: foodArr[2], error: '' },
+          alcohol_comment1: { text: axiosData.alcohol_comment1, error: '' },
+          alcohol_comment2: { text: axiosData.alcohol_comment2, error: '' },
+          flavor_sour: { text: axiosData.flavor_sour, error: '' },
+          flavor_soda: { text: axiosData.flavor_soda, error: '' },
+          flavor_sweet: { text: axiosData.flavor_sweet, error: '' },
+          flavor_body: { text: axiosData.flavor_body, error: '' },
+          hashtag: { text: axiosData.hashtag, error: '' },
+          stock: { text: axiosData.stock, error: '' },
+        });
+        setFoodViewImages({0: getImgUrl.food(`${foodArr[0]}.png`), 1: getImgUrl.food(`${foodArr[1]}.png`), 2: getImgUrl.food(`${foodArr[2]}.png`)});
+        setFoodImgFiles([`${foodArr[0]}.png`, `${foodArr[1]}.png`,`${foodArr[2]}.png`]);
+        setAlcoholImgFiles([axiosData.alcohol_img1, axiosData.alcohol_img2, axiosData.alcohol_img3]);
+        setAlcoholViewImages({0: getImgUrl.alcohol(axiosData.alcohol_img1), 1: getImgUrl.alcohol(axiosData.alcohol_img2), 2: getImgUrl.alcohol(axiosData.alcohol_img3)});
+      })
+      .catch(error => console.log(error));
+    }
+  }, [alcoholId]);
 
   return (
-    <div className={`product_form_container ${registerBtnToggle ? 'toggle' : ''}`}>
+    <div className={`product_form_container ${alcoholId ? 'toggle' : ''}`}>
       <div className='title_wrap'>
-        <p>Product Register</p>
+        <p>Product Update</p>
         <div className='btn_wrap'>
           <div className='reset_btn' onClick={handleClickReset} >
             <GrPowerReset />
@@ -86,12 +124,12 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
                   <p>음식 {parseInt(idx) + 1}</p>
                   <div className='img_box'>
                     <div>
-                      <img src={foodViewImages[idx] || 'assets/images/etc/default.png'} alt={`음식 상품 이미지 ${parseInt(idx, 10) + 1}`} />
+                      <img src={foodViewImages[idx] || 'assets/images/etc/default.png'} alt={`음식 이미지 ${parseInt(idx, 10) + 1}`} />
                     </div>
-                    <label htmlFor={`food_img${idx}`}><IoCamera/></label>
-                    <input type='file' accept='image/*' id={`food_img${idx}`} name={`food_img${idx}`} onChange={(e) => handleChangeFoodImges(e, idx)} />
+                    <label htmlFor={`food_update${idx}`}><IoCamera/></label>
+                    <input type='file' accept='image/*' id={`food_update${idx}`} name={`food_img${idx}`} onChange={(e) => handleChangeFoodImges(e, idx)} />
                   </div>
-                  </div>)) } 
+                </div>)) } 
               </div>
               <button type='button' 
                       onClick={() => handleClickImgCheck('food')}
@@ -110,7 +148,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
           <div className='food_2'>
             <div className='text_box'>
               <label htmlFor='food_2'>음식2</label>
-              <input value={formData.food2?.text}  readOnly className={formData.food2.error && 'error'} type='text' id='food_2' name='food_2' placeholder='사진을 업로드하면 자동으로 입력됩니다'/>
+              <input value={formData.food2?.text} readOnly className={formData.food2.error && 'error'} type='text' id='food_2' name='food_2' placeholder='사진을 업로드하면 자동으로 입력됩니다'/>
             </div>
             { formData.food2?.error && <span>{formData.food2.error}</span> }
           </div>
@@ -166,8 +204,8 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
                     <div>
                       <img src={ alcoholViewImages[idx] || 'assets/images/etc/default.png'} alt='상품 이미지' />
                     </div>
-                    <label htmlFor={`alcohol_img${idx}`} ><IoCamera/></label>
-                    <input type='file' accept='image/*' id={`alcohol_img${idx}`} name={`alcohol_img${idx}`} onChange={(e) => handleChageAlcoholImges(e, idx)}/>
+                    <label htmlFor={`alcohol_update${idx}`} ><IoCamera/></label>
+                    <input type='file' accept='image/*' id={`alcohol_update${idx}`} name={`alcohol_img${idx}`} onChange={(e) => handleChageAlcoholImges(e, idx)}/>
                   </div>
                 </div>)) }
               </div>
@@ -177,7 +215,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
           <div className='sour'>
             <div className='text_box'>
               <label htmlFor='flavor_sour'>신맛</label>
-              <input value={formData.flavor_sour.text} className={formData.flavor_sour.error && 'error'} type='text' id='flavor_sour' name='flavor_sour' placeholder='0 - 5 사이로 입력해주세요' onChange={(e) => handleChangeFlavor(e, 'flavor_sour')}/>
+              <input value={formData.flavor_sour.text} className={formData.flavor_sour.error && 'error'} type='text' id='flavor_sour' name='flavor_sour' placeholder='1 - 5 사이로 입력해주세요' onChange={(e) => handleChangeFlavor(e, 'flavor_sour')}/>
             </div>
             { formData.flavor_sour?.error && <span>{formData.flavor_sour.error}</span> }
           </div>
@@ -185,7 +223,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
           <div className='soda'>
             <div className='text_box'>
               <label htmlFor='flavor_soda'>탄산</label>
-              <input value={formData.flavor_soda.text} className={formData.flavor_soda.error && 'error'} type='text' id='flavor_soda' name='flavor_soda' placeholder='0 - 5 사이로 입력해주세요' onChange={(e) => handleChangeFlavor(e, 'flavor_soda')}/>
+              <input value={formData.flavor_soda.text} className={formData.flavor_soda.error && 'error'} type='text' id='flavor_soda' name='flavor_soda' placeholder='1 - 5 사이로 입력해주세요' onChange={(e) => handleChangeFlavor(e, 'flavor_soda')}/>
             </div>
             { formData.flavor_soda?.error && <span>{formData.flavor_soda.error}</span> }
           </div>
@@ -193,7 +231,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
           <div className='sweet'>
             <div className='text_box'>
               <label htmlFor='flavor_sweet'>단맛</label>
-              <input value={formData.flavor_sweet.text} className={formData.flavor_sweet.error && 'error'} type='text' id='flavor_sweet' name='flavor_sweet' placeholder='0 - 5 사이로 입력해주세요' onChange={(e) => handleChangeFlavor(e, 'flavor_sweet')}/>
+              <input value={formData.flavor_sweet.text} className={formData.flavor_sweet.error && 'error'} type='text' id='flavor_sweet' name='flavor_sweet' placeholder='1 - 5 사이로 입력해주세요' onChange={(e) => handleChangeFlavor(e, 'flavor_sweet')}/>
             </div>
             { formData.flavor_sweet?.error && <span>{formData.flavor_sweet.error}</span> }
           </div>
@@ -201,7 +239,7 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
           <div className='body'>
             <div className='text_box'>
               <label htmlFor='flavor_sweet'>바디</label>
-              <input value={formData.flavor_body.text} className={formData.flavor_body.error && 'error'} type='text' id='flavor_body' name='flavor_body' placeholder='0 - 5 사이로 입력해주세요' onChange={(e) => handleChangeFlavor(e, 'flavor_body')}/>
+              <input value={formData.flavor_body.text} className={formData.flavor_body.error && 'error'} type='text' id='flavor_body' name='flavor_body' placeholder='1 - 5 사이로 입력해주세요' onChange={(e) => handleChangeFlavor(e, 'flavor_body')}/>
             </div>
             { formData.flavor_body?.error && <span>{formData.flavor_body.error}</span> }
           </div>
@@ -209,22 +247,22 @@ export default function ProductRegisterForm({registerBtnToggle, setRegisterBtnTo
 
           <div className='hashtag'>
             <div className='text_box'>
-              <label htmlFor='hashtag'>#태그</label>
-              <input value={formData.hashtag.text} className={formData.hashtag.error && 'error'} type='text' id='hashtag' name='hashtag' placeholder='#을 제외하고 20자 이하로 넣어주세요' maxLength={20} onChange={handleChangeTag}/>
+              <label htmlFor='hashtag_update'>#태그</label>
+              <input value={formData.hashtag.text} className={formData.hashtag.error && 'error'} type='text' id='hashtag_update' name='hashtag_update' placeholder='#을 제외하고 20자 이하로 넣어주세요' maxLength={20} onChange={handleChangeTag}/>
             </div>
             { formData.hashtag?.error && <span>{formData.hashtag.error}</span> }
           </div>
 
           <div className='stock'>
             <div className='text_box'>
-              <label htmlFor='stock'>재고</label>
-              <input value={formData.stock.text} className={formData.stock.error && 'error'} type='text' id='stock' name='stock' placeholder='0 이상의 숫자로 입력해주세요' onChange={handleChangeStock}/>
+              <label htmlFor='stock_update'>재고</label>
+              <input value={formData.stock.text} className={formData.stock.error && 'error'} type='text' id='stock_update' name='stock_update' placeholder='0 이상의 숫자로 입력해주세요' onChange={handleChangeStock}/>
             </div>
             { formData.stock?.error && <span>{formData.stock.error}</span> }
           </div>
 
           <div className='product_btn'>
-            <button>등록하기</button>
+            <button>수정하기</button>
           </div>
 
         </form>

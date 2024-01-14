@@ -20,9 +20,9 @@ export default function FilterContainer() {
     }, 300);
     
     return () => {
-      clearTimeout(timeoutId)
+      clearTimeout(timeoutId);
     }
-  }, [filterInfo, searchInputPrice, checkedOption, sort, searchInput, currentPage])
+  }, [filterInfo, searchInputPrice, checkedOption, sort, searchInput, currentPage]);
 
   // 필터 부분 880이하 구간, 이상 구간 컴포넌트 노출 여부 resize 함수
   const handleResize = () => {

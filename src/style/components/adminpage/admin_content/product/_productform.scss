@@ -1,0 +1,413 @@
+main.admin_contanier {
+  div.product_container.toggle {
+    &::before {
+      content: '';
+      position: fixed;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(197, 190, 178, 0.4);
+    }
+  }
+
+  div.admin_content_container {
+    div.product_form_container {
+      position: fixed;
+      z-index: 10;
+      top: 0;
+      right: -100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 80%;
+      max-width: 700px;
+      height: 100vh;
+      padding: 1rem 3rem;
+      background-color: #2c2d2e;
+      color: rgb(233, 224, 224);
+      transition: right 0.4s ease-in-out;
+
+      div.title_wrap {
+        @include flexbox($jc: space-between);
+        width: 100%;
+        margin-bottom: 2rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgb(76, 76, 76);
+
+        p {
+          font-size: 1.2rem;
+          font-weight: 600;
+        }
+
+        div.btn_wrap {
+          display: flex;
+
+          div.reset_btn,
+          div.close_btn {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+
+            button {
+              color: rgb(233, 224, 224);
+
+              @media (hover: hover) {
+                &:hover {
+                  font-weight: bold;
+                }
+              }
+            }
+          }
+
+          div.reset_btn {
+            margin-right: 8px;
+            svg {
+              font-size: 0.6rem;
+              margin-right: 3px;
+            }
+          }
+        }
+      }
+
+      div.product_form_wrap {
+        width: 100%;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+          width: 10px; /* 스크롤바의 너비 */
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: rgb(220, 189, 137); /* 스크롤바의 색상 */
+          background-color: rgb(203, 191, 170); /* 스크롤바의 색상 */
+          border-radius: 3px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background-color: #2c2d2e; /* 스크롤바 트랙의 색상 */
+        }
+
+        form.product_form {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          padding: 10px 30px;
+
+          // 공통 적용
+          >div:not(:last-child) {
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            div.text_box {
+              display: flex;
+              align-items: center;
+              width: 100%;
+            }
+            input {
+              width: 90%;
+              border-bottom: 1px solid #e39a13;
+              &.error {
+                border-bottom: 1px solid #e39a13;
+              }
+            }
+
+            label {
+              width: 10%;
+              font-size: 0.8rem;
+              font-weight: 600;
+              color: rgb(224, 164, 54);
+              word-break: keep-all;
+            }
+
+            input,
+            textarea {
+              width: 90%;
+              padding: 10px;
+              font-size: 0.8rem;
+              color: rgb(232, 224, 224);
+              border-bottom: 1px solid rgb(105, 103, 103);
+              &.error {
+                border-bottom: 1px solid #e39a13;
+              }
+            }
+
+            input::placeholder textarea::placeholder {
+              font-size: 0.8rem;
+            }
+
+            input[type='file'] {
+              display: none;
+            }
+            span {
+              padding-top: 10px;
+              padding-left: 45px;
+              font-size: 0.8rem;
+              color: #e39a13;
+            }
+          }
+
+          // 이미지 공통 적용
+          div.img_common {
+            display: flex;
+            flex-direction: column;
+            margin-top: 8px;
+            margin-bottom: 2rem;
+
+            div.label {
+              width: 100%;
+              margin-bottom: 2rem;
+              padding-right: 10px;
+              p:first-child {
+                display: inline;
+                margin-right: 1rem;
+                font-size: 0.8rem;
+                font-weight: 600;
+                color: rgb(224, 164, 54);
+                text-align: left;
+              }
+              span {
+                font-size: 0.8rem;
+                color: rgb(209, 202, 202);
+              }
+            }
+
+            div.img_box_wrap {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              align-items: center;
+              width: 90%;
+              margin-left: 12%;
+
+              div.box_wrap {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                margin-bottom: 16px;
+
+                >div {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  width: 30%;
+                  p {
+                    font-size: 0.8rem;
+                    margin-bottom: 3px;
+                    color: #a6aaac;
+                  }
+                  div.img_box {
+                    position: relative;
+                    div {
+                      width: 100px;
+                      img {
+                        width: 100%;
+                      }
+                    }
+
+                    label {
+                      svg {
+                        position: absolute;
+                        bottom: -15px;
+                        left: 93%;
+                        padding: 2px;
+                        background: rgb(69, 68, 68);
+                        border-radius: 5px;
+                        font-size: 1.5rem;
+                        color: white;
+                        transform: translate(-50%, -50%);
+                      }
+                    }
+                  }
+                }
+              }
+
+              button {
+                display: block;
+                width: 90%;
+                margin: 0 auto;
+                padding: 4px 10px;
+                font-size: 0.8rem;
+                color: black;
+                background: rgba(145, 143, 140, 0.4);
+                border-radius: 5px;
+
+                &.visible {
+                  border: 1px solid rgba(162, 118, 36, 0.6);
+                  color: rgb(224, 164, 54);
+                  background: rgb(23, 23, 23);
+                }
+              }
+            }
+          }
+
+          div.food_img_container {
+            div.label {
+              p {
+                margin-bottom: 10px;
+                font-size: 0.8rem;
+                color: rgb(151, 146, 146);
+              }
+              span {
+                padding-left: 0;
+              }
+            }
+          }
+
+          div.alcohol_img_container {
+            div.label {
+              margin-bottom: 1rem;
+            }
+          }
+
+          div.comment_1,
+          div.comment_2 {
+            flex-direction: column;
+
+            div.write_box {
+              display: flex;
+              width: 100%;
+              margin-bottom: 10px;
+            }
+
+            div.text_length_box {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              width: 90%;
+              margin-left: auto;
+              font-size: 0.7rem;
+              span {
+                padding: 0;
+              }
+              div {
+                margin-left: auto;
+                span {
+                  color: rgb(165, 159, 159);
+                }
+              }
+            }
+          }
+
+          div.product_btn {
+            justify-content: center;
+            width: 100%;
+            margin-top: 3rem;
+            padding: 0.9rem;
+            border: 1px solid rgba(188, 140, 52, 0.5);
+            border-radius: 2px;
+            background-color: #515151;
+            text-align: center;
+
+            button {
+              font-size: 0.8rem;
+              color: white;
+            }
+          }
+        }
+
+      }
+      &.toggle {
+        right: 0;
+      }
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    & {
+      div.admin_content_container {
+        div.product_form_container {
+          padding: 1rem 2rem;
+
+          div.product_form_wrap {
+            form.product_form {
+              padding: 10px 20px;
+
+              // 이미지 공통 적용
+              div.img_common {
+                div.label {
+                  p {
+                    margin-bottom: 0.5rem;
+                  }
+                  span {
+                    margin-bottom: 0.5rem;
+                  }
+                }
+
+                div.img_box_wrap {
+                  width: 100%;
+                  margin-left: 0;
+                }
+              }
+
+              div.food_img_container {
+                div.label {
+                  p:first-child {
+                    display: block;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: $md-breakpoint ) {
+    & {
+      div.admin_content_container {
+        div.product_form_container {
+          width: 100%;
+          right: -100%;
+          padding: 1rem;
+
+          div.title_wrap {
+            padding: 1rem 20px;
+            margin-bottom: 0.5rem;
+          }
+
+          div.product_form_wrap {
+            padding: 1rem 0;
+
+            form.product_form {
+              padding: 10px;
+              // 이미지 공통 적용
+              div.img_common {
+                div.label {
+                  p {
+                    margin-bottom: 0.5rem;
+                  }
+                  span {
+                    margin-bottom: 0.5rem;
+                  }
+                }
+
+                div.img_box_wrap {
+                  width: 100%;
+                  margin-left: 0;
+                }
+              }
+
+              div.food_img_container {
+                >p {
+                  margin-bottom: 10px;
+                  font-size: 0.8rem;
+                  color: rgb(151, 146, 146);
+                }
+              }
+
+              div.product_btn {
+                margin-top: 1rem;
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

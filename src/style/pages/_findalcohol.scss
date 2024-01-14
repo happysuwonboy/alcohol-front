@@ -2,12 +2,14 @@ main.findalcohol_section {
   max-width: 1300px;
   margin: 0 auto;
   padding: 1rem 4rem;
+
   div.avata_container {
-    @include flexbox($jc:space-between);
+    @include flexbox($jc: space-between);
     margin: 2rem 0 3rem 0;
     padding: 20px 50px;
     background: #eee;
     border-radius: 1rem;
+
     div.avata_info {
       p:first-child {
         margin-bottom: 0.8rem;
@@ -18,6 +20,7 @@ main.findalcohol_section {
         color: #605f5f;
       }
     }
+
     div.avata_img {
       width: 10%;
       height: 10%;
@@ -29,21 +32,24 @@ main.findalcohol_section {
       }
     }
   }
+
   /* filter section */
   // common으로 사용하는 필터 + sort ( 공통이 많아서 depth 구조에서 뺌 )
   div.filter_sort_wrap {
     @include flexbox($jc: space-between);
-    // margin-top: 1rem;
     padding: 20px 10px;
     border-bottom: 1px solid #eee;
+
     p {
       font-size: 0.85rem;
       span {
         font-weight: 600;
       }
     }
+
     div.filter_select_wrap {
       @include flexbox;
+
       div.select_box {
         display: flex;
         position: relative;
@@ -62,11 +68,13 @@ main.findalcohol_section {
             display: none; /* IE에서 기본 화살표 숨김 */
           }
         }
+
         svg {
           @include pos-y;
           right: 15px;
         }
       }
+
       div.filter_box {
         display: flex;
         color: #327dce;
@@ -86,6 +94,7 @@ main.findalcohol_section {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+
     &.toggle::before {
       content: '';
       z-index: 10;
@@ -94,12 +103,14 @@ main.findalcohol_section {
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0, 0.5);
+      background-color: rgba(0, 0, 0, 0.5);
     }
+
     // search
     div.search_wrap {
       position: relative;
       margin-bottom: 1rem;
+
       input {
         width: 180px;
         height: 30px;
@@ -117,6 +128,7 @@ main.findalcohol_section {
           border-color: #327dce;
         }
       }
+
       svg {
         position: absolute;
         top: 50%;
@@ -124,15 +136,17 @@ main.findalcohol_section {
         transform: translate(-50%, -50%);
       }
     }
+
     // common
     div.filter_sort_wrap {
       width: 100%;
     }
+
     // filter 
     div.filter_container {
-      // @include flexbox;
       z-index: 2;
       width: 100%;
+
       div.filter_wrap {
         display: flex;
         flex-wrap: wrap;
@@ -144,7 +158,6 @@ main.findalcohol_section {
         div.type_wrap {
           position: relative;
           width: 15%;
-          // margin-right: 1.5%;
           margin-bottom: 10px;
           &:nth-of-type(5),
           &:nth-of-type(6) {
@@ -153,8 +166,9 @@ main.findalcohol_section {
               left: auto;
             }
           }
-          div.type_box{
-            @include flexbox($jc: space-between); /* 데스크탑에서 위치 확인 필요 */
+
+          div.type_box {
+            @include flexbox($jc: space-between);
             padding: 10px 1rem;
             border: 1px solid #eee;
             border-radius: 5px;
@@ -180,22 +194,25 @@ main.findalcohol_section {
               }
             }
           }
-          div.option_box{
+
+          div.option_box {
             position: absolute;
-            z-index: 1;
+            z-index: 5;
             top: 50px;
             left: 5px;
-            @include flexbox($jc:space-between);
+            @include flexbox($jc: space-between);
             flex-wrap: wrap;
             width: 330px;
             padding: 20px 20px 0 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
             background: white;
+
             // 가격 input 범위 
             div.price_wrap {
               @include flexbox($jc: space-between);
               width: 100%;
+
               div.input_wrap {
                 @include flexbox($jc: space-between);
                 width: 85%;
@@ -217,6 +234,7 @@ main.findalcohol_section {
                   }
                 }
               }
+
               button {
                 padding: 8px;
                 height: 25px;
@@ -227,10 +245,12 @@ main.findalcohol_section {
                 color: white;
               }
             }
+
             div {
               position: relative;
               width: 45%;
               margin-bottom: 20px;
+
               input {
                 display: none;
               }
@@ -249,7 +269,8 @@ main.findalcohol_section {
                   cursor: pointer;
                 }
               }
-              input:checked + label:before {
+
+              input:checked+label:before {
                 content: '\2713';
                 border: none;
                 background-color: #5197f2;
@@ -259,21 +280,25 @@ main.findalcohol_section {
               }
             }
           }
+
           div.option_box.hidden {
             display: none;
           }
         }
       }
+
       div.checked_label_wrap {
         @include flexbox($jc: space-between);
         padding: 1.2rem 0 1rem 0;
         border-top: 1px solid #eee;
         border-bottom: 10px solid #eee;
+
         div.label_box {
           display: flex;
           flex-wrap: wrap;
           width: 85%;
           margin-right: 5%;
+
           div.checked_label {
             margin-right: 5px;
             margin-bottom: 10px;
@@ -282,19 +307,20 @@ main.findalcohol_section {
             background: #5b94c8;
             font-size: 0.8rem;
             color: white;
+
             span:first-child {
               margin-right: 10px;
             }
+
             span:last-child {
               font-size: 1rem;
               cursor: pointer;
             }
           }
         }
+
         div.reset_wrap {
           width: 10%;
-          div.pad_title {
-          }
           div.reset_box {
             display: flex;
             justify-content: flex-end;
@@ -314,8 +340,8 @@ main.findalcohol_section {
           }
         }
       }
-  
-      // common filter 버튼 클릭시 ( 880이하 )
+
+      // common filter 버튼 클릭시 before 클래스명 ( 880px 이하 : 미디어쿼리와 동일시하게 보면 됨 )
       &.toggle.before {
         z-index: 10;
         right: 0px;
@@ -330,7 +356,6 @@ main.findalcohol_section {
         height: 100vh;
         border-left: 1px solid #eee;
         background: white;
-        overflow-y: auto;
         transition: right 0.3s ease-in-out;
 
         div.filter_wrap {
@@ -366,6 +391,7 @@ main.findalcohol_section {
                 border-bottom: 1px solid #eee;
               }
             }
+
             div.option_box {
               position: static;
               flex-direction: column;
@@ -375,17 +401,19 @@ main.findalcohol_section {
               background: rgba(242, 242, 242, 0.4);
               border: none;
               border-bottom: 1px solid #eee;
+
               div {
                 width: 100%;
               }
             }
           }
         }
+
         div.checked_label_wrap {
           flex-direction: column;
           order: -1;
           padding-bottom: 0;
-          
+
           div.label_box {
             align-items: flex-start;
             align-content: flex-start;
@@ -395,15 +423,15 @@ main.findalcohol_section {
             margin: 0;
             background-color: #f3f2f2;
             overflow-y: auto;
-            div.checked_label {
-            }
           }
+
           div.reset_wrap {
             @include flexbox($jc: space-between);
             order: -2;
             width: 100%;
             margin-bottom: 1rem;
             padding: 0 10px;
+
             div.pad_title {
               @include flexbox;
               order: -2;
@@ -415,6 +443,7 @@ main.findalcohol_section {
                 font-weight: 600;
               }
             }
+
             div.reset_box {
               order: -1;
               margin-bottom: 0;
@@ -441,98 +470,170 @@ main.findalcohol_section {
       padding-bottom: 0;
       border-top: 1px solid #eee;
       border-bottom: none;
-      div.filter_select_wrap {
-        div.select_box {
-          select {
-          }
-        }
-      }
     }
+
     div.product_wrap {
       display: flex;
       flex-wrap: wrap;
       // justify-content: center;
       margin-top: 1rem;
+
       div.product_box {
+        position: relative;
         width: 23%;
         margin-bottom: 3rem;
+
         &:not(:nth-of-type(4n)) {
           margin-right: 2.5%;
         }
+
+        div.stock_label {
+          display: flex;
+          position: absolute;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          padding: 5px 10px;
+          background: rgb(239, 44, 37);
+          color: white;
+          border-top-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+
+          svg {
+            margin-right: 5px;
+            font-size: 0.9rem;
+          }
+
+          span {
+            font-size: 0.85rem;
+            font-weight: 600;
+          }
+        }
+
         div.img_box {
+          position: relative;
           margin-bottom: 1rem;
           overflow: hidden;
           border-radius: 10px;
-          @media (hover:hover) {
-            &:hover img {
-              transform: scale(1.1);
+
+          &:hover img {
+            transform: scale(1.1);
+            &:hover div.sold_out.hover {
+              opacity: 0;
             }
           }
+
+          div.sold_out {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            @include flexbox;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.5);
+
+            &.hover {
+              opacity: 1;
+              transition: opacity 1s ease;
+            }
+
+            p {
+              color: white;
+
+              &:first-child {
+                font-weight: 600;
+                font-size: 1rem;
+                margin-bottom: 5px;
+                display: flex;
+
+                svg {
+                  margin-right: 3px;
+                }
+              }
+
+              &:last-child {
+                font-size: 0.9rem;
+              }
+            }
+          }
+
           img {
             width: 100%;
             transition: transform 0.3s;
-            // transition: transform 0.3s linear;
           }
         }
+
         div.info_box {
           p.name {
             font-size: 1rem;
             margin-bottom: 5px;
           }
+
           div.price_box {
             p {
               display: flex;
               font-weight: bold;
+
               span {
                 margin-left: 0.5px;
                 font-size: 0.9rem;
                 font-weight: normal;
               }
+
               &.dc {
                 margin-bottom: 3px;
                 font-size: 0.9rem;
                 font-weight: normal;
                 color: #ccc;
                 text-decoration: line-through;
+
                 span {
                   font-size: 0.9rem;
                 }
               }
             }
+
             div.dc_info {
               display: flex;
               margin-bottom: 3px;
+
               span.percent {
                 margin-right: 5px;
                 font-weight: 600;
                 color: #FF7D3A;
               }
-              p.dc_price {}
-              p.price {}
             }
           }
+
           div.review_box {
             display: flex;
             align-items: flex-end;
             margin-bottom: 3px;
+
             svg {
               color: #FFBE00;
               margin-right: 1px;
             }
+
             p.review_star {
               font-size: 0.75rem;
               font-weight: 600;
               color: #747474;
+
               span {
                 margin-left: 3px;
               }
             }
+
             p.text {
               font-size: 0.7rem;
               color: #747474;
             }
           }
-          p.tag{
+
+          p.tag {
             margin-left: 3px;
             font-size: 0.9rem;
             color: #747474;
@@ -540,6 +641,7 @@ main.findalcohol_section {
         }
       }
     }
+
     div.filter_empty {
       height: 300px;
       @include flexbox;
@@ -548,8 +650,6 @@ main.findalcohol_section {
       svg {
         margin-bottom: 1rem;
         font-size: 2rem;
-      }
-      p {
       }
     }
   }
@@ -561,6 +661,7 @@ main.findalcohol_section {
 
     li {
       margin: 0 0.5rem;
+
       &.active a {
         display: block;
         width: 20px;
@@ -589,14 +690,17 @@ main.findalcohol_section {
             left: 95%;
           }
         }
+
         div.filter_container {
           div.filter_wrap {
             div.type_wrap {
               div.type_box {
                 padding: 10px;
+
                 span {
                   font-size: 0.8rem;
                 }
+
                 img {
                   width: 8%;
                 }
@@ -611,8 +715,7 @@ main.findalcohol_section {
   @media screen and (max-width: $lg-breakpoint) {
     & {
       padding: 1rem 1.5rem;
-
-      div.avata_container{
+      div.avata_container {
         margin-bottom: 2rem;
         div.avata_info {
           p:first-child {
@@ -624,54 +727,17 @@ main.findalcohol_section {
           }
         }
       }
-      
-      /* filter section */
-      div.filter_sort_wrap{
-        p {
-          span {}
-        }
-        div.filter_select_wrap {
-          div.select_box {
-            select {}
-            svg {}
-          }
-          div.filter_box {
-            svg {
-              span {}
-            }
-          }
-        }
-      }
 
+      /* filter section */
       div.filter_section_container {
         div.search_wrap {
           margin-bottom: 0;
         }
+
         div.filter_container {
           div.filter_wrap {
-            &.pad {
-            }
             div.type_wrap {
-              &:nth-of-type(5),
-              &:nth-of-type(6) {
-                div.option_box {
-                }
-              }
-              div.type_box{
-                span {
-                }
-                img {
-                }
-                &.showModal {
-                  img {
-                  }
-                }
-                &.click {
-                  span {
-                  }
-                }
-              }
-              div.option_box{
+              div.option_box {
                 div.price_wrap {
                   flex-direction: column;
                   div.input_wrap {
@@ -685,68 +751,27 @@ main.findalcohol_section {
                     width: 100%;
                   }
                 }
-                div {
-                  input {
-                  }
-                  label {
-                    &::before {
-                    }
-                  }
-                  input:checked + label::before {
-                  }
-                }
-              }
-              div.option_box.hidden {
-              }
-            }
-          }
-          div.checked_label_wrap {
-            div.label_box {
-              div.checked_label {
-                span:first-child {
-                }
-                span:last-child {
-                }
-              }
-            }
-            div.reset_wrap {
-              div.pad_title {
-              }
-              div.reset_box {
-                svg {
-                }
-                span {
-                }
               }
             }
           }
         }
       }
-        
+
       /* show list section */
       div.product_container {
-        div.filter_sort_wrap {}
         div.product_wrap {
           div.product_box {
             width: 30%;
+
             &:not(:nth-of-type(3n)) {
               margin-right: 5%;
             }
             &:nth-of-type(3n) {
               margin-right: 0;
             }
-            div.img_box {
-              img {
-              }
-            }
+
             div.info_box {
-              p.name {}
-              p.price {}
-              div.review_box {
-                p.review_star {}
-                p.text {}
-              }
-              p.tag{
+              p.tag {
                 font-size: 0.75rem;
               }
             }
@@ -758,38 +783,15 @@ main.findalcohol_section {
 
   @media screen and (max-width: $md-breakpoint) {
     & {
-      div.avata_container{
+      div.avata_container {
         padding: 20px 22px;
-        div.avata_info {
-          p:first-child {
-          }
-          p:last-child {
-          }
-        }
         div.avata_img {
           width: 17%;
         }
       }
-      
-      /* filter section */
-      div.filter_sort_wrap{
-        p {
-          span {}
-        }
-        div.filter_select_wrap {
-          div.select_box {
-            select {}
-            svg {}
-          }
-          div.filter_box {
-            svg {
-              span {}
-            }
-          }
-        }
-      }
 
-      div.filter_section_container{
+      /* filter section */
+      div.filter_section_container {
         div.search_wrap {
           width: 100%;
           input {
@@ -800,75 +802,36 @@ main.findalcohol_section {
             left: 95%;
           }
         }
+
         div.filter_container {
-          div.filter_wrap {
-            &.pad {
-            }
-            div.type_wrap {
-              &:nth-of-type(5),
-              &:nth-of-type(6) {
-                div.option_box {
-                }
-              }
-              div.type_box{
-                span {
-                }
-                img {
-                }
-                &.showModal {
-                  img {
-                  }
-                }
-              &.click {
-                span {
-                }
+          div.checked_label_wrap {
+            div.label_box {
+              flex-wrap: nowrap;
+              overflow-x: auto;
+              margin-right: 3px;
+              div.checked_label {
+                flex-shrink: 0;
               }
             }
-            div.option_box{
-              div {
-                input {
-                }
-                label {
-                  &::before {
-                  }
-                }
-                input:checked + label::before {
-                }
-              }
-            }
-            div.option_box.hidden {
+            div.reset_wrap {
+              width: 17%;
             }
           }
         }
-        div.checked_label_wrap {
-          div.label_box {
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            div.checked_label {
-              flex-shrink: 0;
-              span:first-child {
-              }
-              span:last-child {
-              }
-            }
-          }
-          div.reset_wrap {
-            div.pad_title {
-            }
-            div.reset_box {
-              svg {
-              }
-              span {
-              }
+
+        div.filter_container.toggle { // 모바일 
+          div.checked_label_wrap {
+            div.label_box {
+              flex-wrap: wrap;
+              overflow-y: auto;
             }
           }
         }
       }
-    }
+
 
       /* show list section */
       div.product_container {
-        div.filter_sort_wrap {}
         div.product_wrap {
           div.product_box {
             width: 48%;
@@ -878,18 +841,13 @@ main.findalcohol_section {
             &:not(:nth-of-type(2n)) {
               margin-right: 4%;
             }
-            div.img_box {
-              img {
-              }
-            }
+
             div.info_box {
               p.name {
                 font-size: 0.9rem;
               }
               div.price_box {
                 p {
-                  span {
-                  }
                   &.dc {
                     font-size: 0.7rem;
                     span {
@@ -897,19 +855,13 @@ main.findalcohol_section {
                     }
                   }
                 }
-                div.dc_info {
-                  span.percent {}
-                  p.dc_price {}
-                  p.price {}
-                }
               }
               div.review_box {
                 p.review_star {
                   font-weight: normal;
                 }
-                p.text {}
               }
-              p.tag{
+              p.tag {
                 font-size: 0.75rem;
               }
             }

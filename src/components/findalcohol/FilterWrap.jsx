@@ -57,13 +57,19 @@ export default function FilterWrap(props) {
     setTimeout(() => {
       setBeforeClass(!beforeClass);
     }, 0);
-    };
+  };
 
   // search input 핸들러
   const handleChangeInput = (e) => {
-    dispatch(optionReset());
-    dispatch(changeInput(e.target.value.trim()));
-  }
+    const searchInputValue = e.target.value;
+    
+    if( searchInputValue.trim() || searchInputValue === '') {
+      dispatch(optionReset());
+      dispatch(changeInput(searchInputValue));
+    } else {
+      alert('상품 이름을 입력해주세요');
+    }
+  };
 
   // 가격 체크박스 안 input 핸들러
   const handleChangePrice1 = (e) => {
@@ -79,7 +85,7 @@ export default function FilterWrap(props) {
       alert('숫자를 입력해주세요');
       document.querySelectorAll('.price').forEach(input => input.value = '');
     }
-  }
+  };
   
   const handleChangePrice2 = (e) => {
     if(Number(e.target.value) >= 0) {
@@ -94,13 +100,12 @@ export default function FilterWrap(props) {
       alert('숫자를 입력해주세요');
       document.querySelectorAll('.price').forEach(input => input.value = '');
     }
-  }
+  };
 
   // 가격 검색 input 적용 버튼 핸들러
   const handleClickPrice = () => {
     let input1 = Number(inputPrice[0].value);
     let input2 = Number(inputPrice[1].value);
-    console.log(input1, input2);
 
     if(!input1 || !input2) {
       alert('최소 가격과 최대 가격을 모두 입력해주세요');
@@ -123,7 +128,7 @@ export default function FilterWrap(props) {
       alert('최대 가격이 최소 가격보다 작습니다');
       document.querySelectorAll('.price').forEach(input => input.value = '');
     }
-  }
+  };
 
   return(
     <div className={`filter_section_container ${isFilterClick ? 'toggle' : ''}`}>
@@ -142,8 +147,7 @@ export default function FilterWrap(props) {
           pad ={pad} 
           isFilterClick={isFilterClick}
           setIsFilterClick={setIsFilterClick}
-          handleClickFilter={handleClickFilter} />
-    }
+          handleClickFilter={handleClickFilter} /> }
       <div className={`filter_container ${isFilterClick ? 'toggle' : ''} ${beforeClass? 'before' : ''}`}>
         <div className={`filter_wrap ${pad ? 'pad' : ''}`}>
         { filterInfo.map(filter => (
@@ -171,9 +175,8 @@ export default function FilterWrap(props) {
                 <button 
                   type='button'
                   onClick={handleClickPrice}>적용</button>
-              </div>
-            }
-            {filter.option.map(type => ( 
+              </div> }
+            { filter.option.map(type => ( 
               <div key={type.id}>
                 <input
                   type='checkbox'
@@ -196,7 +199,7 @@ export default function FilterWrap(props) {
               ? <span>{item.category} {item.name}</span>
               : <span>{item.name}</span>
               }
-              { item.category === '가격' && item.id === 'priceInput'  && <span></span>}
+              { item.category === '가격' && item.id === 'priceInput' && <span></span>}
               <span onClick={() => handleClickRemove(item.categoryId, item.id)}>x</span> 
             </div>
           )) }
@@ -208,14 +211,12 @@ export default function FilterWrap(props) {
               <GoMultiSelect />
               <span>필터</span>
             </div>
-          </>
-        }
+          </> }
             <div className='reset_box' onClick={handleClickReset}>
               <GrPowerReset />
               <span>초기화</span>
             { isFilterClick &&
-              <span className='nav_close' onClick={handleClickCloseNav}>x</span> 
-            }
+              <span className='nav_close' onClick={handleClickCloseNav}>x</span> }
             </div>
           </div>
         </div>

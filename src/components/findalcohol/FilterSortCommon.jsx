@@ -6,7 +6,6 @@ import { changeSort } from '../../redux/modules/filterSlice';
 export default function FilterSortCommon(props) {
   const dispatch = useDispatch();
   const { sort, products } = useSelector(state => state.filterSlice);
-  console.log(products);
 
   const handleSortChange = (e) => {
     dispatch(changeSort(e.target.value));
