@@ -3,7 +3,7 @@ import axios from "axios";
 import getImgUrl from "../../../util/getImgUrl";
 import { TbTruckDelivery } from "react-icons/tb";
 
-export default function MyOrder({userId, onContent}) {
+export default function MyOrder({userId, onContent, onOrderDetail}) {
     const [orderList, setOrderList] = useState([]);
 
     /**
@@ -38,8 +38,9 @@ export default function MyOrder({userId, onContent}) {
     /**
      * 주문 상세보기
      */
-    const handleClick = (content) => {
+    const handleClick = (content, orderDetail) => {
         onContent(content);
+        onOrderDetail(orderDetail);
         window.scrollTo({top : 0});
     }
     
@@ -56,7 +57,7 @@ export default function MyOrder({userId, onContent}) {
                     <div className='order' key={index}>
                         <div className='line1'>
                             <span className='date'>{order.orderInfo.order_date}</span>
-                            <button type='button' onClick={() => handleClick('MyOrderDetail')}>주문 상세보기 &gt;</button>
+                            <button type='button' onClick={() => handleClick('MyOrderDetail', order)}>주문 상세보기 &gt;</button>
                         </div>
                         <div className='line2'>
                             <span className="rec_name">{order.orderInfo.rec_name}</span>
@@ -90,7 +91,7 @@ export default function MyOrder({userId, onContent}) {
                             )}
                             <p className='delivery_price'>
                                 <TbTruckDelivery />
-                                <span>{order.total_price >= 50000 ? '0' : '3000'}원</span>
+                                <span>{(order.orderInfo.total_price >= 50000 ? 0 : 3000).toLocaleString()}원</span>
                             </p>
                         </div>
                     </div>

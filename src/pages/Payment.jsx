@@ -5,12 +5,13 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { IoIosArrowDown } from "react-icons/io";
 import Agree from "../components/payment/Agree";
 import getImgUrl from "../util/getImgUrl";
+import useCart from "../hooks/useCart";
 
 export default function Payment() {
     const navigate = useNavigate();
     const location = useLocation();
     const { state } = location;
-    //cart 페이지에서 payment 페이지로 넘어오는 값 (회원id, 체크한 상품 id, 총상품금액, 총할인금액, 최종결제금액)
+    //cart 페이지 또는 상세페이지에서 payment 페이지로 넘어오는 값 (회원id, 체크한 상품 id, 총상품금액, 총할인금액, 최종결제금액)
     //만약 배송지를 변경한다면 receipt 페이지로 전달하고 다시 payment 페이지로 가져옴
     const userId = state.userId;
     const checked = state.checked;  
@@ -27,7 +28,6 @@ export default function Payment() {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
-    const [rId, setRId] = useState('');
 
     const [isAgreeModal, setIsAgreeModal] = useState(false);
     const [isAgreeCheck, setIsAgreeCheck] = useState(false);
@@ -71,26 +71,22 @@ export default function Payment() {
                     setName(result.data[0].rec_name);
                     setPhone(result.data[0].rec_phone);
                     setAddress(result.data[0].rec_address);
-                    setRId(result.data[0].rec_id);
                 }else{
                     document.querySelector('.address_title button').style.display = 'block';
                     document.querySelector('.default_none').style.display = 'none';
                     setName(recName);
                     setPhone(recPhone);
                     setAddress(recAddress);
-                    setRId(recId);
                 }
             }else{
                 if(recName===undefined){
                     setName(result.data[0].rec_name);
                     setPhone(result.data[0].rec_phone);
                     setAddress(result.data[0].rec_address);
-                    setRId(result.data[0].rec_id);
                 }else{
                     setName(recName);
                     setPhone(recPhone);
                     setAddress(recAddress);
-                    setRId(recId);
                 }
             }
         })
@@ -144,7 +140,9 @@ export default function Payment() {
                 url : `http://127.0.0.1:8000/payment`,
                 data : {
                     userId : userId,
-                    recId : rId,
+                    recName : name,
+                    recPhone : phone,
+                    recAddress : address,
                     totalOrderPrice : totalPrice+totalDcPrice+deliveryPrice,
                     orderAlcohol : orderAlcohol
                 }
