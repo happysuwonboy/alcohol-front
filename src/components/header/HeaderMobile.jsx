@@ -41,7 +41,7 @@ export default function HeaderMobile({ user, curPage }) {
           {!pageTitle 
           ?
             <div className='main_logo' onClick={() => navigate('/')}>
-              <img src="/assets/images/main-logo.png" alt="" />
+              <img src='/assets/images/logo/alcohol_logo.png' alt='술담화 로고 이미지' />
             </div>
           :
           <button className='prev_page_btn' onClick={()=>navigate(-1)}>

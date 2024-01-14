@@ -30,7 +30,8 @@ div.header_top {
         span.cart_cnt {
             position: absolute;
             bottom: -5px;
-            height: 15px; width: 15px;
+            width: 15px;
+            height: 15px; 
             line-height: 15px;
             text-align: center;;
             font-size: .625rem;
@@ -52,7 +53,7 @@ div.pc_header {
         align-items: center;
         box-sizing: border-box;
         div.main_logo {
-            width: 60px;
+            width: 38px;
             margin-right: 40px;
             cursor: pointer;
             img {
@@ -141,7 +142,7 @@ div.mobile_header {
         align-items: center;
         box-sizing: border-box;
         div.main_logo {
-            width: 55px;
+            width: 33px;
             margin-right: 40px;
             flex-shrink: 0;
             cursor: pointer;

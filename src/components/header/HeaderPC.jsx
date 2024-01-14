@@ -14,7 +14,7 @@ export default function HeaderPC ({user, curPage}) {
             <div className='header_sticky_wrapper pc_header'>
                 <div className='header_top layout_center'>
                     <div className='main_logo' onClick={()=>navigate('/')}>
-                        <img src="/assets/images/main-logo.png" alt="" />
+                        <img src='/assets/images/logo/alcohol_logo.png' alt='술담화 로고 이미지' />
                     </div>
                     <form className='header_search' action="">
                         <label className='hidden_label' htmlFor='header_search'>검색창</label>
