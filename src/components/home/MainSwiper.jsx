@@ -4,8 +4,8 @@ import 'swiper/scss';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import { Autoplay } from 'swiper/modules';
 
-export default function MainSwiper() {
-  const slidesData = ['10ABV', '20ABV', 'Review', 'Sale']
+export default function MainSwiper({ swiperRef }) {
+  const slidesData = ['10ABV', '20ABV', 'Sale', 'Review']
   const [swiperIndex, setSwiperIndex] = useState(0);
   const [swiper, setSwiper] = useState();
 
@@ -25,11 +25,14 @@ export default function MainSwiper() {
       autoplay={{ delay: 3000, disableOnInteraction: false }}
       className='main_swiper'
     >
-      {slidesData.map(slide => (
+      {slidesData.map((slide, index) => (
         <SwiperSlide key={slide}>
-          <button type='button'>
+          <div
+            onClick={() => {
+              swiperRef.current[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }}>
             <img src={`/assets/images/home/${slide}.jpg`} alt={slide} />
-          </button>
+          </div>
         </SwiperSlide>
       ))}
       <div className='swiper_nav_btn'>

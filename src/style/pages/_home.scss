@@ -7,8 +7,13 @@ main.home {
       div.swiper-slide {
         position: relative;
         overflow: hidden;
-        button {
+        & > div {
           display: block;
+          @media (hover:hover) {
+            &:hover {
+              cursor: pointer;
+            }
+          }
           img {
             position: absolute;
             width: 100%;
@@ -63,13 +68,13 @@ main.home {
   }
   div.category_swiper {
     max-width: 1300px;
-    margin: 8vh auto;
+    margin: 0 auto 8vh auto;
     position: relative;
     & > div.category_title {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin: 7vh 0 2vh 0;
+      margin: 8vh 0 2vh 0;
       padding: 0 4.5vw;
       & > div {
         display: flex;
@@ -201,7 +206,7 @@ main.home {
     & > div.category_button_swiper {
       display: flex;
       align-items: center;
-      padding: 0 0.7rem 5vh .7rem;
+      padding: 0 0.7rem 10vh .7rem;
       margin: 0 10vw;
       & > button {
         padding-bottom: 13vh;
@@ -262,7 +267,7 @@ main.home {
         div.swiper-slide {
           position: relative;
           overflow: hidden;
-          button {
+          & > div {
             img {
               position: absolute;
               width: 130%;
@@ -425,7 +430,7 @@ main.home {
         div.swiper-slide {
           position: relative;
           overflow: hidden;
-          button {
+          & > div {
             img {
               position: absolute;
               width: 140%;
@@ -588,7 +593,7 @@ main.home {
         div.swiper-slide {
           position: relative;
           overflow: hidden;
-          button {
+          & > div {
             img {
               position: absolute;
               width: 190%;
@@ -751,7 +756,7 @@ main.home {
         div.swiper-slide {
           position: relative;
           overflow: hidden;
-          button {
+          & > div {
             img {
               position: absolute;
               width: 200%;
@@ -919,7 +924,7 @@ main.home {
         }
       }
       div.swiper_nav_btn {
-        button {
+        & > div {
         }
         div {
         }

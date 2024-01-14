@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import ReviewStar from './ReviewStar';
 import getImgUrl from '../../util/getImgUrl';
 
-export default function ReviewSwiper() {
+export default function ReviewSwiper({swiperRef}) {
   const [reviewList, setReviewList] = useState([]);
   const [swiperIndex, setSwiperIndex] = useState(0);
   const [swiper, setSwiper] = useState();
@@ -62,7 +62,7 @@ export default function ReviewSwiper() {
     }, [swiperIndex, reviewList]);
 
   return (
-    <div className='review_swiper'>
+    <div className='review_swiper' ref={el => (swiperRef.current[3] = el)}>
       <CategoryTitle
       title={'"이 순간 다른 분들은"'}
       subtitle={'실시간 베스트 리뷰'}

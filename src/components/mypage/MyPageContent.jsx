@@ -20,7 +20,7 @@ export default function MyPageContent({userId, onContent, showContent}) {
             {showContent==='MyOrderDetail' && <MyOrderDetail userId={userId} onContent={onContent} order={order} />}
             {showContent==='MyQNA' && <MyQNA userId={userId}/>}
             {showContent==='MyReceipt' && <MyReceipt userId={userId}/>}
-            {showContent==='MyReview' && <MyReview userId={userId}/>}
+            {showContent==='MyReview' && <MyReview userId={userId} onContent={onContent} />}
         </div>
     ); 
 }

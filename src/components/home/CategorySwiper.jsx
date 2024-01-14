@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { IoIosArrowForward } from "react-icons/io";
 import getImgUrl from '../../util/getImgUrl';
 
-export default function CategorySwiper({ params, title, subtitle, png }) {
+export default function CategorySwiper({ condition, title, subtitle, png, index, swiperRef }) {
   const [categoryList, setcategoryList] = useState([]);
   const [swiperIndex, setSwiperIndex] = useState(0);
   const [swiper, setSwiper] = useState();
@@ -27,7 +27,7 @@ export default function CategorySwiper({ params, title, subtitle, png }) {
   };
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/home`, { params })
+    axios.get(`${BASE_URL}/home/swiper/${condition}`)
       .then(result => setcategoryList(result.data))
       .catch(error => console.log(error));
   }, []);
@@ -63,7 +63,8 @@ export default function CategorySwiper({ params, title, subtitle, png }) {
   }, [swiperIndex, categoryList]);
 
   return (
-    <div className='category_swiper'>
+    // <div className='category_swiper'>
+    <div className='category_swiper' ref={el => (swiperRef.current[index] = el)}>
       <CategoryTitle
       title={title}
       subtitle={subtitle}
