@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 
 function App() {
   const location = useLocation();
-  const invisible = ['/cart','/payment','/payment/receipt'].includes(location.pathname);
+  const invisible = ['/cart','/payment','/payment/receipt','/join','/login'].includes(location.pathname);
   
   return (
     <>

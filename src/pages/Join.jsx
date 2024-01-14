@@ -30,7 +30,16 @@ export default function Join(){
   const handleIdCheck = async () => {
     try {
       const inputValue = inputUserId.current.value;
-  
+      
+        // 정규표현식을 사용하여 영문 숫자만 허용
+        const isValid = /^[A-Za-z0-9]+$/u.test(inputValue);
+
+      if (!isValid) {
+        // 영문 숫자가 아닌 경우
+        alert('아이디는 영문과 숫자만 입력 가능합니다.');
+        return;
+      }
+
       const response = await axios.get(`http://localhost:8000/join/${inputValue}`);
       const responseData = response.data;
       
@@ -52,34 +61,67 @@ export default function Join(){
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-        // 이름, 아이디, 이메일은 알파벳과 숫자만 허용
-        if (name === 'name' || name === 'userid' || name === 'email' || name === 'password' || name === 'confirmpassword' || name === 'detailaddress') {
-          setForm({ ...form, [name]: value });
-        }
-            // 비밀번호와 비밀번호 확인이 다를 경우 에러 메시지 설정
-        if (name === 'password' || name === 'confirmpassword') {
-          if (form.password !== value) {
-            setPasswordMatchError('비밀번호가 일치하지 않습니다.');
-          } else {
-            setPasswordMatchError('');
-          }
-        }
-        else if (name === 'phone' || name === 'birthdate') {
-          // 전화번호, 생일은 숫자만 허용
-          const numericValue = value.replace(/\D/g, '');
-          const limitedValue = numericValue.slice(0, (name === 'phone') ? 11 : 8);
-    
-          // 전화번호 형식 변환 (00000000000 -> 000-0000-0000)
-          // 생일 형식 변환 (YYYYMMDD -> YYYY-MM-DD)
-          const formattedValue = (name === 'phone')
-            ? limitedValue.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
-            : limitedValue.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
-    
-          setForm({ ...form, [name]: formattedValue });
-        }
-          
+  
+    // 아이디, 이메일, 비밀번호에 대해서는 한글 입력 차단
+    if (name === 'userid' || name === 'email' || name === 'password') {
+      const isKoreanInput = /[ㄱ-ㅎㅏ-ㅣ가-힣]/.test(value);
+    if (isKoreanInput) {
+        alert('한글은 입력할 수 없습니다.');
+        return;
+      }
+    } 
 
+    if (name === 'name' || name === 'userid' || name === 'email' || name === 'password' || name === 'confirmpassword' || name === 'detailaddress') {
+      // 이름, 아이디, 이메일, 비밀번호, 상세주소는 그대로 업데이트
+      setForm((prevForm) => ({
+        ...prevForm,
+        [name]: value,
+      }));
+    }
+    
+    if (name === 'password' || name === 'confirmpassword') {
+      // 비밀번호와 비밀번호 확인이 다를 경우 에러 메시지 설정
+      if (form.password !== value) {
+        setPasswordMatchError('비밀번호가 일치하지 않습니다.');
+      } else {
+        setPasswordMatchError('');
+      }
+      // 대문자, 소문자, 특수문자가 최소 1개 이상 포함, 총 길이 8~12
+      const isValidPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()_+={}[\]:;<>,.?~\\/-]).{8,12}$/.test(value);
+        if (!isValidPassword) {
+          return;
+      }
+
+    } else if (name === 'phone') {
+      // 전화번호는 숫자만 허용
+      const numericValue = value.replace(/\D/g, '');
+      const limitedValue = numericValue.slice(0, 11);
+  
+      // 화면에 표시될 형식으로 변환
+      const formattedValue = limitedValue.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+  
+      // 상태 업데이트: 숫자만 포함된 값으로 업데이트
+      setForm((prevForm) => ({
+        ...prevForm,
+        [name]: limitedValue,
+      }));
+    } else if (name === 'birthdate') {
+      // 생년월일은 숫자만 허용
+      const numericValue = value.replace(/\D/g, '');
+      const limitedValue = numericValue.slice(0, 8);
+  
+      // 화면에 표시될 형식으로 변환
+      const formattedValue = limitedValue.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+      
+      // 상태 업데이트: 형식 변환된 값으로 업데이트
+      setForm((prevForm) => ({
+        ...prevForm,
+        [name]: formattedValue,
+      }));
+    }
   };
+  
+  
 
 
   const inputName = useRef(null); 
@@ -177,13 +219,13 @@ export default function Join(){
 
   <label className='label_userid'>아이디</label>
   <input className='input_userid' type="text" id="userid" 
-  name="userid" placeholder="아이디를 입력해주세요" 
+  name="userid" placeholder="영문, 숫자만 입력가능합니다" 
   value={form.userid} ref={inputUserId} required onChange={handleChange} />
   <button type='button' className='idcheck_button' onClick={handleIdCheck}>중복확인</button>
   
   <label className='label_password'>비밀번호</label>
   <input className='input_password' type="password" id="password" 
-  name="password" placeholder="비밀번호를 입력해주세요" 
+  name="password" placeholder="대문자, 특수문자 포함 8~12글자" 
   value={form.password} ref={inputPassword} required onChange={handleChange} />
 
   <label className='label_confirmpassword'>비밀번호 확인</label>

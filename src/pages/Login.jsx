@@ -31,8 +31,8 @@ export default function Login() {
                 // 토큰 및 사용자 정보 저장
                 Cookies.set("x-auth-jwt", response.data.token);
                 const userInfo = jwtDecode(response.data.token);
-                const { id, user_role } = userInfo;
-                localStorage.setItem("userInfo", JSON.stringify({id, user_role}));
+                const { id, user_role, user_name } = userInfo;
+                localStorage.setItem("userInfo", JSON.stringify({id, user_role, user_name}));
     
                 const sproduct = Cookies.get("sproduct");
                 if (sproduct === undefined) {
