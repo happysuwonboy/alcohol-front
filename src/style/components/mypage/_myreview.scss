@@ -653,6 +653,7 @@ div.my_review {
               width: 40%;
               p.alcohol_title {
                 margin-bottom: 4px;
+                font-size: 1rem;
                 span.icon {
                   svg {
                   }
@@ -660,6 +661,7 @@ div.my_review {
               }
               p.alcohol_volume {
                 margin-bottom: 4px;
+                font-size: .9rem;
               }
               p.price_qty {
                 span {
@@ -667,7 +669,8 @@ div.my_review {
               }
             }
             & > button {
-              width: 40%;
+              // width: 40%;
+              margin-left: 20%;
               text-align: end;
             }
           }
@@ -920,5 +923,157 @@ div.my_review {
         gap: 6vw;
       }
     }
+    div.create_review {
+      div.create_review_order_id_box {
+        div.review_order_id_header {
+          padding: 1rem;
+          & > p {
+          }
+        }
+        div.review_alcohols {
+          padding: 1rem;
+          div.alcohol {
+            div.alcohol_img {
+              img {
+              }
+            }
+            div.alcohol_info {
+              p.alcohol_title {
+                span.icon {
+                  svg {
+                  }
+                }
+              }
+              p.alcohol_volume {
+              }
+              p.price_qty {
+                span {
+                }
+              }
+            }
+            & > button {
+              margin-left: 0;
+            }
+          }
+        }
+      }
+    }
+      div.modal_container {
+    @include pos_center(fixed);
+    z-index: 20;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+
+    div.modal_content {
+      @include pos_center(fixed);
+      @include flexbox($fd: column, $jc: space-between,);
+      width: 100%;
+      height: 95vh;
+      background-color: white;
+      border-radius: 10px;
+
+      div.select_alcohol_name {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 10px 10px 0 0;
+        background-color: rgb(216, 216, 216);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        & > p {
+          font-size: 1.2rem;
+          font-weight: 700;
+          text-align: start;
+          &:first-child {
+            width: 65%;
+          }
+        }
+        & > div.star_input {
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      div.text_wrap {
+        width: 100%;
+        padding: 1.5rem;
+        form.review_form {
+          & > ul {
+            & > li {
+              display: flex;
+              flex-direction: column;
+              margin-bottom: 3%;
+              & > label {
+                font-size: 1.1rem;
+                font-weight: 700;
+              }
+              div.selected_file {
+                width: 100%;
+                & > p {
+                  width: 100%;
+                }
+                & > button {
+                  width: 100%;
+                  height: 30vh;
+                  & > figcaption {
+                    width: 100%;
+                    height: 100%;
+                    img {
+                      object-fit: cover;
+                      margin: 0 auto;
+                      // width: 100%;
+                      height: 100%;
+                    }
+                  }
+                }
+              }
+              &:last-child {
+                flex-direction: unset;
+                justify-content: flex-end;
+                & > * {
+                  color: rgb(166, 166, 166);
+                }
+              }
+            }
+          }
+        }
+      }
+
+      div.btn_wrap {
+        width: 100%;
+        text-align: center;
+        button {
+          width: 35%;
+          height: 35px;
+          padding: 4px;
+          border: 1px solid #595959;
+          border-radius: 3px;
+          background-color: white;
+          color: #595959;
+          text-align: center;
+          transition:
+            padding,
+            border-radius,
+            background-color,
+            border,
+            color 0.5s;
+
+          @media (hover: hover) {
+            &:hover {
+              border-width: 10px;
+              border-width: 1.3px;
+              background-color: white;
+              font-weight: 900;
+            }
+          }
+
+          &:first-child {
+            margin-right: 5%;
+          }
+        }
+      }
+    }
+  }
   }
 }
