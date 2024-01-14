@@ -98,7 +98,7 @@ export default function MyUserInfo() {
             if (id) {
                 axios.delete(`http://localhost:8000/mypage/userinfo/${id}`)
                     .then(response => {
-                        console.log(response.data);
+                        //console.log(response.data);
                         // 쿠키 삭제
                         document.cookie = "x-auth-jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost;";
                         // 로컬 스토리지 삭제

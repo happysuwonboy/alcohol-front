@@ -26,14 +26,14 @@ const PasswordReset = ({ match }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting form...");
+    //console.log("Submitting form...");
   
     if (newPassword === confirmPassword) {
       try {
-        console.log("Sending request to server...");
+        //console.log("Sending request to server...");
         const response = await axios.post(`http://localhost:3000/find/pw/${match.params.id}`, { userId: match.params.id, newPassword });
         
-        console.log("Server response:", response.data);
+        //console.log("Server response:", response.data);
   
         if (response.data.success) {
           setMessage(response.data.message);
