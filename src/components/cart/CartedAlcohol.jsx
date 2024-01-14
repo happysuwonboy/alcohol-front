@@ -29,6 +29,12 @@ export default function CartedAlcohol({ alcohol, checked, onCheck, onUpdate, onD
 
     return(
         <div className='carted'>
+            {stock === 0 ? 
+            <div className='sold_out'>
+                <p>품절</p>
+                <p>술 빚는 중이에요</p>
+            </div>
+            : ''}
             <button className='checkbox' onClick={handleCheckbox}>
                 {checked.includes(alcoholId)
                 ? <img src='assets/images/etc/check_on.png' alt='checked' />
@@ -61,7 +67,7 @@ export default function CartedAlcohol({ alcohol, checked, onCheck, onUpdate, onD
                         </div>
                     </div>
                 </div>
-                {stock <= 3 ? 
+                {stock <= 3 && stock > 0 ? 
                     <div className='soldout_soon'>
                         <IoTimeOutline />
                         <span>품절임박 {stock}개 남았어요!</span>
