@@ -42,7 +42,7 @@ export default function useReceipt(userId){
         })
         .then((result) => {
             alert('배송지 추가가 완료되었습니다.');
-            window.location.reload();
+            getRecList();
         })
         .catch((err) => {
             console.error('axios 배송지 추가하는 중 에러 발생 => ' + err);
@@ -53,7 +53,6 @@ export default function useReceipt(userId){
      * 배송지 수정
      */
     const updateRec = (recId, recName, recPhone, recAddress, recDetailAddress, recDefault) => {
-        console.log(userId);
         axios({
             method : 'put',
             url : `http://127.0.0.1:8000/receipt/update`,
@@ -69,12 +68,28 @@ export default function useReceipt(userId){
         })
         .then((result) => {
             alert('배송지 수정이 완료되었습니다.');
-            window.location.reload();
+            getRecList();
         })
         .catch((err) => {
             console.error('axios 배송지 수정하는 중 에러 발생 => ' + err);
         });
     }
 
-    return [recList, getRecList, insertRec, updateRec];
+    /**
+     * 배송지 삭제
+     */
+    const deleteRec = (recId) => {
+        axios({
+            method : 'delete',
+            url : `http://127.0.0.1:8000/receipt/delete/${recId}`
+        })
+        .then((result) => {
+            getRecList();
+        })
+        .catch((err) => {
+            console.error('axios 배송지 삭제하는 중 에러 발생 => ' + err);
+        });
+    }
+
+    return [recList, getRecList, insertRec, updateRec, deleteRec];
 }

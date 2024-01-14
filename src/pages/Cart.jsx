@@ -2,17 +2,19 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useCart from '../hooks/useCart';
 import CartedAlcohol from '../components/cart/CartedAlcohol';
+import getUserInfo from '../util/getUserInfo';
 
 export default function Cart() {
 
-    const userId = 'user123';    //수정필요
+    const userInfo = getUserInfo();
+    const userId = userInfo.id;
     
     const navigate = useNavigate();
     const [totalPrice, setTotalPrice] = useState(0);
     const [totalDcPrice, setTotalDcPrice] = useState(0);
     const [deliveryPrice, setDeliveryPrice] = useState(3000);
     const [checked, setChecked] = useState([]);   
-    const [cartList, getCartList, removeCart] = useCart(userId);
+    const [cartList, getCartList, insertCart, updateCart, removeCart] = useCart(userId);
 
     /**
      * 체크박스 선택
@@ -40,7 +42,7 @@ export default function Cart() {
                 }
             })
             if(qtyOver.length > 0){
-                alert(`재고 부족으로 구매할 수 없는 상품이 있습니다 【${qtyOver}】`);
+                alert(`재고 부족으로 구매할 수 없는 상품이 있습니다. (${qtyOver})`);
             }else{
                 setChecked(array);
             }
