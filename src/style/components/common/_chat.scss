@@ -1,0 +1,165 @@
+div.float_chat_container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 12;
+  div.float_chat_btn_wrapper {
+    position: relative;
+    button.float_chat_btn {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: rgb(78, 78, 247);
+      bottom: 65px;
+      right: 15px;
+      transition: all 0.5s;
+      svg {
+        pointer-events: none;
+        color: #fff;
+        margin: 0 auto;
+        font-size: 1.5rem;
+      }
+    }
+    div.user_unread_cnt {
+      position: absolute;
+      font-size: 0.8rem;
+      color: #fff;
+      text-align: center;
+      top: -115px;
+      right: 50px;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      font-weight: 600;
+      border-radius: 50%;
+      background-color: red;
+    }
+  }
+  div.chat_content_container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: 0 0 1.5px #000;
+    transition: all 0.3s;
+    transform: scale(0);
+    transform-origin: 100% 100%;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    &.show {
+      transform: scale(1);
+      pointer-events: all;
+    }
+    div.chat_content_header {
+      display: flex;
+      padding: 0.8em 1rem;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+      div.connect_dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: red;
+        &.connected {
+          background-color: rgb(21, 241, 21);
+        }
+      }
+      span.header_title {
+        font-size: 1em;
+      }
+      button.close_btn {
+        font-size: 1.2em;
+      }
+      button.exit_button {
+        svg {
+          transform: rotate(180deg);
+          font-size: 1.05rem;
+          fill: #000;
+        }
+      }
+    }
+    div.chat_content_main {
+      background-color: #eee;
+      flex: 1;
+      overflow-y: auto;
+      position: relative;
+      div.disconnect_btn_box {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background-color: #DDD;
+        font-size: .8em;
+        text-align: center;
+        button {
+          width: 100%;
+          padding: .5rem 0;
+          &:hover {
+            @media (hover:hover) {
+              background-color: #333;
+              color: #EEE;
+            }
+          }
+        }
+      }
+      div.chat_message_list {
+          padding: 0.5rem 0.5rem;
+          .rce-smsg {
+            transform: scale(0.85);
+            background: none;
+            box-shadow: none;
+            margin: 10px 0;
+            .rce-smsg-text {
+              text-wrap: nowrap;
+            }
+          }
+          .rce-container-mbox {
+            margin-bottom: 0.3rem;
+            .rce-mbox {
+              &.rce-mbox-right {
+                background-color: rgb(196, 228, 241);
+                .rce-mbox-body {
+                }
+                .rce-mbox-right-notch {
+                  fill: rgb(196, 228, 241);
+                }
+              }
+              &.rce-mbox-left {
+              }
+            }
+          }
+      }
+      
+      div.chatroom_nolist_text {
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+      }
+
+      div.not_connected {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        button {
+          font-size: 0.8rem;
+          margin-bottom: 10px;
+          background-color: rgb(188, 227, 242);
+          border-radius: 10px;
+          padding: 0.5rem 1rem;
+        }
+        span {
+          font-size: 0.9em;
+          color: #444;
+        }
+      }
+    }
+
+    div.chat_content_bottom {
+    }
+  }
+}

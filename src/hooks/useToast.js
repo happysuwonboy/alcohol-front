@@ -1,11 +1,14 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { IoWarningOutline } from "react-icons/io5";
 
 export default function useToast(...params) {
+  const [timeoutid, setTimeOutId] = useState(()=>{});
+
   let toastConfig;
   // 훅 호출 시 넘기는 인자로 toast config 객체를 정의함
-  if (typeof params[0] === 'object') { // params이 객체 형태일때 - {text : '어쩌구', type: '어쩌구', durationSec:2}
+  if (typeof params[0] === 'object') { 
+    // params이 객체 형태일때 - {text : '어쩌구', type: '어쩌구', durationSec:2}
     toastConfig = {
       text : params[0].text || '표시할 토스트 메시지',
       type : params[0].type || 'success',
@@ -21,20 +24,29 @@ export default function useToast(...params) {
 
   const ref = useRef();
 
-  let timeoutid;
   const showToast = () => {
     try {
-      ref.current.classList.remove('show')
       clearTimeout(timeoutid);
-      setTimeout(()=>{ref.current.classList.add('show')},100);
-      timeoutid = setTimeout(()=>{ref.current.classList.remove('show')},toastConfig.durationSec*1000)
-    } catch{}
+      ref.current?.classList.remove('show')
+      setTimeout(()=>{ref.current?.classList.add('show')},1);
+      setTimeOutId(
+        setTimeout(()=>{
+        ref.current?.classList.remove('show')
+      },
+      toastConfig.durationSec*1000))
+    } catch{
+      clearTimeout(timeoutid)
+      setTimeOutId(()=>{})
+    }
   }
 
   const hideToast = () => {
     try {
-      ref.current.classList.remove('show')
-    } catch{}
+      ref.current?.classList.remove('show')
+    } catch{
+      clearTimeout(timeoutid)
+      setTimeOutId(()=>{})
+    }
   }
 
   function Toast () {

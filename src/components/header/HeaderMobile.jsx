@@ -19,6 +19,9 @@ export default function HeaderMobile({ user, curPage }) {
   const showHamburgerMenu = () => setShowHamb(true)
   const hideHamburgerMenu = () => setShowHamb(false)
   
+  const movePrevPage = () => navigate(-1)
+
+  
   const handelResize = () => {
     if (window.innerWidth >= 880) {
         hideHamburgerMenu();

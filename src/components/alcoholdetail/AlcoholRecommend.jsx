@@ -30,7 +30,7 @@ export default function AlcoholRecommend({ alcohol_id, alcohol_type }) {
   const getHandleClick = alcohol_id => () => {
     navigate(`/findalcohol/${alcohol_id}`)
     setTimeout(()=>{
-      window.scrollTo({top : 0, behavior : 'smooth'})
+      window.scrollTo({top : 0})
     },0)
   } 
 

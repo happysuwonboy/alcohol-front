@@ -4,9 +4,11 @@ import HeaderMobile from '../header/HeaderMobile';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchCartCount } from '../../redux/modules/cartCountSlice';
+import getUserInfo from '../../util/getUserInfo';
 
 export default function Header() {
-    const user = { user_id: 'user123', isAdmin: false};
+    let user = getUserInfo();
+    user = {user_id : user.id, isAdmin : user.user_role};
     const location = useLocation();
     const curPage = location.pathname;
     const dispatch = useDispatch();

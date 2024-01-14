@@ -1,8 +1,8 @@
 div.toast_container {
   position: fixed;
   left: 0; top: 8%;
-  width: 100%;
   z-index: 7;
+  width: 100%;
   text-align: center;
   pointer-events: none;
   transition: all .8s;
@@ -13,6 +13,8 @@ div.toast_container {
     opacity: 0;
     pointer-events: none;
     transition: all .8s;
+    border-radius: 10px;
+    background-color: #CCC;
     span.toast_msg {
       align-items: center;
       display: flex;
@@ -43,5 +45,12 @@ div.toast_container {
       pointer-events: all;
       opacity: 1;
     }
+  }
+}
+
+div.hamburger_menu {
+  div.toast_container {
+    width: 100vw;
+    left: calc(-100vw + 280px);
   }
 }
