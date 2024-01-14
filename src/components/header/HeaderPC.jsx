@@ -6,7 +6,7 @@ import CartButton from './CartButton';
 import useHeaderSearch from '../../hooks/useHeaderSearch';
 
 export default function HeaderPC ({user, curPage}) {
-  const handleSearchPress = useHeaderSearch();
+  const [ handleSearchChange, handleSearchPress ] = useHeaderSearch();
   const navigate = useNavigate();
 
   return (
@@ -19,7 +19,7 @@ export default function HeaderPC ({user, curPage}) {
                     <form className='header_search' action="">
                         <label className='hidden_label' htmlFor='header_search'>검색창</label>
                         <FaSearch />
-                        <input type="text" placeholder='무엇을 찾고 계신가요?' name='header_search' id='header_search' onKeyPress={handleSearchPress}/>
+                        <input type="text" placeholder='무엇을 찾고 계신가요?' name='header_search' id='header_search' onChange={handleSearchChange} onKeyPress={handleSearchPress} />
                     </form>
                     <div className='header_user_menu'>
                         {!user.user_id ?

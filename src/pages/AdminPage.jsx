@@ -22,7 +22,7 @@ export default function AdminPage() {
     };
 
 
-    return (userRole ?
+    return ( userRole ?
         <main className='admin_contanier'>
             <TitleNavbar showContent={showContent} setShowContent={setShowContent} />
             <div className='admin_content_container'>
