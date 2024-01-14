@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getUserInfo } from '../../../util/getUserInfo';
-import useToast from '../../../hooks/useToast.jsx';
+import useToast from '../../../hooks/useToast.js';
 
 export default function MyUserInfo() {
     const [AgreeToast, showAgreeToast] = useToast('이벤트 정보 수신에 동의하셨습니다', 'success');

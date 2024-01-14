@@ -21,7 +21,11 @@ const usePageTitle = () => {
         } else if (curPage==='/payment') {
           setPageTitle('주문/결제')
         } else if (curPage === '/adminpage') {
-            setPageTitle('관리자 페이지')
+          setPageTitle('관리자 페이지')
+        } else if (curPage === '/login') {
+          setPageTitle('로그인')
+        } else if (curPage === '/join') {
+          setPageTitle('회원가입')
         } else {
           setPageTitle('')
         }
