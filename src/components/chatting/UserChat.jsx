@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import BASE_URL from '../../constants/baseurl';
 import { IoMdClose } from 'react-icons/io';
 import { useEffect, useRef, useState } from 'react';
-import { getUserInfo } from '../../util/getUserInfo';
+import timeStamp from '../../util/timeStamp';
 
 export default function UserChat({user, toggleShowContent, showChat, unReadCount, setUnReadCount}) {
   const [isConnected, setIsConnected] = useState(false);
@@ -13,7 +13,7 @@ export default function UserChat({user, toggleShowContent, showChat, unReadCount
   const [chatRoom, setChatRoom] = useState('')
   // const user = getUserInfo();
   const socket = useRef(null); 
-  const messageListReferance = useRef(null);
+  const scrollRef = useRef(null);
 
   const handleSend = () => {
     const message = {
@@ -27,7 +27,7 @@ export default function UserChat({user, toggleShowContent, showChat, unReadCount
     setInputMsg('');
   }
 
-  
+
   const handleKeyPress = e => {
     if (e.key === 'Enter') {
       handleSend();
@@ -35,6 +35,7 @@ export default function UserChat({user, toggleShowContent, showChat, unReadCount
   }
 
   useEffect(()=>{
+    scrollRef.current.scrollIntoView({behavior:'smooth'})
     if (showChat || !isConnected) {
       setUnReadCount(0)
     } else {
@@ -76,6 +77,12 @@ export default function UserChat({user, toggleShowContent, showChat, unReadCount
     })
   };
 
+  const handleDisconnect = () => {
+    socket.current.disconnect()
+    setIsAdminConnected(false)
+    setIsConnected(false)
+  }
+
   return (
     <>
     <div className="chat_content_header">
@@ -86,26 +93,16 @@ export default function UserChat({user, toggleShowContent, showChat, unReadCount
             </button>
       </div>
       <div className="chat_content_main">
+      {isConnected ?
+        <div className='disconnect_btn_box'>
+          <button onClick={handleDisconnect}>문의 종료하기</button>
+        </div>
+       : null}
         {isConnected ? (
           <div className="chat_message_list">
             <SystemMessage
               text={`채팅 서버에 연결되었습니다. 자유롭게 문의를 작성해주세요!`}
             />
-            {/* {<MessageList
-            referance={messageListReferance}
-            className='message-list'
-            lockable={true}
-            toBottomHeight={'100%'}
-            dataSource={messages.map(msg => ({
-              position : msg?.sender===user.id ? 'right' : 'left',
-              type : msg?.text,
-              toBottomHeight : '100%',
-              date : msg?.date,
-              title : msg?.sender===user.id ? '' : '관리자',
-              maxWidth : 50
-            }))}
-            />} */}
-
             {messages.map((msg,i) => 
             <MessageBox key={`chatMsg${i}`}
               position={msg?.sender===user.id ? 'right' : 'left'}
@@ -113,7 +110,7 @@ export default function UserChat({user, toggleShowContent, showChat, unReadCount
               title={msg?.sender===user.id ? '' : '관리자'}
               // avatar={msg?.sender===user.id ? '' : '/assets/images/main-logo.png'}
               date = {msg?.date}
-              // dateString={timeStr(msg?.date)}
+              dateString={timeStamp(msg?.date)}
               text = {msg?.text}
               maxWidth={50}
             />
@@ -125,6 +122,7 @@ export default function UserChat({user, toggleShowContent, showChat, unReadCount
             <span>채팅 문의를 원하시면 위 버튼을 클릭해주세요 !</span>
           </div>
         )}
+        <div style={{height:'1px', opacity:'0'}} ref={scrollRef} className='scroll_ref'></div>
       </div>
       {isConnected ? <div className="chat_content_bottom">
         <Input

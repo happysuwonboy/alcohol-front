@@ -73,11 +73,37 @@ div.float_chat_container {
       button.close_btn {
         font-size: 1.2em;
       }
+      button.exit_button {
+        svg {
+          transform: rotate(180deg);
+          font-size: 1.05rem;
+          fill: #000;
+        }
+      }
     }
     div.chat_content_main {
       background-color: #eee;
       flex: 1;
       overflow-y: auto;
+      position: relative;
+      div.disconnect_btn_box {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background-color: #DDD;
+        font-size: .8em;
+        text-align: center;
+        button {
+          width: 100%;
+          padding: .5rem 0;
+          &:hover {
+            @media (hover:hover) {
+              background-color: #333;
+              color: #EEE;
+            }
+          }
+        }
+      }
       div.chat_message_list {
           padding: 0.5rem 0.5rem;
           .rce-smsg {
@@ -104,6 +130,13 @@ div.float_chat_container {
               }
             }
           }
+      }
+      
+      div.chatroom_nolist_text {
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
       }
 
       div.not_connected {
