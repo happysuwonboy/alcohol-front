@@ -102,7 +102,7 @@ export default function MyUserInfo() {
                         // 쿠키 삭제
                         document.cookie = "x-auth-jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost;";
                         // 로컬 스토리지 삭제
-                        localStorage.removeItem('useInfo');
+                        localStorage.removeItem('userInfo');
                         // 페이지 이동
                         navigate('/');
                     })
@@ -254,14 +254,14 @@ export default function MyUserInfo() {
                             <div className='event_content_title'>이메일 수신 동의</div>
                             <div className='toggle_frame'>
                                 <input className='toggle_input' type="checkbox" id ="toggle-slider1" />
-                                <label onClick={handleToggleClick} className='toggle_label' for="toggle-slider1">on/off</label>
+                                <label onClick={handleToggleClick} className='toggle_label' htmlFor="toggle-slider1">on/off</label>
                             </div>
                         </div>
                         <div className='user_event_flex_frame'>
                             <div className='event_content_title'>문자 수신 동의</div>
                             <div className='toggle_frame'>
                                 <input className='toggle_input' type="checkbox" id ="toggle-slider2" />
-                                <label onClick={handleToggleClick} className='toggle_label' for="toggle-slider2">on/off</label>
+                                <label onClick={handleToggleClick} className='toggle_label' htmlFor="toggle-slider2">on/off</label>
                             </div>
                             <CancelToast />
                             <AgreeToast />

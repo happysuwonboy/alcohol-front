@@ -42,7 +42,7 @@ main.join_frame{
         border-color: orange; // 마우스가 올라갈 때의 테두리 색
       }
     }
-    .address_button,.join_button,.idcheck_button{
+    .address_button,.join_button,.idcheck_button, .address_close_button{
       height: 50px;
       font-size: 18px;
       font-weight: 600;
@@ -50,7 +50,10 @@ main.join_frame{
       border-radius: 5px;
       margin-bottom:15px;
     }
-    .address_button,.idcheck_button{
+    .address_close_button{
+      width: 330px;
+    }
+    .address_button,.idcheck_button, .address_close_button{
       background-color: rgb(0, 150, 243); // 원하는 색상으로 변경하세요
       border: 1px solid rgb(0, 150, 243);
     }
