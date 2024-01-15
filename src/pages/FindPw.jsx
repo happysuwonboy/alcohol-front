@@ -5,6 +5,8 @@ import axios from 'axios';
 const FindPw = () => {
   const [email, setEmail] = useState("");
   const [userId, setUserId] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -35,17 +37,20 @@ const FindPw = () => {
         const data = response.data;
   
         if (response.status === 200) {
-          console.log(data.message);
+          setSuccessMessage(data.message);
+          alert(data.message);
           // 비밀번호 찾기가 시작되었을 때, 성공 메시지를 표시하거나 사용자를 리디렉션시킬 수 있습니다.
         } else {
-          console.log(data.message);
+          setErrorMessage(data.message);
+          alert(data.message);
           // 사용자를 찾지 못하거나 다른 오류가 발생한 경우, 이에 따라 처리할 수 있습니다.
         }
       } catch (error) {
         console.error('비밀번호 찾기 중 오류 발생:', error);
       }
     } else {
-      console.log('이메일 또는 아이디가 유효하지 않습니다.');
+      setErrorMessage('이메일 또는 아이디가 유효하지 않습니다.');
+      alert('이메일 또는 아이디가 유효하지 않습니다.');
     }
   };
 
