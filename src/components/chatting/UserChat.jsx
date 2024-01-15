@@ -48,7 +48,6 @@ export default function UserChat({user, toggleShowContent, showChat, unReadCount
     socket.current = io(BASE_URL, { transports: ['websocket', 'polling'] });
 
     socket.current.on('connect', () => {
-      console.log('소켓 서버 연결 성공');
       const userData = {user_id : user.id || null, isAdmin : user.user_role || null}
       socket.current.emit('connectedUser', userData)
       setIsConnected(true);
@@ -57,7 +56,6 @@ export default function UserChat({user, toggleShowContent, showChat, unReadCount
     socket.current.on('getChatRoomId', chatRoomId => {
       setChatRoom(chatRoomId)
       socket.current.emit('joinChatRoom', chatRoomId)
-      console.log(chatRoomId);
     })
     
     socket.current.on('getPrevMessage', (prevMessages)=>{
