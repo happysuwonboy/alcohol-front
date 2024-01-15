@@ -11,7 +11,7 @@ import { getUserInfo } from './util/getUserInfo';
 function App() {
   const [user, setUser] = useState(localStorage.getItem('userInfo'))
   const location = useLocation();
-  const invisible = ['/cart','/payment','/payment/receipt', '/join', '/login'].includes(location.pathname);
+  const invisible = ['/cart','/payment','/payment/receipt', '/join', '/login','/find/id','/find/pw','/find/pw/:id'].includes(location.pathname);
 
   useEffect(()=>{
     const user = getUserInfo()
