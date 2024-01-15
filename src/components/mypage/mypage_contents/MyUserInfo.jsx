@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getUserInfo } from '../../../util/getUserInfo';
-import useToast from '../../../hooks/useToast.jsx';
+import useToast from '../../../hooks/useToast.js';
 
 export default function MyUserInfo() {
     const [AgreeToast, showAgreeToast] = useToast('이벤트 정보 수신에 동의하셨습니다', 'success');
@@ -102,7 +102,7 @@ export default function MyUserInfo() {
                         // 쿠키 삭제
                         document.cookie = "x-auth-jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost;";
                         // 로컬 스토리지 삭제
-                        localStorage.clear();
+                        localStorage.removeItem('useInfo');
                         // 페이지 이동
                         navigate('/');
                     })

@@ -1,9 +1,8 @@
-// PasswordReset.jsx
 import { useParams } from 'react-router-dom';
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from 'axios';
 
-const PasswordReset = ({ match }) => {
+const PasswordReset = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isMatching, setIsMatching] = useState(false);
@@ -26,29 +25,24 @@ const PasswordReset = ({ match }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //console.log("Submitting form...");
-  
+
     if (newPassword === confirmPassword) {
       try {
-        //console.log("Sending request to server...");
-        const response = await axios.post(`http://localhost:3000/find/pw/${match.params.id}`, { userId: match.params.id, newPassword });
-        
-        //console.log("Server response:", response.data);
-  
+        const response = await axios.post(`http://localhost:8000/find/pw/${id}`, { newPassword });
+
         if (response.data.success) {
           setMessage(response.data.message);
         } else {
           setMessage("비밀번호 재설정에 실패했습니다.");
         }
       } catch (error) {
-        console.error("Error sending request to server:", error);
+        console.error("서버에 요청을 보내는 중 오류 발생:", error);
         setMessage("서버 오류가 발생했습니다.");
       }
     } else {
-      setMessage("새로운 비밀번호와 확인 비밀번호가 일치하지 않습니다.");const response = await axios.post(`http://localhost:3000/find/pw/${id}`, { userId: id, newPassword });
+      setMessage("새로운 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
     }
   };
-  
 
   return (
     <main className="passwordreset_frame">
@@ -71,15 +65,15 @@ const PasswordReset = ({ match }) => {
           required
         />
         {(!isMatching || !newPassword || !confirmPassword) && (newPassword || confirmPassword) && <p className="error_message">비밀번호가 일치하지 않습니다.</p>}
-        <button 
-        className={`edit_pass_button ${newPassword && confirmPassword && isMatching ? "enabled" : ""}`} 
-        type="submit" 
-        disabled={!isMatching}
-        onClick={handleSubmit}
+        <button
+          className={`edit_pass_button ${newPassword && confirmPassword && isMatching ? "enabled" : ""}`}
+          type="submit"
+          disabled={!isMatching}
         >
           비밀번호 재설정
         </button>
       </form>
+      <p>{message}</p>
     </main>
   );
 };
