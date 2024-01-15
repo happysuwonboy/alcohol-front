@@ -73,7 +73,7 @@ const PasswordReset = () => {
           비밀번호 재설정
         </button>
       </form>
-      <p>{message}</p>
+      <p className='change_message'>{message}</p>
     </main>
   );
 };
