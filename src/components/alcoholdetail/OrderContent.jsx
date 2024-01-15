@@ -144,7 +144,7 @@ export default function OrderContent({alcohol, qty, setQty}) {
           <span>바로 구매하기</span>
         </button>
         </> :
-        <button className='soldout_btn order_btn'>
+        <button className='soldout_btn order_btn' style={{width : '100%', fontSize : '1.5rem'}}>
           <span>SOLD OUT</span>
         </button>
       }
