@@ -78,6 +78,15 @@ main.alcohol_detail {
           }
         }
       }
+      div.more_review_btn {
+        display: flex;
+        justify-content: center;
+        & > button {
+          color: rgb(0, 150, 243);
+          border-bottom: 1px solid rgb(0, 150, 243);
+          font-weight: 700;
+        }
+      }
     }
 
     @include responsive(lg-pad) {

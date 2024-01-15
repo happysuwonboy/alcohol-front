@@ -44,11 +44,11 @@ export default function ReviewSection() {
       <div className='sor_tab'>
         <button type='button'>리뷰</button>
         <ReviewSort setSelectOption={setSelectOption}
-        setReviewList={setReviewList}
-        setPage={setPage} />
+          setReviewList={setReviewList}
+          setPage={setPage} />
       </div>
       {reviewList.length === 0 ?
-        <NoReview ment='작성 가능한' /> :
+        <NoReview ment='작성된' /> :
         (
           <>
             <ul>
@@ -69,9 +69,11 @@ export default function ReviewSection() {
                 </li>
               ))}
             </ul>
-            <button type='button' onClick={handleMoreReview}>
-              더 많은 리뷰
-            </button>
+            <div className='more_review_btn'>
+              <button type='button' onClick={handleMoreReview}>
+                더 많은 리뷰
+              </button>
+            </div>
           </>
         )
       }

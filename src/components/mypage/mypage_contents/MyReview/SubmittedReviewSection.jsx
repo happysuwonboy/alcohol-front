@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import AlcoholAvata from '../../../home/AlcoholAvata';
 import ReviewStar from '../../../home/ReviewStar';
-import axios from 'axios';
+import axios, { all } from 'axios';
 import BASE_URL from '../../../../constants/baseurl';
 import PagiNation from 'react-js-pagination';
 import getImgUrl from '../../../../util/getImgUrl';
@@ -12,6 +12,7 @@ import { FaRegEdit } from "react-icons/fa";
 export default function SubmittedReviewSection({ searchTerm, userid, reviewList, setReviewList, setPage, page, selectOption }) {
   const [totalCount, setTotalCount] = useState(0);
   const [checkedReview, setCheckedReview] = useState([]);
+  const [checkedReview2, setCheckedReview2] = useState([]);
   const [allCheckList, setAllCheckList] = useState([]);
   const [star, setStar] = useState(0);
   const [form, setForm] = useState({ id: '', content: '', star: star });
@@ -38,11 +39,13 @@ export default function SubmittedReviewSection({ searchTerm, userid, reviewList,
   // 전체 선택 클릭 시 페이지별 모든 리뷰를 setCheckedItems에 담아 상태 업데이트
   const handleAllCheck = (checked) => {
     if (checked) {
-      setCheckedReview(allCheckList.map(review => review.review_id))
+      setCheckedReview(allCheckList.map(review => review.review_id));
+      setCheckedReview2(allCheckList.map(review => review.order_detail_id));
     }
     else {
       // 전체 선택 해제 시 checkItems를 빈 배열로 상태 업데이트
       setCheckedReview([]);
+      setCheckedReview2([]);
     };
   };
 
@@ -60,7 +63,7 @@ export default function SubmittedReviewSection({ searchTerm, userid, reviewList,
       const deleteConfirm = window.confirm('정말로 삭제하시겠습니까?');
       if (deleteConfirm) {
         // 확인 버튼을 누르면 삭제 동작을 수행
-        axios.delete(`${BASE_URL}/mypage/review/delete`, { data: { checkedReview }, })
+        axios.delete(`${BASE_URL}/mypage/review/delete`, { data: { checkedReview, checkedReview2 }, })
           .then(result => {
             if (result.data === 'ok') {
               alert('삭제가 완료되었습니다!');
@@ -72,8 +75,8 @@ export default function SubmittedReviewSection({ searchTerm, userid, reviewList,
     }
   };
 
-  const handleDelete = (review_id) => {
-    axios.delete(`${BASE_URL}/mypage/review/delete/${review_id}`)
+  const handleDelete = (review_id, orderDetailId) => {
+    axios.delete(`${BASE_URL}/mypage/review/delete/${review_id}/${orderDetailId}`)
       .then(result => {
         if (result.data === 'ok') {
           alert('삭제가 완료되었습니다!');
@@ -271,7 +274,7 @@ export default function SubmittedReviewSection({ searchTerm, userid, reviewList,
                           <button type='button' onClick={() => handleCloseEdit(myReview.review_id)}>닫기</button>
                         )}
                         {!editMode[myReview.review_id] ? (
-                          <button type='button' onClick={() => handleDelete(myReview.review_id)}>삭제</button>
+                          <button type='button' onClick={() => handleDelete(myReview.review_id, myReview.order_detail_id)}>삭제</button>
                         ) : (
                           <button type='button' onClick={handleUpdate(myReview.review_id)}>등록</button>
                         )}
