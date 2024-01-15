@@ -32,7 +32,14 @@ const HamburgerMenu = forwardRef(({user, show, hideHamburgerMenu, curPage}, ref)
             <Link to='/adminpage' className='mypage_link'>
               관리자 페이지 &gt;
             </Link>}
-            <button className='header_log logout_btn' to='/login'> 로그아웃 </button>
+            <button className='header_log logout_btn'
+                      onClick={() => {
+                        // 'userInfo'라는 키로 저장된 사용자 정보를 제거합니다.
+                        localStorage.removeItem('userInfo');
+                        // 페이지를 다시 로드합니다.
+                        window.location.reload();
+                      }}
+            > 로그아웃 </button>
             <ul className='mypage_submenus'>
               <li>
                 <FaUserEdit />

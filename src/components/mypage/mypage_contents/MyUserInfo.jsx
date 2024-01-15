@@ -102,7 +102,7 @@ export default function MyUserInfo() {
                         // 쿠키 삭제
                         document.cookie = "x-auth-jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost;";
                         // 로컬 스토리지 삭제
-                        localStorage.clear();
+                        localStorage.removeItem('useInfo');
                         // 페이지 이동
                         navigate('/');
                     })
