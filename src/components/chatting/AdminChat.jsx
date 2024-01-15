@@ -72,7 +72,6 @@ export default function AdminChat({ toggleShowContent, user }) {
 
   // 채팅방 입장
   const handleJoinChat = (chatRoomId) => () => {
-    console.log(chatRoomId);
     socket.current.emit('joinChatRoom', chatRoomId);
     setJoinedChatRoom(chatRoomId);
     setChatRooms({

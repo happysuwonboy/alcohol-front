@@ -333,10 +333,16 @@ div.hamburger_menu_wrapper {
                 justify-content: space-between;
                 // padding: 1rem 0;
                 li {
+                    width: 22%;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     cursor: pointer;
+                    div.mypage_icon {
+                        img {
+                            width: 100%;
+                        }
+                    }
                     svg {
                         color: orange;
                         font-size: 1.5em;
@@ -344,7 +350,8 @@ div.hamburger_menu_wrapper {
                     }
                     span {
                         font-weight: 400;
-                        font-size: .8em;
+                        font-size: .7em;
+                        text-wrap: nowrap;
                     }
                 }
             }

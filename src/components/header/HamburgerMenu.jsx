@@ -12,6 +12,12 @@ const HamburgerMenu = forwardRef(({user, show, hideHamburgerMenu, curPage}, ref)
     hideHamburgerMenu();
   },[curPage]) // 페이지 이동 성공하면 햄버거 메뉴 닫힘
 
+  const navigateMyContent = e => 
+  window.location.href = `/mypage?showContent=${e.currentTarget.dataset.content}`
+  
+  const navigateAdminContent = e => 
+  window.location.href = `/adminpage?showContent=${e.currentTarget.dataset.content}`
+
 
   return (
     <div onClick={hideHamburgerMenu} ref={ref} className={`hamburger_menu_wrapper mobile_header ${show ? 'show' : ''}`}>
@@ -25,13 +31,13 @@ const HamburgerMenu = forwardRef(({user, show, hideHamburgerMenu, curPage}, ref)
           <div className='ham_member_loggedin'>
             {!user.isAdmin 
             ?
-            <Link to='/mypage' className='mypage_link'>
+            <a href='/mypage?showContent=MyUserInfo' className='mypage_link'>
               {user.user_id} 님 &gt;
-            </Link>
+            </a>
             : 
-            <Link to='/adminpage' className='mypage_link'>
+            <a href='/adminpage?showContent=product' className='mypage_link'>
               관리자 페이지 &gt;
-            </Link>}
+            </a>}
             <button className='header_log logout_btn'
                       onClick={() => {
                         // 'userInfo'라는 키로 저장된 사용자 정보를 제거합니다.
@@ -41,18 +47,55 @@ const HamburgerMenu = forwardRef(({user, show, hideHamburgerMenu, curPage}, ref)
                       }}
             > 로그아웃 </button>
             <ul className='mypage_submenus'>
-              <li>
-                <FaUserEdit />
+
+              {!user.isAdmin ? <> {/** 일반 유저 */}
+              <li onClick={navigateMyContent} data-content='MyUserInfo'>
+                <div className='mypage_icon'>
+                  <img src="/assets/images/mypage/user_info.png" alt="" />
+                </div>
                 <span>회원정보</span>
               </li>
-              <li>
-                <IoDocumentTextOutline />
-                <span>주문내역</span>
-              </li>
-              <li>
-                <MdRateReview />
+              <li onClick={navigateMyContent} data-content='MyReview'>
+                <div className='mypage_icon'>
+                  <img src="/assets/images/mypage/review.png" alt="" />
+                </div>
                 <span>리뷰관리</span>
               </li>
+              <li onClick={navigateMyContent} data-content='MyOrder'>
+                <div className='mypage_icon'>
+                  <img src="/assets/images/mypage/order.png" alt="" />
+                </div>
+                <span>주문내역</span>
+              </li>
+              <li onClick={navigateMyContent} data-content='MyReceipt'>
+                <div className='mypage_icon'>
+                  <img src="/assets/images/mypage/receipt.png" alt="" />
+                </div>
+                <span>배송지관리</span>
+              </li>
+              </> 
+              : 
+              <> {/** 관리자 */}
+              <li onClick={navigateAdminContent} data-content='member'>
+                <div className='mypage_icon'>
+                  <img src="/assets/images/mypage/user_info.png" alt="" />
+                </div>
+                <span>회원관리</span>
+              </li>
+              <li onClick={navigateAdminContent} data-content='product'>
+                <div className='mypage_icon'>
+                  <img src="/assets/images/home/gwasilju.png" alt="" />
+                </div>
+                <span>상품관리</span>
+              </li>
+              <li onClick={navigateAdminContent} data-content='order'>
+                <div className='mypage_icon'>
+                  <img src="/assets/images/mypage/receipt.png" alt="" />
+                </div>
+                <span>주문관리</span>
+              </li>
+              </>}
+
             </ul>
           </div> : null}
         {!user.user_id ? <div className='ham_member_unloggedin'>

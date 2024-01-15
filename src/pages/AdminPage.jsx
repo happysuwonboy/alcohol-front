@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import TitleNavbar from '../components/adminpage/TitleNavbar';
 import ProductContent from '../components/adminpage/ProductContent';
 import { getUserInfo } from '../util/getUserInfo';
 import ConfirmModal from '../components/common/ConfirmModal';
 
 export default function AdminPage() {
-    const [showContent, setShowContent] = useState('product');
+    const location = useLocation(); 
+    let defaultShowContent = new URLSearchParams(location.search).get('showContent') || 'product'
+    const [showContent, setShowContent] = useState(defaultShowContent);
     const navigate = useNavigate();
     const userInfo = getUserInfo();
     const userRole = userInfo.user_role;
