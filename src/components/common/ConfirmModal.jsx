@@ -7,8 +7,8 @@ export default function ConfirmModal({handleModal, handleConfirm, noti_1, noti_2
   }
 
   return(
-    <div className='modal_container' onClick={handleModalBackground}>
-      <div className='modal_content'>
+    <div className='modal_box' onClick={handleModalBackground}>
+      <div className='modal_info'>
         <div className='img_box'>
           <img src='/assets/images/etc/black_favicon.png' alt='술담화 이미지' />
         </div>
