@@ -3,6 +3,7 @@ import {useState, useRef, useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import DaumPost from "../components/common/DaumPost";
+import BASE_URL from "../constants/baseurl";
 
 export default function Join(){  
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ export default function Join(){
         return;
       }
 
-      const response = await axios.get(`http://localhost:8000/join/${inputValue}`);
+      const response = await axios.get(`${BASE_URL}/join/${inputValue}`);
       const responseData = response.data;
       
       if (responseData.cnt === 1) {
@@ -179,7 +180,7 @@ export default function Join(){
         }
       } else {
         // 미성년자가 아닌 경우에만 서버로 회원 가입 요청 보내기
-        const response = await axios.post('http://localhost:8000/join/', {
+        const response = await axios.post(`${BASE_URL}/join/`, {
           name,
           userid,
           password,

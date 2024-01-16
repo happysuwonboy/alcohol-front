@@ -35,7 +35,7 @@ export default function HeaderPC ({user, curPage}) {
                                             // 'user_info'라는 키로 저장된 사용자 정보를 제거합니다.
                                             localStorage.removeItem('userInfo');
                                             // 페이지를 다시 로드합니다.
-                                            window.location.reload();
+                                            window.location.href='/';
                                             }}
                                         > 로그아웃 </button>
                             </>

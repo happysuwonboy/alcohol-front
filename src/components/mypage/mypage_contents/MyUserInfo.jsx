@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getUserInfo } from '../../../util/getUserInfo';
 import useToast from '../../../hooks/useToast.js';
+import BASE_URL from '../../../constants/baseurl.js';
 
 export default function MyUserInfo() {
     const [AgreeToast, showAgreeToast] = useToast('이벤트 정보 수신에 동의하셨습니다', 'success');
@@ -39,7 +40,7 @@ export default function MyUserInfo() {
         const { id } = getUserInfo();
 
         if (id) {
-            axios.get(`http://localhost:8000/mypage/userinfo/${id}`)
+            axios.get(`${BASE_URL}/mypage/userinfo/${id}`)
                 .then(response => setUserInfo(response.data))
                 .catch(error => console.error('서버에서 사용자 정보를 가져오는 중 에러 발생:', error));
         }
@@ -96,13 +97,13 @@ export default function MyUserInfo() {
             const { id } = getUserInfo();
     
             if (id) {
-                axios.delete(`http://localhost:8000/mypage/userinfo/${id}`)
+                axios.delete(`${BASE_URL}/mypage/userinfo/${id}`)
                     .then(response => {
                         //console.log(response.data);
                         // 쿠키 삭제
                         document.cookie = "x-auth-jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost;";
                         // 로컬 스토리지 삭제
-                        localStorage.removeItem('useInfo');
+                        localStorage.removeItem('userInfo');
                         // 페이지 이동
                         navigate('/');
                     })
@@ -130,7 +131,7 @@ export default function MyUserInfo() {
             return;
         }
 
-        axios.put(`http://localhost:8000/mypage/userinfo/${id}`, {
+        axios.put(`${BASE_URL}/mypage/userinfo/${id}`, {
             user_email: editedUserInfo.user_email,
             user_phone: editedUserInfo.user_phone,
             rec_phone: editedUserInfo.user_phone,
@@ -254,14 +255,14 @@ export default function MyUserInfo() {
                             <div className='event_content_title'>이메일 수신 동의</div>
                             <div className='toggle_frame'>
                                 <input className='toggle_input' type="checkbox" id ="toggle-slider1" />
-                                <label onClick={handleToggleClick} className='toggle_label' for="toggle-slider1">on/off</label>
+                                <label onClick={handleToggleClick} className='toggle_label' htmlFor="toggle-slider1">on/off</label>
                             </div>
                         </div>
                         <div className='user_event_flex_frame'>
                             <div className='event_content_title'>문자 수신 동의</div>
                             <div className='toggle_frame'>
                                 <input className='toggle_input' type="checkbox" id ="toggle-slider2" />
-                                <label onClick={handleToggleClick} className='toggle_label' for="toggle-slider2">on/off</label>
+                                <label onClick={handleToggleClick} className='toggle_label' htmlFor="toggle-slider2">on/off</label>
                             </div>
                             <CancelToast />
                             <AgreeToast />
