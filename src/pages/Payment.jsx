@@ -5,7 +5,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { IoIosArrowDown } from "react-icons/io";
 import Agree from "../components/payment/Agree";
 import getImgUrl from "../util/getImgUrl";
-import useCart from "../hooks/useCart";
+import BASE_URL from "../constants/baseurl";
 
 export default function Payment() {
     const navigate = useNavigate();
@@ -38,7 +38,7 @@ export default function Payment() {
     const getOrderAlcoholInfo = () => {
         axios({
             method : 'get',
-            url : `http://127.0.0.1:8000/payment`,
+            url : `${BASE_URL}/payment`,
             params : {
                 userId : userId,
                 checked : checked
@@ -61,7 +61,7 @@ export default function Payment() {
     const getOrderRecInfo = () => {
         axios({
             method : 'get',
-            url : `http://127.0.0.1:8000/receipt/default/${userId}`
+            url : `${BASE_URL}/receipt/default/${userId}`
         })
         .then((result) => {
             if(result.data === 'none'){
@@ -137,7 +137,7 @@ export default function Payment() {
         if (window.confirm("결제하시겠습니까?")) {
             axios({
                 method : 'post',
-                url : `http://127.0.0.1:8000/payment`,
+                url : `${BASE_URL}/payment`,
                 data : {
                     userId : userId,
                     recName : name,

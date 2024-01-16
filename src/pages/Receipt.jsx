@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from 'axios';
 import useReceipt from "../hooks/useReceipt";
 import RecAddModal from "../components/receipt/RecAddModal";
 import RecUpdateModal from '../components/receipt/RecUpdateModal';
