@@ -432,7 +432,7 @@ div.my_review {
     }
   }
 
-  div.modal_container {
+  div.modal_review_container {
     @include pos_center(fixed);
     z-index: 20;
     width: 100%;
@@ -496,7 +496,7 @@ div.my_review {
                     img {
                       object-fit: cover;
                       margin: 0 auto;
-                      // width: 100%;
+                      width: 100%;
                       height: 100%;
                     }
                   }
@@ -958,7 +958,7 @@ div.my_review {
         }
       }
     }
-      div.modal_container {
+      div.modal_review_container {
     @include pos_center(fixed);
     z-index: 20;
     width: 100%;

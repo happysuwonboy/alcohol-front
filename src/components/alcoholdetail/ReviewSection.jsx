@@ -8,7 +8,7 @@ import BASE_URL from '../../constants/baseurl';
 import getImgUrl from '../../util/getImgUrl';
 import NoReview from './NoReview';
 
-export default function ReviewSection() {
+export default function ReviewSection({ alcohol }) {
   const [reviewList, setReviewList] = useState([]);
   const [selectOption, setSelectOption] = useState('detail');
   const [page, setPage] = useState(1);
@@ -26,6 +26,12 @@ export default function ReviewSection() {
       .then(result => setReviewList(prevData => [...prevData, ...result.data]))
       .catch(error => console.log(error));
   };
+
+  useEffect(() => {
+    setReviewList([]);
+    setPage(1);
+    fetchData();
+  }, [alcohol.alcohol_id])
 
   useEffect(() => {
     if (isMounted.current) {

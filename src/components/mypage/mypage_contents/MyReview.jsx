@@ -3,7 +3,7 @@ import SubCategory from "./MyReview/SubCategory";
 import CreateReviewSection from "./MyReview/CreateReviewSection";
 import SubmittedReviewSection from "./MyReview/SubmittedReviewSection";
 
-export default function MyReview({ userId, onContent }) {
+export default function MyReview({ userId, onContent, onOrderDetail }) {
   const [tab, setTab] = useState(1);
   const subCategories = [
     { id: 1, cateName: '작성 가능한 리뷰' },
@@ -34,7 +34,7 @@ export default function MyReview({ userId, onContent }) {
       {tab === subCategories[0].id && <CreateReviewSection userId={userId}
         startDate={startDate} endDate={endDate} page={page} setPage={setPage}
         setNotWritten={setNotWritten} notWritten={notWritten} onContent={onContent}
-        searchTerm={searchTerm} setAddModal={setAddModal} addModal={addModal}
+        searchTerm={searchTerm} setAddModal={setAddModal} addModal={addModal} onOrderDetail={onOrderDetail}
       />}
       {tab === subCategories[1].id &&
         <SubmittedReviewSection searchTerm={searchTerm} userid={userId}

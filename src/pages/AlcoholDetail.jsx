@@ -53,7 +53,7 @@ export default function AlcoholDetail() {
                     }} />
                     <AlcoholDesc alcohol={alcohol} />
                     <AlcoholRecommend alcohol_id={alcohol.alcohol_id} alcohol_type={alcohol.alcohol_type} />
-                    <ReviewSection />
+                    <ReviewSection alcohol={alcohol} />
                 </div>
                 <StickyOrderMenu alcohol={alcohol} qty={qty} setQty={setQty}/> 
             </main>

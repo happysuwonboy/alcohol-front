@@ -78,7 +78,7 @@ main.alcohol_detail {
           }
         }
       }
-      div.more_review_btn {
+      & > div.more_review_btn {
         display: flex;
         justify-content: center;
         & > button {
@@ -91,7 +91,7 @@ main.alcohol_detail {
 
     @include responsive(lg-pad) {
       div.review_section {
-        & > div {
+        & > div.sor_tab {
           & > button {
             padding: 7px 12px;
             border-radius: 10px;
