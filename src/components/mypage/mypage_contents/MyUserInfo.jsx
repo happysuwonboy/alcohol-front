@@ -40,7 +40,7 @@ export default function MyUserInfo() {
         const { id } = getUserInfo();
 
         if (id) {
-            axios.get(`${BASE_URL}:8000/mypage/userinfo/${id}`)
+            axios.get(`${BASE_URL}/mypage/userinfo/${id}`)
                 .then(response => setUserInfo(response.data))
                 .catch(error => console.error('서버에서 사용자 정보를 가져오는 중 에러 발생:', error));
         }
