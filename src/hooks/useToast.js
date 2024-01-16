@@ -28,7 +28,7 @@ export default function useToast(...params) {
     try {
       clearTimeout(timeoutid);
       ref.current?.classList.remove('show')
-      setTimeout(()=>{ref.current?.classList.add('show')},1);
+      setTimeout(()=>{ref.current?.classList.add('show')},100);
       setTimeOutId(
         setTimeout(()=>{
         ref.current?.classList.remove('show')

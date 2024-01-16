@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useCart from '../hooks/useCart';
 import CartedAlcohol from '../components/cart/CartedAlcohol';
 import getUserInfo from '../util/getUserInfo';
+import ConfirmModal from '../components/common/ConfirmModal';
 
 export default function Cart() {
 
@@ -130,7 +131,22 @@ export default function Cart() {
                                         deliveryPrice : deliveryPrice }});
     }
 
+    /**
+     * 모달창 확인 버튼 클릭
+     */
+    const handleConfirm = (e) => {
+        navigate('/login');
+    };
+
+    /**
+     * 모달창 닫기 버튼 클릭
+     */
+    const handleModal = (e) => {
+        navigate('/');
+    };
+
     return(
+        userId ? 
         <main className='main_cart'>
             <div className='cart_container'>    
                 <div className='cart_list_wrapper'>
@@ -224,5 +240,11 @@ export default function Cart() {
                 </div>
             </div>
         </main>
+        :
+        <ConfirmModal 
+            handleModal={handleModal} 
+            handleConfirm={handleConfirm} 
+            noti_1='로그인이 필요한 서비스입니다' 
+            noti_2='로그인 창으로 이동하시겠습니까?' />
     );
 }

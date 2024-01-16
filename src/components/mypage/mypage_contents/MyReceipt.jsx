@@ -72,14 +72,16 @@ export default function Receipt() {
                                 <div className='rec_info'>
                                     <p className='rec_name'>
                                         <span>{rec.rec_name}</span>
-                                        {rec.rec_default? <span className='default_rec'>기본배송지</span> : ''}
                                     </p>
                                     <p className='rec_phone'>{rec.rec_phone}</p>
                                     <p className='rec_address'>{rec.rec_address}</p>
                                 </div>
-                                <div className='btns'>
-                                    <button type='button' className='update_btn' onClick={() => handleUpdateRec(rec.rec_id)}>수정</button>
-                                    <button type='button' className='delete_btn' onClick={() => handleDeleteRec(rec.rec_id)}>삭제</button>
+                                <div className='rec_btns'>
+                                    <div className='btns'>
+                                        <button type='button' className='update_btn' onClick={() => handleUpdateRec(rec.rec_id)}>수정</button>
+                                        <button type='button' className='delete_btn' onClick={() => handleDeleteRec(rec.rec_id)}>삭제</button>
+                                    </div>
+                                    {rec.rec_default? <span className='default_rec'>기본배송지</span> : ''}
                                 </div>
                             </div>
                         )}
