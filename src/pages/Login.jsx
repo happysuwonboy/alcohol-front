@@ -4,6 +4,7 @@ import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
 import { useState, useRef } from "react";
 import Cookies from 'js-cookie';
+import BASE_URL from '../constants/baseurl';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function Login() {
         e.preventDefault();
     
         try {
-            const response = await axios.post('http://localhost:8000/login', loginForm);
+            const response = await axios.post(`${BASE_URL}/login`, loginForm);
     
             if (response.data.login_result) {
                 alert("로그인에 성공하셨습니다");

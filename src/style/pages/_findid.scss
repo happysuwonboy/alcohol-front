@@ -2,6 +2,9 @@ main.findid_frame{
   width: 330px;
   min-width: 315px;
   margin: 0 auto;
+  .found_ids{
+    margin-bottom: 100px;
+  }
   .find_title, .found_ids_title{
     font-size: 1.1em;
     font-weight: bold;

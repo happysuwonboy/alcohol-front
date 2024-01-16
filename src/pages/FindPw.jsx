@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import BASE_URL from "../constants/baseurl";
 
 
 const FindPw = () => {
@@ -27,7 +28,7 @@ const FindPw = () => {
   
     if (isEmailValid(email) && userId.trim() !== "") {
       try {
-        const response = await axios.post('http://localhost:8000/find/pw', { email, userId }, {
+        const response = await axios.post(`${BASE_URL}/find/pw`, { email, userId }, {
           headers: {
             'Content-Type': 'application/json',
           },

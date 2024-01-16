@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import React, { useState } from "react";
 import axios from 'axios';
+import BASE_URL from '../constants/baseurl';
 
 const PasswordReset = () => {
   const [newPassword, setNewPassword] = useState("");
@@ -28,7 +29,7 @@ const PasswordReset = () => {
 
     if (newPassword === confirmPassword) {
       try {
-        const response = await axios.post(`http://localhost:8000/find/pw/${id}`, { newPassword });
+        const response = await axios.post(`${BASE_URL}/find/pw/${id}`, { newPassword });
 
         if (response.data.success) {
           setMessage(response.data.message);
