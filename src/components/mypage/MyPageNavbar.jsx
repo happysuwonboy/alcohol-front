@@ -1,8 +1,14 @@
+import useToast from "../../hooks/useToast";
+
 export default function MyPageNavbar({onContent, showContent}) {
+    const [Toast, setToast] = useToast('준비중입니다','warning')
   
     const handleClick = (content) => {
         onContent(content);
         window.scrollTo({top : 0});
+    }
+    const handleToast = () => {
+        setToast();
     }
   
     return (
@@ -31,12 +37,13 @@ export default function MyPageNavbar({onContent, showContent}) {
                     <img src='assets/images/mypage/receipt.png' alt='mypage_icon' />
                 </span>
             </div>
-            <div onClick={() => handleClick('MyQNA')} className={showContent==='MyQNA' ? 'active nav' : 'nav'}>
-                <span>1:1문의</span>
+            <div onClick={() => handleToast()} className='nav'>
+                <span>문의내역</span>
                 <span className='mypage_icon'>
                     <img src='assets/images/mypage/QNA.png' alt='mypage_icon' />
                 </span>
             </div>
+            <Toast />
         </div>
     )
   }

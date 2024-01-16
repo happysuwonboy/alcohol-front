@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import { PiWarning } from "react-icons/pi";
 import axios from 'axios';
+import BASE_URL from '../../constants/baseurl';
 
 export default function RecUpdateModal({updateRec, recId, onClose}){
     const [recName, setRecName] = useState('');
@@ -19,7 +20,7 @@ export default function RecUpdateModal({updateRec, recId, onClose}){
     const getSelectedRec = () => {
         axios({
             method : "get",
-            url : `http://127.0.0.1:8000/receipt/rec/${recId}`
+            url : `${BASE_URL}/receipt/rec/${recId}`
         })
         .then((result) => {
             setRecName(result.data[0].rec_name);

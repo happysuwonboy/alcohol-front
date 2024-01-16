@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import BASE_URL from './../constants/baseurl';
 
 export default function useReceipt(userId){
     const [recList, setRecList] = useState([]);
@@ -10,7 +11,7 @@ export default function useReceipt(userId){
     const getRecList = () => {
         axios({
             method : "get",
-            url : `http://127.0.0.1:8000/receipt/${userId}`
+            url : `${BASE_URL}/receipt/${userId}`
         })
         .then((result) => {
             setRecList(result.data);
@@ -30,7 +31,7 @@ export default function useReceipt(userId){
     const insertRec = (recName, recPhone, recAddress, recDetailAddress) => {
         axios({
             method : 'post',
-            url : `http://127.0.0.1:8000/receipt/insert`,
+            url : `${BASE_URL}/receipt/insert`,
             data : {
                 userId : userId,
                 recName : recName,
@@ -55,7 +56,7 @@ export default function useReceipt(userId){
     const updateRec = (recId, recName, recPhone, recAddress, recDetailAddress, recDefault) => {
         axios({
             method : 'put',
-            url : `http://127.0.0.1:8000/receipt/update`,
+            url : `${BASE_URL}/receipt/update`,
             data : {
                 userId: userId,
                 recId : recId,
@@ -81,7 +82,7 @@ export default function useReceipt(userId){
     const deleteRec = (recId) => {
         axios({
             method : 'delete',
-            url : `http://127.0.0.1:8000/receipt/delete/${recId}`
+            url : `${BASE_URL}/receipt/delete/${recId}`
         })
         .then((result) => {
             getRecList();

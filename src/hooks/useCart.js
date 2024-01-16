@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { fetchCartCount } from '../redux/modules/cartCountSlice';
 import { useDispatch } from 'react-redux';
+import BASE_URL from './../constants/baseurl';
 
 export default function useCart(userId){
     const [cartList, setCartList] = useState([]);
@@ -13,7 +14,7 @@ export default function useCart(userId){
     const getCartList = () => {
         axios({
             method : "get",
-            url : `http://127.0.0.1:8000/cart/${userId}`
+            url : `${BASE_URL}/cart/${userId}`
         })
         .then((result) => {
             setCartList(result.data);
@@ -34,7 +35,7 @@ export default function useCart(userId){
     const insertCart = (alcoholId, qty) => {
         axios({
             method : "post",
-            url : `http://127.0.0.1:8000/cart/insert`,
+            url : `${BASE_URL}/cart/insert`,
             data : {
                 userId : userId,
                 alcoholId : alcoholId,
@@ -53,7 +54,7 @@ export default function useCart(userId){
     const updateCart = (alcoholId, qty) => {
         axios({
             method : "put",
-            url : `http://127.0.0.1:8000/cart/update`,
+            url : `${BASE_URL}/cart/update`,
             data : {
                 userId : userId,
                 alcoholId : alcoholId,
@@ -73,7 +74,7 @@ export default function useCart(userId){
     const removeCart = (alcoholId) => {
         axios({
             method : "delete",
-            url : `http://127.0.0.1:8000/cart/delete/${userId}/${alcoholId}`
+            url : `${BASE_URL}/cart/delete/${userId}/${alcoholId}`
         })
         .then((result) => {
             getCartList();

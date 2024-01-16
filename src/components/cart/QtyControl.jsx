@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import BASE_URL from "../../constants/baseurl";
 
 export default function QtyControl({ qty, stock, userId, alcoholId, onUpdate }){
     let [number, setNumber] = useState(qty);
@@ -27,7 +28,7 @@ export default function QtyControl({ qty, stock, userId, alcoholId, onUpdate }){
     const updateQty = (userId, alcoholId, checkFlag) => {
         axios({
             method : "get",
-            url : `http://127.0.0.1:8000/cart/update/${userId}/${alcoholId}/${checkFlag}`    
+            url : `${BASE_URL}/cart/update/${userId}/${alcoholId}/${checkFlag}`    
         })
         .then((result) => onUpdate(number))
         .catch();

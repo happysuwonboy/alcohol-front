@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import getImgUrl from "../../../util/getImgUrl";
 import { TbTruckDelivery } from "react-icons/tb";
+import BASE_URL from "../../../constants/baseurl";
 
 export default function MyOrder({userId, onContent, onOrderDetail}) {
     const [orderList, setOrderList] = useState([]);
@@ -12,7 +13,7 @@ export default function MyOrder({userId, onContent, onOrderDetail}) {
     const getOrders = () => {
         axios({
             method : "get",
-            url : `http://127.0.0.1:8000/mypage/order/${userId}`
+            url : `${BASE_URL}/mypage/order/${userId}`
         })
         .then((result) => {
             setOrderList(result.data);
