@@ -230,6 +230,8 @@ main.home {
                 img {
                   border-radius: 10px;
                   width: 100%;
+                  object-fit: cover;
+                  height: 200px;
                 }
               }
               & > div.star_wrap {

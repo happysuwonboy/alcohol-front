@@ -70,7 +70,7 @@ export default function AddReviewModal({ setAddModal, selectedReviewId, selected
   };
 
   return (
-    <div className='modal_container'>
+    <div className='modal_review_container'>
       <div className='modal_content add_modal'>
         <div className='select_alcohol_name'>
           <p>{selectedAcoholName}</p>
