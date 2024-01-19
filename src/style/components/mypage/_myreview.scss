@@ -441,11 +441,12 @@ div.my_review {
 
     div.modal_content {
       @include pos_center(fixed);
-      @include flexbox($fd: column, $jc: space-between,);
+      // @include flexbox($fd: column, $jc: space-between,);
       width: 500px;
-      height: 82vh;
+      height: 73vh;
       background-color: white;
       border-radius: 10px;
+      overflow-y: scroll;
 
       div.select_alcohol_name {
         width: 100%;
@@ -481,6 +482,9 @@ div.my_review {
               & > label {
                 font-size: 1.1rem;
                 font-weight: 700;
+                textarea {
+                  height: 15vh;
+                }
               }
               div.selected_file {
                 width: 100%;

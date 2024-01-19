@@ -102,7 +102,7 @@ export default function AddReviewModal({ setAddModal, selectedReviewId, selected
               </li>
               <li>
                 <label htmlFor='ntoice_content'>| 리뷰 내용</label>
-                <textarea name='content' id='ntoice_content' form='notice_form' rows='10'
+                <textarea name='content' id='ntoice_content' form='notice_form' rows='5'
                   placeholder={`content(20자이상 ${500}자 이내로 작성해 주세요.)`}
                   onChange={handleInput(500, setInputCountContent)}
                   value={form.content}></textarea>

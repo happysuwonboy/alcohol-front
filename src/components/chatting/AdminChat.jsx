@@ -166,8 +166,8 @@ export default function AdminChat({ toggleShowContent, user }) {
           <>
             <div className="chat_room_list">
               {Object.keys(chatRooms).map((chatRoomId) => (
-                <ChatItem
-                  avatar={'https://facebook.github.io/react/img/logo.svg'}
+                <ChatItem key={chatRoomId}
+                  avatar={'/assets/images/chat/chat_avatar_default.jpg'}
                   alt={'Reactjs'}
                   title={chatRoomId?.split('-')[1]}
                   subtitle={
